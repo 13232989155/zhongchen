@@ -1,0 +1,1091 @@
+﻿* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde Pro XLt';
+    src: url('ITCAvantGardePro-XLt.woff2') format('woff2'), url('ITCAvantGardePro-XLt.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde Pro Bk';
+    src: url('ITCAvantGardePro-Bk.woff2') format('woff2'), url('ITCAvantGardePro-Bk.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde Pro Md';
+    src: url('ITCAvantGardePro-Bold.woff2') format('woff2'), url('ITCAvantGardePro-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde Pro Bk';
+    src: url('ITCAvantGardePro-Demi.woff2') format('woff2'), url('ITCAvantGardePro-Demi.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde Pro Md';
+    src: url('ITCAvantGardePro-Md.woff2') format('woff2'), url('ITCAvantGardePro-Md.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+.row.boxed {
+    width: 100%;
+    margin: auto;
+    display: block;
+    box-sizing: border-box;
+    padding: 0 47px;
+}
+
+.row.full {
+    width: 100%;
+    margin: auto;
+    display: block;
+    box-sizing: border-box;
+    padding: 0 47px;
+}
+
+.go-right {
+    padding-left: 149px !important;
+}
+
+@media screen and (max-width:800px) {
+    .row.boxed {
+        width: 90%;
+        overflow: hidden;
+        max-width: 1580px;
+        margin: auto;
+        display: block;
+        padding: 0 !important
+    }
+
+    .row.full {
+        width: 90%;
+        margin: auto;
+        display: block;
+        padding: 0 !important;
+    }
+}
+
+.header {
+    width: 100%;
+    background: #000;
+    height: 101px;
+    padding: 0px 0px;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    height: 30px;
+    text-align: left;
+    height: auto;
+    z-index: 9999
+}
+
+    .logo a {
+        display: inline-block;
+        height: 100%;
+        padding: 31px 0;
+    }
+
+    .logo img {
+        height: 100%;
+        width: auto;
+    }
+
+.menu {
+    padding: 0px 0;
+    vertical-align: middle;
+}
+
+    .menu ul {
+        float: right;
+        margin: 0px;
+        padding: 0px;
+        display: block
+    }
+
+        .menu ul li {
+            display: inline-block;
+            ;
+            padding: 10px 15px;
+            padding: 40px 0px;
+            position: relative;
+        }
+
+            .menu ul li a {
+                color: #FFF;
+                font-family: 'ITC Avant Garde Pro Bk';
+                font-weight: 300;
+                font-style: normal;
+                letter-spacing: 0.5px;
+                font-size: 13.5px;
+                padding: 38px 15px;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+                .menu ul li a:hover {
+                    border-bottom: 3px solid red;
+                    text-decoration: none;
+                    opacity: 0.7;
+                }
+
+.search {
+    /*background:url('img/search.jpg');*/
+    padding: 34px 0;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    float: right;
+}
+
+.search-icon {
+}
+
+.col-1, .col-2, .col-3,
+.col-4, .col-5, .col-6,
+.col-7, .col-8, .col-9,
+.col-10, .col-11, .col-12, .col-five {
+    display: block;
+    box-sizing: border-box;
+    padding: 0 15px;
+    float: left
+}
+
+.col-1 {
+    width: 8.3333%
+}
+
+.col-2 {
+    width: 16.6666%
+}
+
+.col-3 {
+    width: 25%
+}
+
+.col-4 {
+    width: 33.3333%
+}
+
+.col-5 {
+    width: 41.6666%
+}
+
+.col-6 {
+    width: 50%
+}
+
+.col-7 {
+    width: 58.3333%
+}
+
+.col-8 {
+    width: 66.6666%
+}
+
+.col-9 {
+    width: 75%
+}
+
+.col-10 {
+    width: 83.3333%
+}
+
+.col-11 {
+    width: 91.6666%
+}
+
+.col-12 {
+    width: 100%
+}
+
+.col-five {
+    width: 20%
+}
+
+.menu.col-9 {
+    width: 79%;
+}
+
+.search-icon.col-1 {
+    width: 4.3%;
+}
+
+@media screen and (max-width:1000px) {
+    .menu.col-9 {
+        width: 25%;
+    }
+
+    .search-icon.col-1 {
+        width: 16.6666%;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .col-1-s {
+        width: 8.3333%
+    }
+
+    .col-2-s {
+        width: 16.6666%
+    }
+
+    .col-3-s {
+        width: 25%
+    }
+
+    .col-4-s {
+        width: 33.3333%
+    }
+
+    .col-5-s {
+        width: 41.6666%
+    }
+
+    .col-6-s {
+        width: 50%
+    }
+
+    .col-7-s {
+        width: 58.3333%
+    }
+
+    .col-8-s {
+        width: 66.6666%
+    }
+
+    .col-9-s {
+        width: 75%
+    }
+
+    .col-10-s {
+        width: 83.3333%
+    }
+
+    .col-11-s {
+        width: 91.6666%
+    }
+
+    .col-12-s {
+        width: 100%
+    }
+}
+
+@media screen and (max-width:480px) {
+    .col-1-xs {
+        width: 8.3333%
+    }
+
+    .col-2-xs {
+        width: 16.6666%
+    }
+
+    .col-3-xs {
+        width: 25%
+    }
+
+    .col-4-xs {
+        width: 33.3333%
+    }
+
+    .col-5-xs {
+        width: 41.6666%
+    }
+
+    .col-6-xs {
+        width: 50%
+    }
+
+    .col-7-xs {
+        width: 58.3333%
+    }
+
+    .col-8-xs {
+        width: 66.6666%
+    }
+
+    .col-9-xs {
+        width: 75%
+    }
+
+    .col-10-xs {
+        width: 83.3333%
+    }
+
+    .col-11-xs {
+        width: 91.6666%
+    }
+
+    .col-12-xs {
+        width: 100%
+    }
+}
+
+.menu-mob {
+    display: none;
+}
+
+@media screen and (max-width:1040px) {
+    .menu-mob {
+        width: 40px;
+        height: 2px;
+        background: #FFF;
+        display: block;
+        float: right;
+        margin: 20px 0;
+        cursor: pointer;
+    }
+
+        .menu-mob::before {
+            width: 40px;
+            height: 2px;
+            background: #FFF;
+            display: block;
+            position: absolute;
+            margin-top: -10px;
+            content: "";
+        }
+
+        .menu-mob::after {
+            width: 40px;
+            height: 2px;
+            background: #FFF;
+            display: block;
+            position: absolute;
+            margin-top: 10px;
+            content: "";
+        }
+
+    .menu-mob-a {
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        float: right;
+        display: inline-block;
+        margin: 30px 0
+    }
+
+    ul.menu {
+        position: absolute;
+        width: 100%;
+        padding: 40px;
+        ;
+        background: #000;
+        top: 100px;
+        left: 0px;
+        display: none;
+        z-index: 9999;
+        border-bottom: 1px solid #333;
+        border-top: 1px solid #333;
+        box-sizing: border-box;
+    }
+
+        ul.menu li {
+            display: block;
+            padding: 0px;
+        }
+
+            ul.menu li a {
+                display: block;
+                padding: 10px 0px;
+                font-size: 18px;
+                text-align: right
+            }
+
+                ul.menu li a:hover {
+                    border-bottom: 0px solid red;
+                    background: #666;
+                    padding: 10px 15px;
+                }
+}
+
+.slider ul {
+    height: 750px;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+    .slider ul li {
+        background-position: center !important;
+        background-size: cover !important;
+        height: 750px;
+        overflow: hidden;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.3s ease;
+        opacity: 0;
+        z-index: 1;
+        width: 100%;
+    }
+
+        .slider ul li.active {
+            opacity: 1;
+            z-index: 99;
+        }
+
+.slider .content {
+    overflow: hidden;
+    height: auto;
+    top: 45%;
+    transform: translateY(-50%);
+    position: absolute;
+    max-width: 515px;
+}
+
+    .slider .content h2 {
+        color: #FFF;
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 600;
+        font-style: normal;
+        font-size: 100px;
+        line-height: 104px;
+    }
+
+    .slider .content p {
+        color: rgba(255,255,255,0.5);
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 300;
+        font-style: normal;
+        font-size: 16px;
+        padding: 15px 0 30px;
+        max-width: 400px;
+    }
+
+.btn {
+    display: inline-block;
+    background: #bf1919;
+    padding: 15px 40px;
+    font-family: 'ITC Avant Garde Pro Bk';
+    font-weight: 300;
+    font-style: normal;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    border: 2px solid #bf1919;
+    transition: all 0.3s ease;
+    letter-spacing: 1.5px;
+}
+
+    .btn:hover {
+        background: transparent;
+        color: #bf1919;
+    }
+
+.slider nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 50px;
+    z-index: 999;
+    width: 25px;
+    height: auto;
+}
+
+    .slider nav .nav {
+        width: 8px;
+        height: 8px;
+        border-radius: 100px;
+        display: block;
+        background: rgba(255,255,255,.5);
+        margin: 20px auto;
+        cursor: pointer;
+        transition: all ease 1.5s;
+    }
+
+        .slider nav .nav.nav-active {
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            display: block;
+            margin: 20px auto;
+            background: rgba(255,255,255,1);
+            transform: scale(1.5);
+        }
+
+        .slider nav .nav::after {
+            width: 18px;
+            height: 18px;
+            border-radius: 100px;
+            display: block;
+            margin: 10px auto;
+            background: transparent;
+            content: "";
+            position: absolute;
+            border: 0px solid #fff;
+            margin-top: -6px;
+            margin-left: -6px;
+            /*opacity:0;
+  transition: opacity ease 0.3s;*/
+        }
+
+        .slider nav .nav.nav-active::after {
+            width: 18px;
+            height: 18px;
+            border-radius: 100px;
+            display: block;
+            margin: 10px auto;
+            background: transparent;
+            content: "";
+            position: absolute;
+            border: 1px solid #fff;
+            margin-top: -6px;
+            margin-left: -6px;
+            opacity: 0.6;
+        }
+
+@media screen and (max-width:480px) {
+    .slider nav {
+        width: 122px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 750px;
+    }
+
+        .slider nav .nav {
+            display: inline-block;
+            margin: 5px 10px;
+        }
+
+            .slider nav .nav.nav-active {
+                display: inline-block;
+                margin: 0px 10px;
+            }
+}
+
+.sec1 {
+    display: block;
+    overflow: hidden;
+    background: #f2f2f2;
+    padding: 80px 0;
+}
+
+.sec h2 {
+    font-family: 'ITC Avant Garde Pro Bk';
+    font-weight: 600;
+    font-style: normal;
+    color: #111;
+    font-size: 48px;
+    text-align: center;
+}
+
+.sec1 .col-five {
+    text-align: center;
+    padding: 30px 15px;
+    margin: 15px 0px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    height: 210px;
+}
+
+    .sec1 .col-five:hover {
+        background: #FFF;
+        box-shadow: 0 0 30px rgba(0,0,0,0.05);
+    }
+
+    .sec1 .col-five h4 {
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 600;
+        font-style: normal;
+        color: #111;
+        letter-spacing: 1.5px;
+        font-size: 16px;
+        padding-top: 15px;
+        text-transform: uppercase;
+    }
+
+.sec1 .col-md-12 {
+    padding: 40px 0px;
+}
+
+.sec2 {
+    display: block;
+    overflow: hidden;
+    background: #FFF;
+    padding: 80px 0;
+}
+
+    .sec2 .col-6 {
+        font-size: 16px;
+        color: #999;
+        text-align: center;
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 300;
+        font-style: normal;
+        padding: 30px 0px 60px;
+    }
+
+    .sec2 .col-3 {
+        opacity: 0;
+    }
+
+    .sec2 .col-4 {
+        text-align: center;
+    }
+
+        .sec2 .col-4 img {
+            width: 100%;
+        }
+
+        .sec2 .col-4 h4 {
+            font-family: 'ITC Avant Garde Pro Bk';
+            font-weight: 600;
+            font-style: normal;
+            color: #111;
+            font-size: 17px;
+            padding-top: 15px;
+        }
+
+        .sec2 .col-4 p {
+            font-family: 'ITC Avant Garde Pro Bk';
+            font-weight: 300;
+            font-style: normal;
+            color: #999;
+            font-size: 16px;
+            padding-top: 15px;
+        }
+
+        .sec2 .col-4 a {
+            font-family: 'ITC Avant Garde Pro Bk';
+            font-weight: 600;
+            font-style: normal;
+            color: #999;
+            font-size: 14px;
+            padding-top: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+            .sec2 .col-4 a:first-of-type {
+                height: auto;
+            }
+
+@media screen and (max-width: 990px) {
+    .sec2 .col-4 a:first-of-type {
+        height: auto !important;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .sec2 .col-4 {
+        margin-bottom: 30px;
+    }
+}
+
+.sec2 .col-4 a:hover {
+    opacity: 0.7;
+}
+
+.sec2 .col-12 {
+    text-align: center;
+}
+
+    .sec2 .col-12 a.btn {
+        margin: 80px 0 0;
+        text-align: center;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        padding: 15px 50px;
+    }
+
+.page-footer {
+    background: #000;
+    padding: 80px 0;
+}
+
+    .page-footer h4 {
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 600;
+        font-style: normal;
+        color: #FFF;
+        padding-bottom: 45px;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .page-footer p,
+    .page-footer p a {
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 300;
+        font-style: normal;
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+        line-height: 30px;
+        text-decoration: none;
+    }
+
+        .page-footer p a {
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .page-footer p a:hover {
+                text-decoration: underline;
+                opacity: 0.7;
+            }
+
+    .page-footer .col-2.s-none {
+        text-align: right;
+    }
+
+@media screen and (max-width:1000px) {
+    .page-footer .col-2 {
+        height: 260px;
+        overflow: hidden;
+    }
+
+    .s-none {
+        display: none
+    }
+}
+
+.page-footer .copyrights {
+    border-top: 1px solid #333;
+    padding-top: 50px;
+    margin-top: 50px;
+}
+
+    .page-footer .copyrights a {
+        padding: 0 7px;
+        display: inline-block;
+    }
+
+    .page-footer .copyrights p {
+        text-align: right;
+    }
+
+        .page-footer .copyrights p a {
+            padding: 0 7px;
+            color: #FFF;
+        }
+
+.search-popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    z-index: 99999;
+    display: none;
+}
+
+.search-drop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+}
+
+    .search-drop form {
+        width: 100%;
+        margin: auto;
+    }
+
+    .search-drop input {
+        width: 80%;
+        max-width: 600px;
+        margin: auto;
+        padding: 20px 94px 20px 30px;
+        border-bottom: 2px solid #FFF;
+        display: block;
+        color: #FFF;
+        background: transparent;
+        font-family: 'ITC Avant Garde Pro Bk';
+        font-weight: 300;
+        font-style: normal;
+        font-size: 30px;
+        background-image: url('gmimg/search-a.png');
+        background-position: 96% center;
+        background-repeat: no-repeat;
+        background-size: 50px;
+    }
+
+.close-pop {
+    position: absolute;
+    top: 30px;
+    right: 86px;
+    padding: 8px 14px;
+    font-family: 'ITC Avant Garde Pro Bk';
+    font-weight: 300;
+    font-style: normal;
+    color: #FFF;
+    font-size: 15px;
+    border-radius: 100px;
+    border: 2px solid #FFF;
+    color: #FFF;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .slider ul li {
+        background-position: 65% center !important;
+    }
+
+    .slider .content h2 {
+        text-shadow: 0 0 30px #000;
+        font-size: 62px !important;
+        line-height: 68px !important;
+    }
+
+    .slider .content p {
+        color: #FFF;
+        text-shadow: 0 0 2px #000;
+        width: 90%;
+    }
+
+    .slider ul, .slider ul li {
+        height: 600px !important;
+    }
+
+    .slider nav {
+        top: 498px;
+    }
+
+    .search-drop input {
+        width: 57%;
+    }
+
+    .center-xs {
+        text-align: center !important;
+    }
+}
+
+.clearfix {
+    overflow: hidden;
+}
+
+
+.sub-menu {
+    position: absolute;
+    top: 101px;
+    left: 0;
+    z-index: 999;
+    width: 205px;
+    padding: 15px 0 !important;
+    background: #444;
+    display: none !important;
+}
+
+    .sub-menu li {
+        display: block !important;
+        padding: 0px 15px !important;
+        border: 0px;
+    }
+
+        .sub-menu li a {
+            display: block !important;
+            color: #FFF;
+            padding: 10px 15px !important;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 0px !important;
+            text-transform: uppercase;
+        }
+
+            .sub-menu li a:hover {
+                display: block !important;
+                padding: 10px 10px 10px 20px !important;
+                border: 0px !important;
+                opacity: 0.5;
+            }
+
+.menu li:hover > .sub-menu {
+    display: block !important;
+}
+
+@media screen and (max-width:900px) {
+    .sub-menu {
+        display: none !important;
+    }
+
+    .menu li:hover > .sub-menu {
+        display: none !important;
+    }
+}
+
+.ftbold {
+    font-family: 'ITC Avant Garde Pro Bk';
+    font-weight: 600;
+    font-style: normal;
+}
+
+.ftboldit {
+    font-family: 'TeXGyreAdventor';
+    font-weight: bold;
+    font-style: italic;
+}
+
+.ftregular {
+    font-family: 'TeXGyreAdventor';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ftregularit {
+    font-family: 'TeXGyreAdventor';
+    font-weight: normal;
+    font-style: italic;
+}
+
+.mouse {
+    margin: 100px 0 0 0;
+    width: 100px;
+}
+
+.mouse-icon {
+    width: 25px;
+    height: 45px;
+    border: 1px solid white;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.mouse-wheel {
+    height: 6px;
+    margin: 2px auto 0;
+    display: block;
+    width: 1px;
+    background-color: white;
+    border-radius: 50%;
+    -webkit-animation: 1.6s ease infinite wheel-up-down;
+    -moz-animation: 1.6s ease infinite wheel-up-down;
+    animation: 1.6s ease infinite wheel-up-down;
+}
+
+@-webkit-keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}
+
+@keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}
+
+.hideme {
+    opacity: 0;
+}
+
+.search i {
+    color: #FFF;
+    font-size: 17px;
+    margin: 8px;
+}
+
+.copyrights a i {
+    color: #FFF;
+    font-size: 18px;
+    padding: 0 6px;
+}
+
+.slider {
+    height: calc(100% - 102px);
+    position: relative;
+}
+
+@media screen and (max-width:480px) {
+    .slider {
+        height: 600px;
+        position: relative;
+    }
+}
+
+.slider ul li {
+    height: 100%;
+}
+
+.slider ul {
+    height: 100%;
+    position: relative;
+}
+
+@media screen and (max-width:1205px) {
+    .slider .content h2 {
+        font-size: 70px;
+        line-height: 80px;
+    }
+}
+
+.mouse-a {
+    position: absolute;
+    bottom: 70px;
+    left: 62px;
+}
+
+.sku {
+    color: #FFF;
+    padding: 10px 15px 5px;
+    background: #333;
+    font-family: 'ITC Avant Garde Pro Bk';
+    font-weight: 300;
+    font-style: normal;
+    display: inline-block;
+    margin: 0 0 40px 0;
+    font-size: 14px;
+}

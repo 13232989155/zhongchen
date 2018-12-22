@@ -1,0 +1,135 @@
+﻿@model List<Entity.ProductEntity>
+@{
+
+    List<Entity.ProductTypeEntity> level1 = ViewBag.level1;
+    List<Entity.ProductTypeEntity> level2 = ViewBag.level2;
+}
+
+
+<section class="sec sec2" id="productList">
+    <div class="row boxed clearfix">
+        <div class="col-10 col-12-s productVideo">
+
+            @foreach (var item in level1)
+            {
+                <div class="col-12" style="padding-bottom:30px">
+                    <h2 class="hideme" style="opacity: 1;" id="@item.productTypeId">
+                        @item.name
+                    </h2>
+
+                    @{
+                        var temp = level2.Where(it => it.superior == item.productTypeId).ToList();
+                    }
+                    @foreach (var item1 in temp)
+                    {
+                        <div class="col-12 productVideo">
+                            <h3 class="hideme" style="opacity: 1; text-align:left; padding-top:20px" id="@item1.productTypeId">
+                                @item1.name
+                            </h3>
+                            <div class="col-12" style="padding-bottom:30px">
+
+                                @{
+                                    var temp1 = Model.Where(it => it.productTypeId == item1.productTypeId).ToList();
+                                }
+                                @foreach (var item2 in temp1)
+                                {
+                                    <div class="col-4 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
+                                        <a href="/Product/Detail?productId=@item2.productId">
+                                            <img src="@item2.coverImage">
+                                            <h4>@(item2.title.Length > 50 ? item2.title.Substring(0, 50) + "..." : item2.title )</h4>
+                                            <p>
+                                                @(item2.prop.Length > 50 ? item2.prop.Substring(0, 50) + "..." : item2.prop ) 
+                                            </p>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-2 productNav" id="productNav">
+            <div class="col-12">
+                <div style="opacity: 1;text-align:left;position:fixed;top:200px;width:150px">
+
+                    @foreach (var item in level1)
+                    {
+                        <div class="" style="text-align:left">
+                            <h3 class="c-bg-title active" >
+                                <a href="#@item.productTypeId" style="color:black" >
+                                    @item.name
+                                </a>
+                            </h3>
+                            <ul style="padding-left:15%">
+
+                                @{
+                                    var temp = level2.Where(it => it.superior == item.productTypeId).ToList();
+                                }
+                                @foreach (var item1 in temp)
+                                {
+                                    <li>
+                                        <a class="c-detail-nav" style="color:black" href="#@item1.productTypeId">
+                                            @item1.name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        }
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@*<section class="sec sec2">
+    <div class="row boxed clearfix">
+        <div class="col-10 col-12-s">
+            <div class="col-12" style="padding-bottom:30px">
+                <h2 class="hideme" style="opacity: 1;">Delicious Receipes</h2>
+                <div class="col-12">
+                    <h3 class="hideme" style="opacity: 1; text-align:left; padding-top:20px">Delicious Receipes</h3>
+                    <div class="col-12" style="padding-bottom:30px">
+                        <div class="col-4 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
+                            <a href="">
+                                <img src="~/images/51T1pJqyYKL.jpg" width="250">
+                                <h4>番茄炒蛋</h4>
+                                <p>
+                                    西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。鲜艳，口味宜人，爽口、开胃，深受大众喜爱。其营养价值丰富，具有营养素互补的特点以及健美抗衰老的作用。
+                                </p>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 productNav">
+            <div class="col-12">
+                <div class="center" style="opacity: 1;text-align:left;position:fixed;top:200px">
+                    <div class="c-one-class">
+                        <h3 class="c-bg-title active">
+                            <a href="#Tea___Coffee">
+                                Tea &amp; Coffee
+                            </a>
+                        </h3>
+                        <ul style="padding-left:15%">
+                            <li>
+                                <a class="c-detail-nav" href="#Kettles">
+                                    Kettles
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>*@

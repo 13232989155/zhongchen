@@ -1,0 +1,60 @@
+﻿@model Entity.KeywordEntity
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">编辑</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="keywordId" class="control-label">ID</label>
+                            <input readonly asp-for="keywordId" class="form-control border-input" />
+                            <span asp-validation-for="keywordId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="contents" class="control-label">内容</label>
+                            <input asp-for="contents" class="form-control border-input" />
+                            <span asp-validation-for="contents" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="remark" class="control-label">备注</label>
+                            <input asp-for="remark" class="form-control border-input" />
+                            <span asp-validation-for="remark" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liKeyword").addClass("active");
+
+    });
+</script>

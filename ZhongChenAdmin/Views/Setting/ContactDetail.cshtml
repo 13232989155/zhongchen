@@ -1,0 +1,133 @@
+﻿
+@model Entity.ContactEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">反馈详细信息</h4>
+        </div>
+        <div class="content">
+            <form method="post" enctype="multipart/form-data">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="contactId" class="control-label">ID</label>
+                            <input disabled asp-for="contactId" class="form-control border-input" />
+                            <span asp-validation-for="contactId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="name" class="control-label">名称</label>
+                            <input disabled asp-for="name" class="form-control border-input" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="tel" class="control-label">电话</label>
+                            <input disabled asp-for="tel" class="form-control border-input" />
+                            <span asp-validation-for="tel" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="email" class="control-label">邮箱</label>
+                            <input disabled asp-for="email" class="form-control border-input" />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="subject" class="control-label">主题</label>
+                            <input disabled asp-for="subject" class="form-control border-input" />
+                            <span asp-validation-for="subject" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="message" class="control-label">消息</label>
+                            <textarea disabled asp-for="message" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="message" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="isDeal" class="control-label">是否处理</label>
+                            <input disabled class="form-control border-input" value="@(Model.isDeal ? "是" : "否")" />
+                            <span asp-validation-for="isDeal" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="adminId" class="control-label">处理者</label>
+                            <input disabled asp-for="adminId" class="form-control border-input" />
+                            <span asp-validation-for="adminId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="createDate" class="control-label">创建时间</label>
+                            <input disabled asp-for="createDate" class="form-control border-input" />
+                            <span asp-validation-for="createDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="modifyDate" class="control-label">处理时间</label>
+                            <input disabled asp-for="modifyDate" class="form-control border-input" />
+                            <span asp-validation-for="modifyDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input id="btnBack" type="button" class="btn btn-round btn-fill btn-wd" value="返 回" />
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liSetting").addClass("active");
+        $("#btnBack").click(function () {
+            window.history.back(-1);
+        });
+
+    });
+
+
+</script>

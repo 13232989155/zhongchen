@@ -1,0 +1,278 @@
+﻿
+
+@model Entity.ProductEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">编辑</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="productId" class="control-label">ID</label>
+                            <input readonly asp-for="productId" class="form-control border-input" />
+                            <span asp-validation-for="productId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="productTypeId" class="control-label">产品分类</label>
+                            @await Component.InvokeAsync("ProductTypeSelect", new { productTypeId  = Model.productTypeId})
+                            <span asp-validation-for="productTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="explain" class="control-label">功能介绍</label>
+                            <textarea asp-for="explain" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="explain" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="buyLink" class="control-label">产品购买链接</label>
+                            <input asp-for="buyLink" class="form-control border-input" />
+                            <span asp-validation-for="buyLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="prop" class="control-label">属性</label>
+                            <textarea asp-for="prop" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="prop" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img id="coverImage" src="@( Model.coverImage)" width="350" />
+                            <label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
+                                <input name="isCoverImage" type="checkbox" checked value="true"> 保留
+                            </label>
+                            <input type="file" name="coverImage" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">产品图片设置</h4>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <form method="post" enctype="multipart/form-data">
+                            <label>轮播图图片</label>
+                            <img id="imagePath" width="350" />
+                            <input type="file" id="upImagePath" name="imagePath" class="form-control border-input" value="请选择......" accept="image/gif,image/jpeg,image/jpg,image/png">
+                            <br />
+                            <div class="text-center">
+                                <input id="btnUpImage" type="button" class="btn btn-info btn-fill btn-wd" value="上传" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                        &nbsp;
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>图片ID</th>
+                                    <th>路径</th>
+                                    <th>商品编号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabImage"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liProduct").addClass("active");
+
+        $(":file").change(function (e) {
+            ShowImg(e.target.files[0], e.target.name)
+        })
+
+        $("#btnUpImage").click(function () {
+            var file = document.getElementById("upImagePath").files[0];
+            if (file != null) {
+                Upload(file)
+            }
+
+        })
+
+        ListProductImage();
+    });
+
+    //显示图片
+    function ShowImg(file, domId) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#" + domId).attr("src", e.target.result);
+        }
+    }
+
+    //获取产品图片
+    function ListProductImage() {
+        var productId = @( Model.productId);
+
+        if (productId != "0"){
+
+            $.ajax({
+                url: "/Product/ListProductImage",
+                type: "POST",
+                data: { productId: productId },
+                success: function (result) {
+
+                    if (result.code != "200") {
+
+                        $.notify({
+                            icon: 'ti-bell',
+                            message: result.error
+
+                        }, {
+                            type: 'Danger',
+                            timer: 2000
+                        });
+                    }
+
+                    if (result.data.length > 0) {
+                        ShowTable( result.data)
+                    }
+                }
+            });
+
+        }
+    }
+     //上传图片
+    function Upload(file) {
+
+         var productId = @( Model.productId);
+
+        if (file == null || file == "") {
+            return;
+        }
+        if (productId != ""){
+
+            var formData = new FormData();
+            formData.append("imagePath", file);
+            formData.append("productId", productId)
+            $.ajax({
+                type: "post",
+                url: "/Product/SetProductImage",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                async: false,
+                processData: false,
+                success: function (result) {
+
+                    if (result.code != "200") {
+
+                        $.notify({
+                            icon: 'ti-bell',
+                            message: result.error
+
+                        }, {
+                            type: 'Danger',
+                            timer: 2000
+                        });
+                    }
+
+                    if (result.data.length > 0) {
+                        ShowTable( result.data)
+                    }
+                }
+            });
+        }
+    }
+
+    //填充表格
+    function ShowTable( data){
+        ClearTab();
+        var strTab = ""
+
+        for(let item of data) {
+            strTab = "<tr>"
+            strTab += "<td>" + item.productImageId + "</td>"
+            strTab += "<td>" + item.imagePath + "</td>"
+            strTab += "<td>" + item.productId + "</td>"
+            strTab += "<td><a data-toggle='modal' data-target='#myModal' onclick='DeleteProductImage(" + item.productImageId + ")'>删除</a></td>"
+            strTab += "</tr>"
+            $("#tabImage").append(strTab)
+        }
+    }
+
+    //清除表格已有内容
+    function ClearTab() {
+        var _this = $("#tabImage").children()
+        _this.slice(0, _this.length).empty()
+    }
+
+    //删除产品图片
+    function DeleteProductImage(id) {
+        var objHtml = "<form  method='post' action='./DeleteProductImage' ><div class='modal-dialog'><div class='modal-content'>" + "<div class='modal-header'>"
+            + "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>"
+            + "<h4 class='modal-title' id='myModalLabel'>确认删除ID：" + id + "</h4></div>"
+            + "<div class='modal-footer'>"
+            + "<input type='hidden' name='productImageId' value='" + id + "'>"
+            + "<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>"
+            + "<button type='submit' class='btn btn-primary'>确定</button></div></div></div></fomr>";
+
+        $("#myModal").html(objHtml);
+    }
+
+</script>

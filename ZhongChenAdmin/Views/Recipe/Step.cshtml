@@ -1,0 +1,89 @@
+﻿
+
+@model Entity.RecipeEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">食谱</h4>
+        </div>
+        <div class="content">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="recipeId" class="control-label">ID</label>
+                        <input readonly asp-for="recipeId" class="form-control border-input" />
+                        <span asp-validation-for="recipeId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="title" class="control-label">标题</label>
+                        <input disabled asp-for="title" class="form-control border-input" />
+                        <span asp-validation-for="title" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="content">
+        <div class="col-md-12">
+            <div class="header">
+                <h4 class="title">步骤</h4>
+            </div>
+            <div class="content">
+
+                @await Component.InvokeAsync("ListRecipeStep", new { recipeId = Model.recipeId })
+
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input data-toggle="modal" data-target="#myModal" type="button" id="AddStep" class="btn btn-info btn-fill btn-wd" value="添加步骤" />
+            &nbsp;
+            <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liRecipe").addClass("active");
+
+        $("#AddStep").click(function () {
+
+            var objHtml = " <form  method='post' action='./SetRecipeStep' enctype='multipart/form-data'> <div class='modal-dialog'><div class='modal-content'>" + "<div class='modal-header'>"
+                + "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>"
+                + "<h4 class='modal-title' id='myModalLabel'>新增步骤</h4></div>"
+                + "<div class='modal-body'>"
+                + '<div class="row"><div class="col-md-12">'
+                + ' <div class="form-group">'
+                + '<label>选择图片</label>'
+                + '<input name="formFile" type="file" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png"/>'
+                + '</div></div></div>'
+                 + "<input type='hidden' name='recipeId' value='"+@Model.recipeId+"'>"
+                + '<div class="row"><div class="col-md-12">'
+                + ' <div class="form-group">'
+                + '<label>内容</label>'
+                + " <textarea  rows='5' name='contents' class='form-control border-input'></textarea>"
+                + '</div></div></div>'
+                + "</div>"
+                + "<div class='modal-footer'>"
+                + "<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>"
+                + "<button type='submit' class='btn btn-primary'>确定</button></div></div></div></fomr>";
+
+            $("#myModal").html(objHtml);
+        });
+    });
+
+</script>

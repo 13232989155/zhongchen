@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登录 -长盈电器官网管理系统</title>
+    <link href="~/css/Login/Login.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="dowebok">
+
+        <div class="logo"></div>
+        <form id="dataForm">
+            <div class="form-item">
+                <input id="account" name="account" type="text" placeholder="账户">
+            </div>
+            <div class="form-item">
+                <input id="password" name="password" type="password" placeholder="密码">
+                <p class="tip" id="tip">账号或密码不正确</p>
+            </div>
+            <div class="form-item">
+                <button id="login" type="button">登 录</button>
+            </div>
+            <div class="reg-bar">
+                <a class="reg" href="javascript:"></a>
+                <a class="forget" href="javascript:">忘记密码</a>
+            </div>
+        </form>
+    </div>
+    <div style="text-align:center; position:fixed;bottom:0; left:50%">
+        <p>备案号：<a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备18118500号-2</a></p>
+    </div>
+    <div style="text-align:center;">
+        @*<p>版权所有：<a href="#" ></a></p>*@
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").keydown(function () {
+            if (event.keyCode == "13") {
+                $('#login').click();
+            };
+        });
+
+        $(function () {
+
+            $("#login").click(function () {
+                //ajax的形式提交表单
+                var url = "/Login/SignIn";
+                var account = $("#account").val()
+                var password = $("#password").val()
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { account: account, password: password },
+                    success: function (result) {
+                        if (result.code == "200") {
+                            window.location.href = "/Home/Home";
+                        } else {
+                            $("#tip").show()
+                        }
+                    }
+
+                });
+
+            });
+        })
+    </script>
+</body>
+</html>
+
+

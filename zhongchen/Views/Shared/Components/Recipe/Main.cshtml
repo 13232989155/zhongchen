@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Entity.RecipeEntity>
+
+<section class="sec sec2">
+    <div class="row boxed clearfix">
+        <h2 class="hideme">Delicious Receipes</h2>
+        <div class="col-3 col-2-s">.</div>
+        <div class="col-6 col-8-s col-12-xs hideme">
+            Various receipes will be post here for your everyday meal. Make you easy to try evey creative receipes so that you don't need to waste time annoying about what and how to make. We aim to lead you to the light luxuray life, which is more healthy, more nutritious and more high-quality.
+        </div>
+        <div class="col-3 col-2-s">.</div>
+        <div class="col-12">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-4 col-12-s hideme">
+                    <a href="/Recipe/Detail?recipeId=@item.recipeId">
+                        <img src="@item.coverImage" />
+                        <h4>@( item.title.Length > 50 ? item.title.Substring(0,50) + "..." : item.title)</h4>
+                        <p>
+                            @(item.remark.Length > 200 ? item.remark.Substring(0, 200) + "..." : item.remark)
+                        </p>
+                    </a>
+                    <a href="@item.explicitLink">Explicit Link</a>
+                </div>
+            }
+
+        </div>
+        <div class="col-12">
+            <a href="/Recipe/List" class="btn hideme">SEE ALL RECIPES</a>
+        </div>
+    </div>
+</section>

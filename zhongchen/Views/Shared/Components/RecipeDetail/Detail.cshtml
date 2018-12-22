@@ -1,0 +1,91 @@
+﻿@model Entity.RecipeEntity
+
+@{ 
+    IEnumerable<Entity.RecipeStepEntity> recipeStepList = ViewBag.recipeStepList;
+    IEnumerable < Entity.KeywordEntity > keyList = ViewBag.keyList;
+}
+
+
+
+<section class="sec sec2" style="background-color:antiquewhite">
+    <div class="row boxed clearfix productVideo">
+
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+
+                <div class="col-12" style="padding:5% 5%">
+
+                    <div class="col-6 col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
+
+                        <img src="@Model.coverImage" style="width:100%">
+
+                    </div>
+
+                    <div class="col-6 col-12-xs hideme" style="opacity: 1;padding:0 5%">
+                        <h2 style="padding-bottom:5%">@Model.title</h2>
+
+                        <div style="text-align:left">
+                            <p style="font-size:1.2rem;color:black">简介：</p>
+                            <p style="padding-bottom:5%">@Model.remark</p>
+
+                            <p style="font-size:1.2rem;color:black">食材：</p>
+                            <p style="padding-bottom:5%">@Model.materials</p>
+
+                            <p style="font-size:1.2rem;color:black">关联关键字：</p>
+                            <p style="padding-bottom:5%">
+                                @{
+                                    string strKey = string.Empty;
+                                 }
+                                @foreach ( var item in keyList)
+                                {
+                                    strKey += item.contents + "、";
+                                }
+                                @strKey
+
+                            </p>
+                        </div>
+                        @if (Model.typeName == "视频")
+                        {
+                            <a href="@Model.explicitLink" class="btn hideme" target="_blank"> 去看视频</a>
+                        }
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-12" style="padding:5% 5%">
+                    <div class="col-12">
+                        <h3 style="padding:5% 5%;font-size:1.8rem; text-align:left">
+                            步骤：
+                        </h3>
+                    </div>
+                    @foreach (var item in recipeStepList)
+                    {
+                        <div class="col-12" style="background-color:#ffffff;padding-bottom:5%">
+                            <div class="col-4 col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px; border-right:1px solid #0094ff">
+
+                                <img src="@item.imageUrl" style="width:100%" alt="video">
+
+                            </div>
+
+                            <div class="col-8 col-12-xs hideme" style="opacity: 1;padding:5% 5%; text-align:left;">
+                                <p>
+                                    @item.contents
+                                </p>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>

@@ -1,0 +1,208 @@
+﻿
+
+@model Entity.ProductEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">详细</h4>
+        </div>
+        <div class="content">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="productId" class="control-label">ID</label>
+                            <input disabled asp-for="productId" class="form-control border-input" />
+                            <span asp-validation-for="productId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea disabled asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="productTypeId" class="control-label">分类ID</label>
+                            <input disabled asp-for="productTypeId" class="form-control border-input" />
+                            <span asp-validation-for="productTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="explain" class="control-label">功能介绍</label>
+                            <textarea disabled asp-for="explain" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="explain" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="buyLink" class="control-label">产品购买链接</label>
+                            <input disabled asp-for="buyLink" class="form-control border-input" />
+                            <span asp-validation-for="buyLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="prop" class="control-label">属性</label>
+                            <textarea disabled asp-for="prop" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="prop" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img src="@( Model.coverImage)" width="350" />
+                            <input disabled asp-for="coverImage" class="form-control border-input" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="adminId" class="control-label">创建者</label>
+                            <input disabled asp-for="adminId" class="form-control border-input" />
+                            <span asp-validation-for="adminId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="createDate" class="control-label">创建时间</label>
+                            <input disabled asp-for="createDate" class="form-control border-input" />
+                            <span asp-validation-for="createDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="modifyDate" class="control-label">修改时间</label>
+                            <input disabled asp-for="modifyDate" class="form-control border-input" />
+                            <span asp-validation-for="modifyDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">产品图片</h4>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>图片ID</th>
+                                    <th>路径</th>
+                                    <th>商品编号</th>
+                                    <th>预览</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabImage"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liProduct").addClass("active");
+
+        ListProductImage();
+    });
+
+        //获取产品图片
+    function ListProductImage() {
+        var productId = @( Model.productId);
+
+        if (productId != "0"){
+
+            $.ajax({
+                url: "/Product/ListProductImage",
+                type: "POST",
+                data: { productId: productId },
+                success: function (result) {
+
+                    if (result.code != "200") {
+
+                        $.notify({
+                            icon: 'ti-bell',
+                            message: result.error
+
+                        }, {
+                            type: 'Danger',
+                            timer: 2000
+                        });
+                    }
+
+                    if (result.data.length > 0) {
+                        ShowTable( result.data)
+                    }
+                }
+            });
+
+        }
+    }
+
+    //填充表格
+    function ShowTable(data) {
+        var strTab = ""
+
+        for (let item of data) {
+            strTab = "<tr>"
+            strTab += "<td>" + item.productImageId + "</td>"
+            strTab += "<td>" + item.imagePath + "</td>"
+            strTab += "<td>" + item.productId + "</td>"
+            strTab += "<td><img src='" + item.imagePath + "' width='100' /></td>"
+            strTab += "</tr>"
+            $("#tabImage").append(strTab)
+        }
+    }
+
+</script>

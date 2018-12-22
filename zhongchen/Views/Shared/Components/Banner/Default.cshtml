@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Entity.CompanySetEntity>
+
+
+
+<section class="slider">
+    <nav>
+        <div class="nav-active nav"></div>
+        @for (int i = 0; i < Model.Count() - 1; i++)
+        {
+            <div class="nav"></div>
+        }
+    </nav>
+
+    <ul>
+
+        @foreach (var item in Model)
+        {
+            <li class="active" style="background:url('@item.keyValue');">
+                <div class="row boxed clearfix go-right">
+                    <div class="content col-5 col-12-s">
+                       
+                        <h2></h2>
+                        <p>
+                            
+                        </p>
+                     
+                    </div>
+                    <a class="mouse-a" href="#scroll">
+                        <div class="mouse">
+                            <div class="mouse-icon">
+                                <span class="mouse-wheel"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        }
+
+        @*<li class="active" style="background:url('@item.keyValue');">
+            <div class="row boxed clearfix go-right">
+                <div class="content col-5 col-12-s">
+                    <span class="sku">GPC 965</span>
+                    <h2>Pressure Cooker</h2>
+                    <p>
+                        14 Artisan Cooking Modes, Auto Pressure Release,
+                        Flawless Gourmia Quality... Suddenly The Pressure Is
+                        Off… And Dinner Is On!
+                    </p>
+                    <a class="btn" href="">SHOP NOW</a>
+                </div>
+                <a class="mouse-a" href="#scroll">
+                    <div class="mouse">
+                        <div class="mouse-icon">
+                            <span class="mouse-wheel"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>*@
+    </ul>
+</section>

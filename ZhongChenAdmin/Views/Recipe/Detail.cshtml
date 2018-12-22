@@ -1,0 +1,198 @@
+﻿
+
+@model Entity.RecipeEntity
+@{ 
+    List<Entity.RecipeKeyEntity> listRecipeKey = ViewBag.listRecipeKey;
+    List<Entity.RecipeStepEntity> listRecipeStpe = ViewBag.listRecipeStpe;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">详细</h4>
+        </div>
+        <div class="content">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="recipeId" class="control-label">ID</label>
+                            <input disabled asp-for="recipeId" class="form-control border-input" />
+                            <span asp-validation-for="recipeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea disabled asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="remark" class="control-label">简介说明</label>
+                            <textarea disabled asp-for="remark" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="remark" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img src="@( Model.coverImage)" width="350" />
+                            <input disabled asp-for="coverImage" class="form-control border-input" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="typeName" class="control-label">分类</label>
+                            <select disabled asp-for="typeName" class="form-control border-input">
+                                <option value="图文">图文</option>
+                                <option value="视频">视频</option>
+                            </select>
+                            <span asp-validation-for="typeName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="materials" class="control-label">食材</label>
+                            <textarea disabled asp-for="materials" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="materials" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="explicitLink" class="control-label">食谱外链</label>
+                            <input disabled asp-for="explicitLink" class="form-control border-input" />
+                            <span asp-validation-for="explicitLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="adminId" class="control-label">创建者</label>
+                            <input disabled asp-for="adminId" class="form-control border-input" />
+                            <span asp-validation-for="adminId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="createDate" class="control-label">创建时间</label>
+                            <input disabled asp-for="createDate" class="form-control border-input" />
+                            <span asp-validation-for="createDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="modifyDate" class="control-label">修改时间</label>
+                            <input disabled asp-for="modifyDate" class="form-control border-input" />
+                            <span asp-validation-for="modifyDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">关键字</h4>
+        </div>
+        <div class="content">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>食谱ID</th>
+                                <th>关键字ID</th>
+                                <th>关键字内容</th>
+                                <th>关键字备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in listRecipeKey)
+                            {
+                                <tr>
+                                    <td>@item.recipeId</td>
+                                    <td>@item.keywordId</td>
+                                    <td>@item.contents</td>
+                                    <td>@item.remark</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="content">
+        <div class="col-md-12">
+            <div class="header">
+                <h4 class="title">步骤</h4>
+            </div>
+            <div class="content">
+
+                @await Component.InvokeAsync("ListRecipeStep", new { recipeId = Model.recipeId, isOperation = false })
+
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liRecipe").addClass("active");
+
+    });
+</script>

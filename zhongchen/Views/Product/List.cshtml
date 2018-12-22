@@ -1,0 +1,12 @@
+﻿@model int
+
+
+@if ( Model > -1)
+{
+    @await Component.InvokeAsync("ProductList", new { productTypeId  = Model})
+}
+else
+{
+    @await Component.InvokeAsync("ProductList")
+
+}

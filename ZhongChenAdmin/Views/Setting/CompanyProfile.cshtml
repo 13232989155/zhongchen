@@ -1,0 +1,137 @@
+﻿
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">企业信息设置</h4>
+        </div>
+        <div class="content">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>企业编号</label>
+                            <input name="companyBaseId" type="text" class="form-control border-input" readonly placeholder="企业编号" value="@( Model != null ? Model.companyBaseId : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>企业Logo</label>
+                            <img id="logo" src="@( Model != null ? Model.logo : "")" width="350" />
+                            @if (Model != null)
+                            {
+                                <label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
+                                    <input name="isLogo" type="checkbox" checked value="true"> 保留
+                                </label>
+                            }
+                            <input type="file" name="logo" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">企业名字</label>
+                            <input name="name" type="text" class="form-control border-input" placeholder="企业名字" value="@( Model != null ? Model.name : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">公司地址</label>
+                            <input name="companyAddress" type="text" class="form-control border-input" placeholder="公司地址" value="@( Model != null ? Model.companyAddress : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">邮政编码</label>
+                            <input name="post" type="text" class="form-control border-input" placeholder="邮政编码" value="@( Model != null ? Model.post : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">企业电话</label>
+                            <input name="tel" type="tel" class="form-control border-input" placeholder="企业电话" value="@( Model != null ? Model.tel : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">备用电话</label>
+                            <input name="bakTel" type="tel" class="form-control border-input" placeholder="备用电话" value="@( Model != null ? Model.bakTel : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">联系人</label>
+                            <input name="contactUser" type="tel" class="form-control border-input" placeholder="联系人" value="@( Model != null ? Model.contactUser : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">联系人手机号码</label>
+                            <input name="phone" type="tel" class="form-control border-input" placeholder="联系人手机号码" value="@( Model != null ? Model.phone : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">传真</label>
+                            <input name="fax" type="tel" class="form-control border-input" placeholder="传真" value="@( Model != null ? Model.fax : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">邮箱地址</label>
+                            <input name="mail" type="tel" class="form-control border-input" placeholder="邮箱地址" value="@( Model != null ? Model.mail : "")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <input id="btnBack" type="button" class="btn btn-round btn-fill btn-wd" value="返 回" />
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liSetting").addClass("active");
+        $("#btnBack").click(function () {
+            window.history.back(-1);
+        });
+
+        $(":file").change(function (e) {
+            ShowImg(e.target.files[0], e.target.name)
+        })
+    });
+
+    //显示图片
+    function ShowImg(file, domId) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#" + domId).attr("src", e.target.result);
+        }
+
+    }
+</script>

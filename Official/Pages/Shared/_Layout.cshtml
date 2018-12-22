@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 忠臣官网</title>
+    <link href="~/css/gmstyle.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/gmscript.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+<body>
+    <div class="search-popup">
+        <div class="close-pop">x</div>
+        <div class="search-drop">
+            <form action="/search" method="get">
+                <input type="text" name="search" value="" placeholder="搜索...">
+            </form>
+        </div>
+    </div>
+
+    <header class="header">
+
+        <div class="row full">
+            <div class="logo col-2 col-7-s first">
+                <a href="#">
+                    @*<img src="~/images/logo.jpg" alt="">*@
+                    <h1 style="color:white">忠臣</h1>
+                </a>
+            </div>
+
+            <div class="menu col-8 col-3-s">
+                <div class="menu-mob-a">
+                    <div class="menu-mob"></div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="">PRODUCTS</a>
+                        <ul class="sub-menu">
+                            <li><a href="">Pressure Cooker</a></li>
+                            <li><a href="">Air Fryers</a></li>
+                            <li><a href="">Sous Vide</a></li>
+                            <li><a href="">Coffee</a></li>
+                            <li><a href="">kettles</a></li>
+                            <li><a href="">coffee Grinders</a></li>
+                            <li><a href="">ICE CREAM MAKERS</a></li>
+                            <li><a href="">DEHYDRATORS</a></li>
+                            <li><a href="">juicers</a></li>
+                            <li><a href="">Gadgets</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">VIDEO</a></li>
+                    <li><a href="">RECIPES</a></li>
+                    <li><a href="">ABOUT</a></li>
+                    <li><a href="">CONTACT</a></li>
+                </ul>
+            </div>
+            <div class="search-icon col-1 col-2-s">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+            <div class="search-icon col-1 col-2-s">
+                <div class="search">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <partial name="_CookieConsentPartial" />
+
+
+    @RenderBody()
+    <hr />
+    <footer class="page-footer">
+        <div class="row full clearfix">
+            <div class="col-12">
+                <div class="col-12">
+                    <h4 class="col-2">Product</h4>
+                    <h4 class="col-2">ABOUT</h4>
+                    <h4 class="col-2">SUPPORT</h4>
+                    <h4 class="col-2">BUY ON AMAZON</h4>
+                </div>
+                <div class="col-12">
+                    <div class="col-2 hideme">
+                        <p>
+
+                            <a href=""></a><br>
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <p>
+
+                            <a href="">loyola</a><br>
+
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <p>
+
+                            <a href="">Top FAQ</a><br>
+                            <a href="">Warranty</a><br>
+                            <a href="">Customer Service</a><br>
+
+
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <p>
+
+                            <a href="">Top FAQ</a><br>
+                            <a href="">Warranty</a><br>
+                            <a href="">Customer Service</a><br>
+
+
+                        </p>
+                    </div>
+                    <div class="col-4 s-none copyrights center-xs">
+                        <a href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                        <p class="center-xs">
+                            © 2018 忠臣, Inc.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-12 copyrights center-xs">
+                    <div class="col-6 col-12-xs">
+                        <a href="https://www.facebook.com/Gourmia-522920891242770/">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/gourmia/?hl=en">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/gourmia">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                    <div class="col-6 col-12-xs center-xs">
+                        <p class="center-xs">
+                            © 2018 忠臣, Inc.
+                            <a href="https://www.gourmia.com/policy"> Privacy Policy</a>
+                        </p>
+                    </div>
+                </div>*@
+        </div>
+    </footer>
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,97 @@
+﻿@model Entity.VideoEntity
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">添加</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="typeName" class="control-label">分类</label>
+                            <select asp-for="typeName" class="form-control border-input">
+                                <option value="-1">    </option>
+                                <option value="食谱">食谱</option>
+                                <option value="产品">产品</option>
+                            </select>
+                            <span asp-validation-for="typeName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="bill" class="control-label">关联产品或食谱</label>
+                            <input asp-for="bill" class="form-control border-input" />
+                            <span asp-validation-for="bill" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="URL" class="control-label">视频地址</label>
+                            <input asp-for="URL" class="form-control border-input" />
+                            <span asp-validation-for="URL" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img id="coverImage" src="" width="350" />
+                            <input type="file" name="coverImage" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liVideo").addClass("active");
+        $(":file").change(function (e) {
+            ShowImg(e.target.files[0], e.target.name)
+        })
+    });
+    //显示图片
+    function ShowImg(file, domId) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#" + domId).attr("src", e.target.result);
+        }
+
+    }
+</script>

@@ -1,0 +1,124 @@
+﻿@model Entity.VideoEntity
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">详细</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="videoId" class="control-label">ID</label>
+                              <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="videoId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea disabled asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="typeName" class="control-label">分类</label>
+                            <select disabled asp-for="typeName" class="form-control border-input">
+                                <option value="-1">    </option>
+                                <option value="食谱">食谱</option>
+                                <option value="产品">产品</option>
+                            </select>
+                            <span asp-validation-for="typeName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="bill" class="control-label">关联产品或食谱</label>
+                            <input disabled asp-for="bill" class="form-control border-input" />
+                            <span asp-validation-for="bill" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="URL" class="control-label">视频地址</label>
+                            <input disabled asp-for="URL" class="form-control border-input" />
+                            <span asp-validation-for="URL" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img src="@( Model.coverImage)" width="350" />
+                            <input disabled asp-for="coverImage" class="form-control border-input" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="adminId" class="control-label">创建者</label>
+                            <input disabled asp-for="adminId" class="form-control border-input" />
+                            <span asp-validation-for="adminId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="createDate" class="control-label">创建时间</label>
+                            <input disabled asp-for="createDate" class="form-control border-input" />
+                            <span asp-validation-for="createDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="modifyDate" class="control-label">修改时间</label>
+                            <input disabled asp-for="modifyDate" class="form-control border-input" />
+                            <span asp-validation-for="modifyDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liVideo").addClass("active");
+
+    });
+</script>

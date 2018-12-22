@@ -1,0 +1,76 @@
+﻿
+<section class="sec sec2" style="background-color:antiquewhite">
+    <div class="row boxed clearfix productVideo">
+
+        @if (ViewBag.isMod)
+        {
+            <div class="col-12" style="text-align:left; color:red">
+                <h4>
+                    修改成功！
+                </h4>
+            </div>
+        }
+
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+                <form method="post" asp-controller="User" asp-action="ModPwd">
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                oldPassword:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input type="password" id="oldPassword" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                newPassword:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input type="password" name="newPassword" id="newPassword" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                            <p id="tipModPwd" style="text-align:left; color:red;padding-left:10%" hidden> </p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" style="margin-top:13px;" onclick="return ModPwd()">Mod</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    function ModPwd() {
+
+        var newPassword = $("#newPassword").val()
+        var oldPassword = $("#oldPassword").val()
+
+        if (newPassword.length < 6 || oldPassword.length < 6) {
+            $("#tipModPwd").html("password长度必须要大于6")
+            $("#tipModPwd").show()
+            return false
+        }
+
+        if (newPassword != oldPassword) {
+            $("#tipModPwd").html("password两次密码不一致")
+            $("#tipModPwd").show()
+            return false
+        }
+
+        return true
+    }
+
+</script>

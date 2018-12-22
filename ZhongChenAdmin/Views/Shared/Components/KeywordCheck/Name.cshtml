@@ -1,0 +1,30 @@
+﻿@model List<Entity.KeywordEntity>
+@{
+    List<Entity.RecipeKeyEntity> recipeKeyList = ViewBag.recipeKeyList;
+}
+
+<div style="border:solid 1px">
+    <label>    </label>
+    @if (recipeKeyList != null)
+    {
+        @foreach (var item in Model)
+        {
+            <label >
+                <input name="@(string.IsNullOrWhiteSpace(ViewBag.docName) ? "keywordId" : ViewBag.docName)" type="checkbox" @( recipeKeyList.Find(it => it.keywordId.Equals(item.keywordId)) != null ? "checked" : "" ) value="@item.keywordId">@item.contents    
+            </label>
+            <br />
+        }
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <label >
+                <input name="@ViewBag.docName" type="checkbox" value="@item.keywordId">@item.contents    
+            </label>
+            <br />
+        }
+
+    }
+
+</div>

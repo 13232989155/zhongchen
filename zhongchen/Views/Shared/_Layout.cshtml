@@ -1,0 +1,457 @@
+﻿
+@{ 
+    zhongchen.Base.BaseController baseController = new zhongchen.Base.BaseController();
+
+    Entity.CompanyBaseEntity companyBaseEntity = baseController.GetCompanyBase();
+}
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] @companyBaseEntity.name</title>
+    <link href="~/css/gmstyle.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/gmscript.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+<body>
+    <div class="search-popup" id="search-popup">
+        <div class="close-pop" id="close-pop">x</div>
+        <div class="search-drop">
+            <form action="" method="get">
+                <input type="text" name="search" value="" placeholder="搜索...">
+            </form>
+        </div>
+    </div>
+
+    <div class="search-popup" id="user-popup">
+        <div class="close-pop" id="user-pop">x</div>
+
+        <div class="search-drop userlogin" id="login" hidden>
+            <div style="text-align:center; padding:5% 0;">
+                <h2>登录</h2>
+            </div>
+
+            <div style="padding:5% 0; text-align:center;">
+                <div class="col-12 " style="padding-bottom:5%">
+                    <input id="logAccount" style="border:1px solid #808080; font-size:0.8rem; color:black;width:60% " placeholder="请输入账号..." />
+                </div>
+
+                <div class="col-12 " style="padding-bottom:5%">
+                    <input id="logPassword" type="password" style="border:1px solid #808080; font-size:0.8rem; color:black;width:60% " placeholder="请输入密码..." />
+                    <p id="tipLogin" style="text-align:left; color:red;padding-left:10%" hidden> </p>
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <button type="button" onclick="Login()" class="btn btn-default" style="margin-top:13px;">LOGIN</button>
+                <button type="button" name="Close" class="btn btn-default" style="margin-top:13px;">Close</button>
+            </div>
+
+            <div style="text-align:right;padding:5% 0">
+                没有账号。去注册<a onclick="UpReg()" href="#"> zhuce </a>。
+            </div>
+
+        </div>
+
+        <div class="search-drop userlogin" id="reg" hidden>
+            <div style="text-align:center; padding:5% 0;">
+                <h2>注册</h2>
+            </div>
+            <form method="post" action="/User/Register">
+                <div style="padding:5% 0; text-align:center;">
+                    <div class="col-12 " style="padding-bottom:5%">
+                        <input name="account" style="border:1px solid #808080; font-size:0.8rem; color:black;width:60% " placeholder="请输入账号..." />
+
+                    </div>
+
+                    <div class="col-12 " style="padding-bottom:5%">
+                        <input name="password" type="password" style="border:1px solid #808080; font-size:0.8rem; color:black;width:60% " placeholder="请输入密码..." />
+
+                    </div>
+
+                    <div class="col-12 " style="padding-bottom:5%">
+                        <input name="password" type="password" style="border:1px solid #808080; font-size:0.8rem; color:black;width:60% " placeholder="再次输入密码..." />
+                        <p id="tipReg" style="text-align:left; color:red;padding-left:10%" hidden> </p>
+                    </div>
+                </div>
+
+                <div style="text-align:center">
+                    <button type="button" class="btn btn-default" style="margin-top:13px;" onclick="Register()">register</button>
+                    <button type="button" name="Close" class="btn btn-default" style="margin-top:13px;">Close</button>
+                </div>
+            </form>
+            <div style="text-align:right;padding:5% 0">
+                已有账号。去登录<a onclick="UpLogin()" href="#"> Login </a>。
+            </div>
+
+        </div>
+
+        <div class="search-drop userlogin" id="self" hidden>
+            <div style="text-align:center; padding:5% 0;">
+                <h2>个人中心</h2>
+            </div>
+
+            <div style="padding:5% 0; text-align:center;">
+                <div class="col-12 " style="padding-bottom:5%">
+                    <strong>account:</strong><label id="userAccount"></label>
+                    <br /><br />
+                    <strong>nema:</strong><label id="userName"></label>
+                    <br /><br />
+                    <strong>phone:</strong><label id="userPhone"></label>
+                    <br /><br />
+                    <strong>email:</strong><label id="userEmail"></label>
+                    <br /><br />
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <a asp-controller="User" asp-action="Edit" class="btn btn-default" style="margin-top:13px;">编辑资料</a>
+                <a asp-controller="User" asp-action="DelayList" class="btn btn-default" style="margin-top:13px;">延保管理</a>
+            </div>
+            <div style="text-align:right;padding:5% 0">
+                <a asp-controller="User" asp-action="ModPwd"> 修改密码 </a>
+                <a onclick="LoginOut()" href="#"> 退出登录 </a>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <header class="header">
+
+        <div class="row full">
+            <div class="logo col-2 col-6-s first">
+                <a href="/">
+                    <img src="@companyBaseEntity.logo" alt="">
+                    @*<h1 style="color:white;">忠臣</h1>*@
+                </a>
+            </div>
+
+            <div class="menu col-8 col-2-s">
+                <div class="menu-mob-a">
+                    <div class="menu-mob"></div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="/Product/List">PRODUCTS</a>
+                        @await Component.InvokeAsync("ProductType", new { pViewName = "Menu" })
+                    </li>
+                    <li><a href="/Video/List">VIDEO</a></li>
+                    <li><a href="/Recipe/List">RECIPES</a></li>
+                    <li><a href="/Home/About">ABOUT</a></li>
+                    <li><a href="/Home/Contact">CONTACT</a></li>
+                </ul>
+            </div>
+            <div class="search-icon col-1 col-2-s" id="search-icon">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+            <div class="search-icon col-1 col-2-s" id="user">
+                <div class="search">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <partial name="_CookieConsentPartial" />
+
+
+    @RenderBody()
+    <hr />
+    <footer class="page-footer">
+        <div class="row full clearfix">
+            <div class="col-12">
+                <div class="col-12">
+                    <div class="col-3 col-12-s " style="padding-bottom:30px">
+                        <h4>Product</h4>
+                        <div class=" hideme">
+                            <p>
+
+                                <a href=""></a><br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-3 col-12-s " style="padding-bottom:30px">
+                        <h4>ABOUT</h4>
+
+                        <div class="">
+                            <p>
+
+                                <a href="">loyola</a><br>
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-3 col-12-s " style="padding-bottom:30px">
+                        <h4>SUPPORT</h4>
+
+                        <div class="">
+                            <p>
+
+                                <a href="/Home/Support">Top FAQ</a><br>
+                                <a href="">Warranty</a><br>
+                                <a href="">Customer Service</a><br>
+
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-3 col-12-s " style="padding-bottom:30px">
+                        <h4>BUY ON AMAZON</h4>
+
+                        <div class="">
+                            <p>
+
+                                <a href="">United States</a><br>
+                                <a href="">Deutschland</a><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 copyrights center-xs">
+                <div class="col-6 col-12-xs">
+                    <a href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="">
+                        <i class="fab fa-weibo"></i>
+                    </a>
+                    <a href="">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+                <div class="col-6 col-12-xs center-xs">
+                    <p class="center-xs">
+                        © 2018 @companyBaseEntity.name, Inc.
+                        <a href=""> Privacy Policy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
+    @RenderSection("Scripts", required: false);
+
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#user").click(function () {
+
+                $('#user-popup').fadeIn();
+                GetUser()
+
+            });
+
+            $("#user-pop").click(function () {
+                $('#user-popup').fadeOut();
+
+
+            });
+
+
+            $("button[name='Close']").click(function () {
+                $('#user-popup').fadeOut();
+
+
+            });
+
+        })
+
+        function UpReg() {
+            $("#login").hide();
+            $("#self").hide();
+            $("#reg").show();
+        }
+
+        function UpLogin() {
+            $("#reg").hide();
+            $("#login").show();
+            $("#self").hide();
+        }
+
+        function UpSelf() {
+            $("#reg").hide();
+            $("#login").hide();
+            $("#self").show();
+        }
+
+        function SetSelf(data) {
+            $("#userAccount").html(data.account)
+            $("#userName").html(data.name)
+            $("#userPhone").html(data.phone)
+            $("#userEmail").html(data.email)
+        }
+
+        function GetUser() {
+
+            $.ajax({
+                url: "/User/GetUser",
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    if (result.data != null) {
+                        SetSelf(result.data)
+                        UpSelf()
+                    }
+                    else {
+                        UpLogin()
+                    }
+                }
+
+            });
+        }
+
+        function Register() {
+            var account = $("[name='account']").val()
+
+            if (account.length < 6) {
+
+                $("#tipReg").html("account长度必须要大于6")
+                $("#tipReg").show()
+                return false
+            }
+
+            var password = $("[name='password']")
+
+            if (password.eq(0).val().length < 6 || password.eq(1).val().length < 6) {
+                $("#tipReg").html("password长度必须要大于6")
+                $("#tipReg").show()
+                return false
+            }
+
+            if (password.eq(0).val() != password.eq(1).val()) {
+                $("#tipReg").html("password两次密码不一致")
+                $("#tipReg").show()
+                return false
+            }
+
+            var isAccount = true
+            $.ajax({
+                url: "/User/IsAccount",
+                type: "POST",
+                async: false,
+                data: { account: account },
+                success: function (result) {
+                    if (!result.data) {
+
+                        isAccount = false
+                    }
+                    else {
+                        $("#tipReg").html(result.error)
+                        $("#tipReg").show()
+                    }
+                }
+
+            });
+            if (isAccount) {
+                $("#tipReg").html("已存在账号")
+                $("#tipReg").show()
+                return false
+            }
+
+            $.ajax({
+                url: "/User/Register",
+                type: "POST",
+                async: false,
+                data: { account: account, password: password.eq(0).val() },
+                success: function (result) {
+                    if (result.data != null) {
+
+                        $("#tipReg").html("注册成功！请去登录~")
+                        $("#tipReg").show()
+                    }
+                    else {
+                        $("#tipReg").html(result.error)
+                        $("#tipReg").show()
+                    }
+                }
+
+            });
+
+        }
+
+        function Login() {
+            var account = $("#logAccount").val()
+
+            if (account.length < 6) {
+
+                $("#tipLogin").html("account长度必须要大于6")
+                $("#tipLogin").show()
+                return false
+            }
+
+            var password = $("#logPassword").val()
+
+            if (password.length < 6) {
+                $("#tipLogin").html("password长度必须要大于6")
+                $("#tipLogin").show()
+                return false
+            }
+
+            $.ajax({
+                url: "/User/Login",
+                type: "POST",
+                async: false,
+                data: { account: account, password: password },
+                success: function (result) {
+                    if (result.data != null) {
+                        SetSelf(result.data)
+                        UpSelf()
+                    }
+                    else {
+                        $("#tipLogin").html("用户名或密码错误！")
+                        $("#tipLogin").show()
+                    }
+                }
+
+            });
+
+        }
+
+
+        function LoginOut() {
+            $.ajax({
+                url: "/User/LoginOut",
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    if (result.data != null) {
+
+                        UpSelf()
+                    }
+                    else {
+                        UpLogin()
+                    }
+                }
+
+            });
+        }
+    </script>
+
+
+
+</body>
+</html>

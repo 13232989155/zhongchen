@@ -1,0 +1,110 @@
+﻿@model X.PagedList.IPagedList<Entity.RecipeEntity>
+@using X.PagedList.Mvc.Core;
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">搜索条件</h4>
+        </div>
+        <div class="content">
+
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>食谱标题</label>
+                            <input id="searchString" name="searchString" type="text" class="form-control border-input" placeholder="请输入食谱标题..." value="@ViewBag.searchString">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="查询" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" id="btnClear" class="btn btn-warning btn-fill btn-wd" value="清空" />
+                    &nbsp;
+                    <a asp-action="Create" class="btn btn-success btn-fill btn-wd">新增</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">搜索结果</h4>
+            <p class="category">以下为上面条件的搜索结果</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                        <th>分类</th>
+                        <th>创建者ID</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.recipeId</td>
+                            <td>@(item.title.Length > 20 ? item.title.Substring(0, 20) + "..." : item.title)</td>
+                            <td>@item.typeName</td>
+                            <td>@item.adminId</td>
+                            <td>@item.createDate</td>
+                            <td>
+                                <a href="/Recipe/Detail?recipeId=@item.recipeId">查看</a>
+                                &nbsp;
+                                <a href="/Recipe/Edit?recipeId=@item.recipeId">编辑</a>
+                                &nbsp;
+                                <a href="/Recipe/Step?recipeId=@item.recipeId">步骤</a>
+                                &nbsp;
+                                <a href="/Recipe/Keyword?recipeId=@item.recipeId">关键字</a>
+                                &nbsp;
+                                <a data-toggle="modal" data-target="#myModal" onclick="Delete(@item.recipeId)">删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @Html.PagedListPager(Model, page => Url.Action("List", new { page, searchString = ViewBag.searchString }))
+            每页 @Model.PageSize 条记录，本页有 @Model.Count 条记录,共有 @Model.TotalItemCount 条记录。第 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 页，共 @Model.PageCount 页。
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liRecipe").addClass("active");
+        $("#btnClear").click(function () {
+            $("#searchString").val("");
+        });
+
+
+    });
+
+    function Delete(id) {
+        var objHtml = "<form  method='post' action='./Delete' ><div class='modal-dialog'><div class='modal-content'>" + "<div class='modal-header'>"
+            + "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>"
+            + "<h4 class='modal-title' id='myModalLabel'>确认删除ID：" + id + "</h4></div>"
+            + "<div class='modal-footer'>"
+            + "<input type='hidden' name='recipeId' value='"+id+"'>"
+            + "<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>"
+            + "<button type='submit' class='btn btn-primary'>确定</button></div></div></div></fomr>";
+
+
+        $("#myModal").html(objHtml);
+    }
+
+</script>
+

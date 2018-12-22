@@ -1,0 +1,118 @@
+﻿
+
+@model Entity.RecipeEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">编辑</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="recipeId" class="control-label">ID</label>
+                            <input readonly asp-for="recipeId" class="form-control border-input" />
+                            <span asp-validation-for="recipeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="title" class="control-label">标题</label>
+                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="remark" class="control-label">简介说明</label>
+                            <textarea asp-for="remark" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="remark" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="coverImage" class="control-label">封面图片</label>
+                        <img id="coverImage" src="@( Model.coverImage)" width="350" />
+                        <label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
+                            <input name="isCoverImage" type="checkbox" checked value="true"> 保留
+                        </label>
+                        <input type="file" name="coverImage" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
+                        <span asp-validation-for="coverImage" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="typeName" class="control-label">分类</label>
+                            <select asp-for="typeName" class="form-control border-input">
+                                <option value="图文">图文</option>
+                                <option value="视频">视频</option>
+                            </select>
+                            <span asp-validation-for="typeName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="materials" class="control-label">食材</label>
+                            <textarea asp-for="materials" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="materials" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="explicitLink" class="control-label">食谱外链</label>
+                            <input asp-for="explicitLink" class="form-control border-input" />
+                            <span asp-validation-for="explicitLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liRecipe").addClass("active");
+        $(":file").change(function (e) {
+            ShowImg(e.target.files[0], e.target.name)
+        })
+
+    });
+
+    //显示图片
+    function ShowImg(file, domId) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#" + domId).attr("src", e.target.result);
+        }
+    }
+
+</script>

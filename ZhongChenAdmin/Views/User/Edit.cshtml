@@ -1,0 +1,168 @@
+﻿@model Entity.UserEntity
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">编辑</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="userId" class="control-label">ID</label>
+                            <input readonly asp-for="userId" class="form-control border-input" />
+                            <span asp-validation-for="userId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="userName" class="control-label">用户名</label>
+                            <input asp-for="userName" class="form-control border-input" />
+                            <span asp-validation-for="userName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="name" class="control-label">姓名</label>
+                            <input asp-for="name" class="form-control border-input" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="account" class="control-label">账号</label>
+                            <input readonly asp-for="account" class="form-control border-input" />
+                            <span asp-validation-for="account" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="password" class="control-label">密码</label>
+                            <input readonly asp-for="password" class="form-control border-input" value="密码不能更改" />
+                            <span asp-validation-for="password" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="gender" class="control-label">性别</label>
+                            <select asp-for="gender" class="form-control border-input">
+                                <option value="-1">    </option>
+                                <option value="0"> 女 </option>
+                                <option value="1"> 男 </option>
+                            </select>
+                            <span asp-validation-for="gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="birthday" class="control-label">出生日期</label>
+                            <input asp-for="birthday" class="form-control border-input" type="date" style="width:200px" />
+                            <span asp-validation-for="birthday" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="phone" class="control-label">手机号码</label>
+                            <input asp-for="phone" class="form-control border-input" />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="email" class="control-label">邮箱</label>
+                            <input asp-for="email" class="form-control border-input" />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="FaceBook" class="control-label">FaceBook账号</label>
+                            <input asp-for="FaceBook" class="form-control border-input" />
+                            <span asp-validation-for="FaceBook" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Instagram" class="control-label">Instagram账号</label>
+                            <input asp-for="Instagram" class="form-control border-input" />
+                            <span asp-validation-for="Instagram" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Twitter" class="control-label">Twitter账号</label>
+                            <input asp-for="Twitter" class="form-control border-input" />
+                            <span asp-validation-for="Twitter" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="disabled" class="control-label">是否禁用</label>
+                            <select asp-for="disabled" class="form-control border-input">
+                                <option value="false">否</option>
+                                <option value="true">是</option>
+                            </select>
+                            <span asp-validation-for="disabled" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liUser").addClass("active");
+
+    });
+</script>

@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> 广东长盈官网管理系统</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/Common/animate.min.css" rel="stylesheet" />
+    <link href="~/css/Common/paper-dashboard.css" rel="stylesheet" />
+    <link href="~/css/Common/demo.css" rel="stylesheet" />
+    <link href="~/css/Common/themify-icons.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!-- /.modal -->
+    </div>
+
+    <div class="wrapper">
+        <div class="sidebar" data-background-color="white" data-active-color="danger">
+
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="#" class="simple-text">
+                        广东长盈电器有限公司
+                    </a>
+                </div>
+
+                <ul class="nav">
+                    <li id="liHome">
+                        <a href="/Home/Home">
+                            <i class="ti-home"></i>
+                            <p>首页</p>
+                        </a>
+                    </li>
+                    <li id="liAdmin">
+                        <a href="/Admin/List">
+                            <i class="ti-medall-alt"></i>
+                            <p>管理员管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liRole">
+                        <a href="/Role/List">
+                            <i class="ti-credit-card"></i>
+                            <p>角色管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liProduct">
+                        <a href="/Product/List">
+                            <i class="ti-view-list-alt"></i>
+                            <p>产品管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liProductType">
+                        <a href="/ProductType/List">
+                            <i class="ti-menu-alt"></i>
+                            <p>产品分类管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liUser">
+                        <a href="/User/List">
+                            <i class="ti-tablet"></i>
+                            <p>用户管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liUserDelay">
+                        <a href="/UserDelay/List">
+                            <i class="ti-zip"></i>
+                            <p>用户延保管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liVideo">
+                        <a href="/Video/List">
+                            <i class="ti-desktop"></i>
+                            <p>视频管理</p>
+                        </a>
+                    </li>
+
+
+                    <li id="liRecipe">
+                        <a href="/Recipe/List">
+                            <i class="ti-book"></i>
+                            <p>食谱管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liKeyword">
+                        <a href="/Keyword/List">
+                            <i class="ti-pencil-alt2"></i>
+                            <p>食谱关键字管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liFaq">
+                        <a href="/Faq/List">
+                            <i class="ti-help"></i>
+                            <p>常见问题管理</p>
+                        </a>
+                    </li>
+
+                    <li id="liSetting">
+                        <a href="/Setting/Index">
+                            <i class="ti-settings"></i>
+                            <p>系统设置</p>
+                        </a>
+                    </li>
+                    <li id="liSelf">
+                        <a href="/Admin/Self">
+                            <i class="ti-user"></i>
+                            <p>个人中心</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyrights">版权所有： <a href="#" title="广东长盈电器有限公司">广东长盈电器有限公司</a></div>
+
+        <div class="main-panel">
+
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar bar1"></span>
+                            <span class="icon-bar bar2"></span>
+                            <span class="icon-bar bar3"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">广东长盈官网管理系统</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            @*<li>
+                                <a href="/Message/MessageManage " class="dropdown-toggle">
+                                    <i class="ti-bell"></i>
+                                    <p>系统消息</p>
+                                </a>
+                            </li>*@
+                            <li>
+                                <a href="/Login/LogOut">
+                                    <i class="ti-unlock"></i>
+                                    <p>退出</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+
+                            @*<li>
+                                    <a href="#">
+                                        Creative Tim
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://blog.creative-tim.com">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/license">
+                                        Licenses
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </nav>
+                    <div class="copyright pull-right">
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script>,版权所有： <i class="fa fa-heart heart"></i> 广东长盈电器有限公司<a href="#"></a>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="~/js/Common/bootstrap-checkbox-radio.js"></script>
+    <!--  Charts Plugin -->
+    <script src="~/js/Common/chartist.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="~/js/Common/bootstrap-notify.js"></script>
+
+    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+    <script src="~/js/Common/paper-dashboard.js"></script>
+
+    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="~/js/Common/demo.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

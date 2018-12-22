@@ -1,0 +1,106 @@
+﻿
+@model Entity.CompanyBaseEntity
+@{ 
+    List<Entity.FaqEntity> faqList = ViewBag.faqList;
+}
+<div>
+    <img style="width:100%;" src="~/images/support.png" />
+</div>
+
+<section class="sec sec2">
+    <div class="row boxed clearfix productVideo">
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+
+
+                <h3 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Top FAQ</h3>
+
+                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+
+                @foreach ( var item in faqList)
+                {
+                    <div class="col-12" style="padding:5% 10%; text-align:left">
+                        <i class="fa fa-book"></i>
+                        <strong>@item.title</strong>
+
+                        <P style="text-indent:2em;">
+                            @item.contents
+                        </P>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+
+
+                <h3 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Customer Service</h3>
+
+                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+
+                <div class="col-12">
+
+
+
+                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                        <i class="fa fa-envelope-open fa-5x"></i>
+                        <br />
+                        <strong style="text-align:center; font-size:1.3rem">
+                            Email Us
+                        </strong>
+                        <p>
+                            Email: @Model.mail
+                            <br />
+                            FAX: @Model.fax
+                        </p>
+
+                    </div>
+
+                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                        <i class="fa fa-phone-square fa-5x"></i>
+                        <br />
+                        <strong style="text-align:center; font-size:1.3rem">
+                            Contact Us
+                        </strong>
+                        <p>
+                            TEL: @Model.tel
+
+                            <br />
+
+                            TEL: @Model.bakTel
+                        </p>
+
+
+                    </div>
+
+                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                        <i class="fa fa-address-book fa-5x"></i>
+                        <br />
+                        <strong style="text-align:center; font-size:1.3rem">
+                            Contact Person
+                        </strong>
+
+                        <p>
+                            name: @Model.contactUser
+                       <br />
+                            phone: @Model.phone
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+

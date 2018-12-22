@@ -1,0 +1,99 @@
+﻿@model Entity.ProductTypeEntity
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">详细</h4>
+        </div>
+        <div class="content">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="productTypeId" class="control-label">ID</label>
+                            <input disabled asp-for="productTypeId" class="form-control border-input" />
+                            <span asp-validation-for="productTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="name" class="control-label">分类名称</label>
+                            <input disabled asp-for="name" class="form-control border-input" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <img src="@( Model.coverImage)" width="350" />
+                            <input disabled asp-for="coverImage" class="form-control border-input" />
+                            <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="superior" class="control-label">上级</label>
+                            <input disabled asp-for="superior" class="form-control border-input" />
+                            <span asp-validation-for="superior" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="adminId" class="control-label">创建者</label>
+                            <input disabled asp-for="adminId" class="form-control border-input" />
+                            <span asp-validation-for="adminId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="createDate" class="control-label">创建时间</label>
+                            <input disabled asp-for="createDate" class="form-control border-input" />
+                            <span asp-validation-for="createDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="modifyDate" class="control-label">修改时间</label>
+                            <input disabled asp-for="modifyDate" class="form-control border-input" />
+                            <span asp-validation-for="modifyDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-action="List" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liProductType").addClass("active");
+
+    });
+</script>

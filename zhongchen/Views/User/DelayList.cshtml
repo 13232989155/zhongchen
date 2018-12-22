@@ -1,0 +1,98 @@
+﻿
+@model List<Entity.UserDelayEntity>
+
+<style type="text/css">
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+        table td, table th {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+
+        table thead th {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+
+        table tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        table tr:nth-child(even) {
+            background: #F5FAFA;
+        }
+</style>
+
+<section class="sec sec2" style="background-color:antiquewhite">
+    <div class="row boxed clearfix productVideo">
+
+
+        <div class="col-12" style="text-align:left; color:red">
+            <a asp-controller="User" asp-action="CreateDelay" class="btn btn-default" style="margin-top:13px;">Create</a>
+        </div>
+
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+
+                <table style="width:90%" class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                NO
+                            </td>
+
+                            <td>
+                                bill
+                            </td>
+
+                            <td>
+                                platform
+
+                            </td>
+
+                            <td>
+                                CreateDate
+                            </td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.userDelayId
+                                </td>
+                                <td>
+                                    @item.bill
+                                </td>
+
+                                <td>
+                                    @item.platform
+                                </td>
+
+                                <td>
+                                    @item.createDate
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>

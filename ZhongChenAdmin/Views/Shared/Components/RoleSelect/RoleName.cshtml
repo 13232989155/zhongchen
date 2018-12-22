@@ -1,0 +1,17 @@
+﻿@model List<Entity.RoleEntity>
+@{ 
+    int roleId = ViewBag.roleId;
+}
+<select name="roleId" class="form-control  border-input">
+    @foreach (var item in Model)
+    {
+        if (item.roleId == roleId)
+        {
+            <option value="@item.roleId" selected>@item.roleName</option>
+        }
+        else
+        {
+            <option value="@item.roleId">@item.roleName</option>
+        }
+    }
+</select>

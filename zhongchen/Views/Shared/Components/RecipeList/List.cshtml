@@ -1,0 +1,67 @@
+﻿
+
+@model IEnumerable<Entity.RecipeEntity>
+
+
+<section class="sec sec2" style="background-color:antiquewhite">
+    <div class="row boxed clearfix productVideo">
+
+        <div class="col-12 productVideo" style="text-align:right;padding-bottom:30px">
+            <form asp-action="List">
+                <input name="searchString" value="@ViewBag.searchString" type="text" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; height: 33px; width: 300px;" placeholder="请输入关键字..." />
+                <button type="submit" class="btn" style="padding:7px 20px">搜索</button>
+            </form>
+        </div>
+
+        @{
+            var temp1 = Model.Where(it => it.typeName == "视频");
+        }
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+                <h2 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Recipes Video</h2>
+                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                <div class="col-12" style="padding-bottom:30px">
+                    @foreach (var item in temp1)
+                    {
+                        <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
+                            <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">
+                                <img src="@item.coverImage" style="width:100%" alt="video">
+                            </a>
+                            <div style="padding:20px 30px">
+                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@item.title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        @{
+            var temp2 = Model.Where(it => it.typeName == "图文");
+        }
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+                <h2 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Recipes Description</h2>
+                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                <div class="col-12" style="padding-bottom:30px">
+                    @foreach (var item in temp2)
+                    {
+                        <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
+                            <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">
+                                <img src="@item.coverImage" style="width:100%" alt="video">
+                            </a>
+                            <div style="padding:20px 30px">
+                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@item.title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,167 @@
+﻿@model Entity.UserEntity
+
+<section class="sec sec2" style="background-color:antiquewhite">
+    <div class="row boxed clearfix productVideo">
+
+        @if (ViewBag.isMod)
+        {
+            <div class="col-12" style="text-align:left; color:red">
+                <h4>
+                    已成功提交！
+                </h4>
+            </div>
+        }
+
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+                <form method="post" asp-controller="User" asp-action="Edit">
+
+                    <input name="userId" value="@Model.userId" hidden />
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Account:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="account" readonly name="account" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                UserName:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="userName" name="userName" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Name:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="name" name="name" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Gender:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <select asp-for="gender" name="gender" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;">
+                                <option value="-1">未知</option>
+                                <option value="0">女</option>
+                                <option value="1">男</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Birthday:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="birthday" name="birthday" type="date" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Phone:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="phone" name="phone" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Email:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="email" name="email" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                FaceBook:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="FaceBook" name="FaceBook" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Instagram:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="Instagram" name="Instagram" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                Twitter:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="Twitter" name="Twitter" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 productVideo">
+                        <div class="col-12 productVideo" style="text-align:left">
+                            <label>
+                                CreateDate:
+                            </label>
+                        </div>
+
+                        <div class="col-12 productVideo">
+                            <input asp-for="createDate" name="createDate" type="datetime" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; width:100%; height:30px;" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" style="margin-top:13px;">Edit</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
