@@ -54,11 +54,16 @@
 
                 </div>
 
-                <div class="col-12" style="padding:50px 50px;text-align:center;font-size:1.7rem">
+                @if (!string.IsNullOrWhiteSpace(Model.buyLink))
+                {
 
-                    <a href="@Model.buyLink" class="btn hideme" target="_blank"> 去购买</a>
+                    <div class="col-12" style="padding:50px 50px;text-align:center;font-size:1.7rem">
 
-                </div>
+                        <a href="@Model.buyLink" class="btn hideme" target="_blank"> 去购买</a>
+
+                    </div>
+                }
+
 
             </div>
 

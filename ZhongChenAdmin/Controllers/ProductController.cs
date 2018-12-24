@@ -138,14 +138,14 @@ namespace ZhongChen.Controllers
 
                     entity = null;
                     entity = productBLL.GetById(productEntity.productId);
-                    entity.buyLink = productEntity.buyLink;
+                    entity.buyLink = string.IsNullOrWhiteSpace(productEntity.buyLink) ? "" : productEntity.buyLink;
                     if (string.IsNullOrWhiteSpace(isCoverImage))
                     {
                         entity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     }
-                    entity.explain = productEntity.explain;
+                    entity.explain = string.IsNullOrWhiteSpace(productEntity.explain) ? "" : productEntity.explain;
                     entity.productTypeId = productEntity.productTypeId;
-                    entity.prop = productEntity.prop;
+                    entity.prop = string.IsNullOrWhiteSpace(productEntity.prop) ? "" : productEntity.prop;
                     entity.title = productEntity.title;
                     entity.modifyDate = DateTime.Now;
 

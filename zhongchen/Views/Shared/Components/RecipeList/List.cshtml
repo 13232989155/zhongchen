@@ -29,7 +29,7 @@
                                 <img src="@item.coverImage" style="width:100%" alt="video">
                             </a>
                             <div style="padding:20px 30px">
-                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@item.title</a>
+                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@(item.title.Length > 50 ? item.title.Substring(0,50) + "..." : item.title)</a>
                             </div>
                         </div>
                     }
@@ -54,7 +54,7 @@
                                 <img src="@item.coverImage" style="width:100%" alt="video">
                             </a>
                             <div style="padding:20px 30px">
-                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@item.title</a>
+                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@(item.title.Length > 50 ? item.title.Substring(0, 50) + "..." : item.title)</a>
                             </div>
                         </div>
                     }
