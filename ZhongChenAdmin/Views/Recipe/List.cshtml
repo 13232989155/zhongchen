@@ -44,7 +44,7 @@
                     <tr>
                         <th>ID</th>
                         <th>标题</th>
-                        <th>分类</th>
+                        <th>小标题</th>
                         <th>创建者ID</th>
                         <th>创建时间</th>
                         <th>操作</th>
@@ -57,7 +57,7 @@
                         <tr>
                             <td>@item.recipeId</td>
                             <td>@(item.title.Length > 20 ? item.title.Substring(0, 20) + "..." : item.title)</td>
-                            <td>@item.typeName</td>
+                            <td>@(item.subheading.Length > 20 ? item.subheading.Substring(0, 20) + "..." : item.subheading)</td>
                             <td>@item.adminId</td>
                             <td>@item.createDate</td>
                             <td>
@@ -65,11 +65,20 @@
                                 &nbsp;
                                 <a href="/Recipe/Edit?recipeId=@item.recipeId">编辑</a>
                                 &nbsp;
-                                <a href="/Recipe/Step?recipeId=@item.recipeId">步骤</a>
-                                &nbsp;
-                                <a href="/Recipe/Keyword?recipeId=@item.recipeId">关键字</a>
+                                <a href="/Recipe/StepList?recipeId=@item.recipeId">步骤</a>
+                                @*&nbsp;
+                                <a href="/Recipe/Keyword?recipeId=@item.recipeId">关键字</a>*@
                                 &nbsp;
                                 <a data-toggle="modal" data-target="#myModal" onclick="Delete(@item.recipeId)">删除</a>
+                                &nbsp;
+                                @if ( item.recommend)
+                                {
+                                    <a href="/Recipe/Recommend?isRecommend=false&recipeId=@item.recipeId">取消推荐</a>
+                                }
+                                else
+                                {
+                                    <a href="/Recipe/Recommend?isRecommend=true&recipeId=@item.recipeId">推荐</a>
+                                }
                             </td>
                         </tr>
                     }

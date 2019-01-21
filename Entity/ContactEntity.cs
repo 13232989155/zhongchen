@@ -35,6 +35,13 @@ namespace Entity
         public string name { get; set; }
 
         /// <summary>
+        /// Desc:userId
+        /// Default:-1
+        /// Nullable:False
+        /// </summary>  
+        public int userId { set; get; }
+
+        /// <summary>
         /// Desc:电话
         /// Default:
         /// Nullable:False
@@ -68,6 +75,11 @@ namespace Entity
         /// Nullable:False
         /// </summary>           
         public string message { get; set; }
+
+        /// <summary>
+        /// 回复
+        /// </summary>
+        public string reply { set; get; }
 
         /// <summary>
         /// Desc:是否处理

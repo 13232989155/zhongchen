@@ -38,7 +38,7 @@ namespace Entity
         /// Default:
         /// Nullable:False
         /// </summary>   
-        public string remark { get; set; }
+        public string explain { get; set; }
 
         /// <summary>
         /// Desc:封面图片
@@ -55,11 +55,18 @@ namespace Entity
         public string typeName { get; set; }
 
         /// <summary>
-        /// Desc:食材
+        /// Desc:副标题
         /// Default:
         /// Nullable:False
         /// </summary>           
-        public string materials { get; set; }
+        public string subheading { get; set; }
+
+        /// <summary>
+        /// Desc:推荐
+        /// Default:
+        /// Nullable:False
+        /// </summary>  
+        public bool recommend { get; set; }
 
         /// <summary>
         /// Desc:食谱外链

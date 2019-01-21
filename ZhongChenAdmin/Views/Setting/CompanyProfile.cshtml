@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>企业Logo</label>
+                            <label>企业Logo(180*35)</label>
                             <img id="logo" src="@( Model != null ? Model.logo : "")" width="350" />
                             @if (Model != null)
                             {
@@ -101,6 +101,42 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Facebook</label>
+                            <input name="facebook" type="tel" class="form-control border-input" placeholder="facebook" value="@( Model != null ? Model.facebook : "")" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Instagram</label>
+                            <input name="instagram" type="tel" class="form-control border-input" placeholder="instagram" value="@( Model != null ? Model.instagram : "")" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Twitter</label>
+                            <input name="twitter" type="tel" class="form-control border-input" placeholder="twitter" value="@( Model != null ? Model.twitter : "")" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Youtube</label>
+                            <input name="youtube" type="tel" class="form-control border-input" placeholder="youtube" value="@( Model != null ? Model.youtube : "")" />
+                        </div>
+                    </div>
+                </div>
                 <div class="text-center">
                     <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
                     &nbsp;
@@ -130,8 +166,32 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
-            $("#" + domId).attr("src", e.target.result);
-        }
+            // 创建对象
+            var img = new Image();
 
+            // 改变图片的src
+            img.src = e.target.result;
+
+            // 判断是否有缓存
+            if (img.complete) {
+                if (img.width == 180 && img.height == 35) {
+                    $("#" + domId).attr("src", e.target.result);
+                } else {
+                    $(":file").val("");
+                    $("#" + domId).attr("src", "");
+                }
+            } else {
+                // 加载完成执行
+                img.onload = function () {
+                    if (img.width == 180 && img.height == 35) {
+                        $("#" + domId).attr("src", e.target.result);
+                    } else {
+                        $(":file").val("");
+                        $("#" + domId).attr("src", "");
+                    }
+                };
+            }
+
+        }
     }
 </script>

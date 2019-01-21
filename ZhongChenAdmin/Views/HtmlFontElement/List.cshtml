@@ -1,0 +1,52 @@
+﻿@model List<Entity.HtmlFontElementEntity>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="header">
+                <h4 class="title">列表</h4>
+
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>最后修改的管理员ID</th>
+                            <th>创建日期</th>
+                            <th>创建日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.keys</td>
+                                <td>@item.adminId</td>
+                                <td>@item.createDate</td>
+                                 <th>@item.modifyDate</th>
+                                <td>
+                                    <a name="del" href="./Edit?id=@item.id">点击查看</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <a asp-action="Home" asp-controller="Home" class="btn btn-round btn-fill btn-wd">返 回</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liHome").addClass("active");
+    });
+</script>

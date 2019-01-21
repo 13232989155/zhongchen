@@ -14,9 +14,9 @@ namespace zhongchen.Controllers
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public IActionResult List( string searchString)
+        public IActionResult List()
         {
-            return View(model : searchString);
+            return View();
         }
 
         public IActionResult Detail( int recipeId)

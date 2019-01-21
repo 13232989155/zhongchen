@@ -22,27 +22,65 @@ namespace zhongchen.Controllers
         }
 
         /// <summary>
+        /// 个人中心
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Self()
+        {
+            if (this.IsLogin())
+            {
+                UserEntity userEntity = this.MustLogin();
+
+                return View(userBLL.GetById(userEntity.userId));
+            }
+            else
+            {
+                return View("Login");
+            }
+
+        }
+
+        /// <summary>
+        /// 登录页
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 注册页
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 注册
         /// </summary>
-        /// <param name="account"></param>
+        /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="country"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Register(string account, string password)
+        public JsonResult Register(string email, string password, string country)
         {
             DataResult dr = new DataResult();
 
             try
             {
                 UserEntity userEntity = new UserEntity();
-                userEntity.account = account;
+                userEntity.account = "";
                 userEntity.password = DataEncrypt.DataMd5(password);
-
+                userEntity.country = country;
                 userEntity.adminId = -1;
                 userEntity.birthday = null;
                 userEntity.createDate = DateTime.Now;
                 userEntity.disabled = false;
-                userEntity.email = "";
+                userEntity.email = email;
                 userEntity.FaceBook = "";
                 userEntity.gender = -1;
                 userEntity.Instagram = "";
@@ -54,15 +92,15 @@ namespace zhongchen.Controllers
                 userEntity.unionId = "";
                 userEntity.userName = "";
 
-                var entity = userBLL.ActionDal.ActionDBAccess.Insertable(userEntity).ExecuteReturnEntity();
+                int rows = userBLL.ActionDal.ActionDBAccess.Insertable(userEntity).ExecuteCommand();
                 dr.code = "200";
-                dr.data = entity;
+                dr.data = rows > 0 ? true : false;
 
             }
             catch (Exception ex)
             {
 
-                dr.code = "200";
+                dr.code = "999";
                 dr.error = ex.Message.ToString();
             }
 
@@ -90,9 +128,36 @@ namespace zhongchen.Controllers
             catch (Exception ex)
             {
                 dr.error = ex.Message.ToString();
-                dr.code = "200";
+                dr.code = "999";
             }
 
+            return Json(dr);
+
+        }
+
+        /// <summary>
+        /// 判断是否存邮箱
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult IsEmail(string email)
+        {
+            DataResult dr = new DataResult();
+            try
+            {
+                UserEntity userEntity = new UserEntity();
+
+                userEntity = userBLL.ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.email == email).First();
+
+                dr.data = userEntity == null ? false : true;
+                dr.code = "200";
+            }
+            catch (Exception ex)
+            {
+                dr.error = ex.Message.ToString();
+                dr.code = "999";
+            }
             return Json(dr);
 
         }
@@ -104,7 +169,7 @@ namespace zhongchen.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Login(string account, string password)
+        public JsonResult Login(string email, string password)
         {
 
             DataResult dr = new DataResult();
@@ -112,37 +177,57 @@ namespace zhongchen.Controllers
             {
                 password = DataEncrypt.DataMd5(password);
                 dr.code = "200";
-                UserEntity userEntity = userBLL.ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.account == account && it.password == password && it.disabled == false).First();
-                dr.data = userEntity;
-                HttpContext.Session.Set<UserEntity>("user", userEntity);
+                UserEntity userEntity = userBLL.ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.email == email && it.password == password && it.disabled == false).First();
 
+                if (userEntity != null)
+                {
+                    dr.data = true;
+                    HttpContext.Session.Set<UserEntity>("user", userEntity);
+                }
+                else
+                {
+                    dr.data = false;
+                }
             }
             catch (Exception ex)
             {
                 dr.error = ex.Message.ToString();
-                dr.code = "200";
+                dr.code = "999";
             }
 
             return Json(dr);
         }
 
-        /// <summary>
-        /// 退出登录
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult LoginOut()
-        {
+        ///// <summary>
+        ///// 退出登录
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public JsonResult LoginOut()
+        //{
 
+        //    DataResult dr = new DataResult();
+
+        //    HttpContext.Session.Remove("user");
+
+        //    dr.code = "200";
+        //    dr.data = HttpContext.Session.Get<UserEntity>("user");
+
+        //    return Json(dr);
+
+        //}
+
+            /// <summary>
+            /// 退出登录
+            /// </summary>
+            /// <returns></returns>
+        public IActionResult LoginOut()
+        {
             DataResult dr = new DataResult();
 
             HttpContext.Session.Remove("user");
 
-            dr.code = "200";
-            dr.data = HttpContext.Session.Get<UserEntity>("user");
-
-            return Json(dr);
-
+            return RedirectToAction("Index", controllerName:"Home");
         }
 
         /// <summary>
@@ -186,7 +271,6 @@ namespace zhongchen.Controllers
                                 .Where(it => it.userId == userEntity.userId).First();
 
             entity.birthday = userEntity.birthday;
-            entity.email = string.IsNullOrWhiteSpace(userEntity.email) ? "" : userEntity.email;
             entity.FaceBook = string.IsNullOrWhiteSpace(userEntity.FaceBook) ? "" : userEntity.FaceBook;
             entity.gender = userEntity.gender;
             entity.Instagram = string.IsNullOrWhiteSpace(userEntity.Instagram) ? "" : userEntity.Instagram;
@@ -194,13 +278,10 @@ namespace zhongchen.Controllers
             entity.name = string.IsNullOrWhiteSpace(userEntity.name) ? "" : userEntity.name;
             entity.phone = string.IsNullOrWhiteSpace(userEntity.phone) ? "" : userEntity.phone;
             entity.Twitter = string.IsNullOrWhiteSpace(userEntity.Twitter) ? "" : userEntity.Twitter;
-            entity.userName = string.IsNullOrWhiteSpace(userEntity.userName) ? "" : userEntity.userName;
 
             int rows = userBLL.ActionDal.ActionDBAccess.Updateable(entity).ExecuteCommand();
 
-            ViewBag.isMod = true;
-
-            return View(model: userBLL.ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.userId == MustLogin().userId).First());
+            return RedirectToAction("Self");
         }
 
         /// <summary>
@@ -238,6 +319,11 @@ namespace zhongchen.Controllers
         /// <returns></returns>
         public IActionResult DelayList()
         {
+            if (!this.IsLogin())
+            {
+                return View("Login");
+            }
+            
             UserDelayBLL userDelayBLL = new UserDelayBLL();
             var list = userDelayBLL.ActionDal.ActionDBAccess.Queryable<UserDelayEntity>().Where(it => it.userId == MustLogin().userId).ToList();
 
@@ -274,6 +360,29 @@ namespace zhongchen.Controllers
 
             return RedirectToAction("DelayList");
         }
+
+        /// <summary>
+        /// 消息
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Message()
+        {
+            if (this.IsLogin())
+            {
+                UserEntity userEntity = this.MustLogin();
+
+                List<ContactEntity> contactEntities = userBLL.ActionDal.ActionDBAccess.Queryable<ContactEntity>().OrderBy( it => it.createDate, SqlSugar.OrderByType.Desc).Where(it => it.userId == userEntity.userId).ToList();
+
+                return View(contactEntities);
+            }
+            else
+            {
+                return View("Login");
+            }
+
+        }
+
+
 
     }
 }

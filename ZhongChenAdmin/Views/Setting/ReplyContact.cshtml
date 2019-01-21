@@ -1,0 +1,72 @@
+﻿
+@model Entity.ContactEntity
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">设置回复</h4>
+        </div>
+        <div class="content">
+            <form asp-action="ReplyContact" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="contactId" class="control-label">ID</label>
+                            <input asp-for="contactId" readonly class="form-control border-input" />
+                            <span asp-validation-for="contactId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="subject" class="control-label">主题</label>
+                            <textarea asp-for="subject" readonly class="form-control border-input" rows="5"></textarea>
+                            <span asp-validation-for="subject" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="message" class="control-label">消息</label>
+                            <textarea asp-for="message" readonly class="form-control border-input" rows="5"></textarea>
+                            <span asp-validation-for="message" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="reply" class="control-label">回复内容</label>
+                            <textarea asp-for="reply" class="form-control border-input" rows="5"></textarea>
+                            <span asp-validation-for="reply" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="CompanyBanner" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liSetting").addClass("active");
+        
+    });
+
+    
+</script>

@@ -22,7 +22,7 @@ namespace ZhongChen.ViewComponents
         /// </summary>
         /// <param name="recipeId">食谱ID</param>
         /// <param name="viewName">组件名称（默认为：Name）</param>
-        /// <param name="docName">组件Name属性（默认为：productTypeId）作为返回值接收</param>
+        /// <param name="docName">组件Name属性（默认为：主键Id）作为返回值接收</param>
         /// <param name="isOperation">是否显示操作</param>
         /// <returns></returns>
         public async Task<IViewComponentResult> InvokeAsync(string viewName, int recipeId, bool? isOperation = true)

@@ -86,6 +86,13 @@ namespace Entity
         public string email { get; set; }
 
         /// <summary>
+        /// Desc:国家
+        /// Default:
+        /// Nullable:False
+        /// </summary> 
+        public string country { set; get; }
+
+        /// <summary>
         /// Desc:微信openid
         /// Default:
         /// Nullable:False

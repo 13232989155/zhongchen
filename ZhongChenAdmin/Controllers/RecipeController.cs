@@ -62,7 +62,7 @@ namespace ZhongChen.Controllers
         /// <param name="recipeEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([Bind("title, typeName, materials, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage)
+        public IActionResult Create([Bind("title, subheading, explain")]RecipeEntity recipeEntity, IFormFile coverImage)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +70,9 @@ namespace ZhongChen.Controllers
                 {
 
                     recipeEntity.coverImage = coverImage == null ? "" : UpFile(coverImage);
-                    recipeEntity.materials = string.IsNullOrWhiteSpace(recipeEntity.materials) ? "" : recipeEntity.materials;
+                    recipeEntity.typeName = "";
                     recipeEntity.explicitLink = string.IsNullOrWhiteSpace(recipeEntity.explicitLink) ? "" : recipeEntity.explicitLink;
-                    recipeEntity.remark = string.IsNullOrWhiteSpace(recipeEntity.remark) ? "" : recipeEntity.remark;
+                    recipeEntity.explain = string.IsNullOrWhiteSpace(recipeEntity.explain) ? "" : recipeEntity.explain;
                     recipeEntity.adminId = this.MustLogin().adminId;
                     recipeEntity.createDate = DateTime.Now;
                     recipeEntity.modifyDate = DateTime.Now;
@@ -120,7 +120,7 @@ namespace ZhongChen.Controllers
         /// <param name="recipeEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("recipeId, title, coverImage, typeName, materials, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("recipeId, title, coverImage, typeName, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
         {
             if (ModelState.IsValid)
             {
@@ -132,13 +132,12 @@ namespace ZhongChen.Controllers
                     {
                         entity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     }
-                    entity.materials = string.IsNullOrWhiteSpace(recipeEntity.materials) ? "" : recipeEntity.materials;
                     entity.explicitLink = string.IsNullOrWhiteSpace(recipeEntity.explicitLink) ? "" : recipeEntity.explicitLink;
-                    entity.remark = string.IsNullOrWhiteSpace(recipeEntity.remark) ? "" : recipeEntity.remark;
+                    entity.explain = string.IsNullOrWhiteSpace(recipeEntity.explain) ? "" : recipeEntity.explain;
                     entity.modifyDate = DateTime.Now;
                     entity.typeName = recipeEntity.typeName;
                     entity.title = recipeEntity.title;
-
+                    entity.adminId = this.MustLogin().adminId;
                     recipeBLL.ActionDal.ActionDBAccess.Updateable(entity).ExecuteCommand();
 
                     return RedirectToAction("List");
@@ -226,9 +225,19 @@ namespace ZhongChen.Controllers
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        public IActionResult Step(int recipeId)
+        public IActionResult StepList(int recipeId)
         {
             return View(recipeBLL.GetById(recipeId));
+        }
+
+        /// <summary>
+        /// 创建步骤页面
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        public IActionResult CreateStep(int recipeId)
+        {
+            return View(recipeId);
         }
 
         /// <summary>
@@ -262,19 +271,20 @@ namespace ZhongChen.Controllers
         /// 新增步骤
         /// </summary>
         /// <param name="recipeStepEntity"></param>
-        /// <param name="formFile"></param>
+        /// <param name="imageUrl"></param>
         /// <returns></returns>
-        public IActionResult SetRecipeStep(RecipeStepEntity recipeStepEntity, IFormFile formFile)
+        [HttpPost]
+        public IActionResult CreateStep(RecipeStepEntity recipeStepEntity, IFormFile imageUrl)
         {
 
             try
             {
                 recipeStepEntity.contents = string.IsNullOrWhiteSpace(recipeStepEntity.contents) ? "" : recipeStepEntity.contents;
-                recipeStepEntity.imageUrl = formFile == null ? "" : this.UpFile(formFile);
+                recipeStepEntity.imageUrl = imageUrl == null ? "" : this.UpFile(imageUrl);
 
                 recipeStepBLL.ActionDal.ActionDBAccess.Insertable(recipeStepEntity).ExecuteCommand();
 
-                return View("Step", recipeBLL.GetById(recipeStepEntity.recipeId));
+                return View("StepList", recipeBLL.GetById(recipeStepEntity.recipeId));
             }
             catch (Exception ex)
             {
@@ -285,13 +295,24 @@ namespace ZhongChen.Controllers
         }
 
         /// <summary>
-        /// 保存更改
+        /// 编辑步骤
+        /// </summary>
+        /// <param name="recipeStepId"></param>
+        /// <returns></returns>
+        public IActionResult EditStep(int recipeStepId)
+        {
+            return View(recipeStepBLL.GetById(recipeStepId));
+        }
+
+        /// <summary>
+        /// 保存编辑步骤
         /// </summary>
         /// <param name="recipeStepEntity"></param>
         /// <param name="formFile"></param>
         /// <param name="isImageUrl"></param>
         /// <returns></returns>
-        public IActionResult EditRecipeStep( RecipeStepEntity recipeStepEntity, IFormFile formFile, string isImageUrl)
+        [HttpPost]
+        public IActionResult EditStep( RecipeStepEntity recipeStepEntity, IFormFile imageUrl, string isImageUrl)
         {
             try
             {
@@ -299,12 +320,12 @@ namespace ZhongChen.Controllers
 
                 if (string.IsNullOrWhiteSpace(isImageUrl))
                 {
-                    entity.imageUrl = formFile == null ? "" : this.UpFile(formFile);
+                    entity.imageUrl = imageUrl == null ? "" : this.UpFile(imageUrl);
                 }
                 entity.contents = string.IsNullOrWhiteSpace(recipeStepEntity.contents) ? "" : recipeStepEntity.contents;
                 recipeStepBLL.ActionDal.ActionDBAccess.Updateable(entity).ExecuteCommand();
 
-                return View("Step", recipeBLL.GetById(entity.recipeId));
+                return View("StepList", recipeBLL.GetById(entity.recipeId));
             }
             catch (Exception ex)
             {
@@ -325,7 +346,7 @@ namespace ZhongChen.Controllers
                 RecipeStepEntity recipeStepEntity = recipeStepBLL.GetById( recipeStepId);
                 recipeStepBLL.ActionDal.ActionDBAccess.Deleteable(recipeStepEntity).ExecuteCommand();
 
-                return View("Step", recipeBLL.GetById(recipeStepEntity.recipeId));
+                return View("StepList", recipeBLL.GetById(recipeStepEntity.recipeId));
             }
             catch (Exception ex)
             {
@@ -359,5 +380,31 @@ namespace ZhongChen.Controllers
 
             return Json(dr);
         }
+
+        /// <summary>
+        /// 推荐
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <param name="isRecommend"></param>
+        /// <returns></returns>
+        public IActionResult Recommend(int recipeId, bool isRecommend)
+        {
+            try
+            {
+                RecipeEntity recipeEntity = new RecipeEntity();
+                recipeEntity = recipeBLL.GetById(recipeId);
+
+                recipeEntity.recommend = isRecommend;
+                recipeEntity.modifyDate = DateTime.Now;
+                recipeBLL.ActionDal.ActionDBAccess.Updateable(recipeEntity).ExecuteCommand();
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex.Message.ToString();
+                return View("Error");
+            }
+        }
+
     }
 }

@@ -40,15 +40,8 @@ namespace zhongchen.ViewComponents
                 viewName = pViewName;
             }
             ViewBag.productTypeId = productTypeId;
-            //一级分类
-            var level1 = productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().Where( it => it.superior == 0).ToList();
-
-            ViewBag.level1 = level1;
-
-            //二级分类
-            int[] superior = level1.Select(it => it.productTypeId).ToArray();
-            var level2 = productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().In(it => it.superior, superior).ToList();
-            ViewBag.level2 = level2;
+            List<ProductTypeEntity> productTypeEntities = productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().ToList();
+            ViewBag.productTypeEntities = productTypeEntities;
 
             var List = productBLL.ActionDal.ActionDBAccess.Queryable<ProductEntity>().OrderBy(it => it.productId, SqlSugar.OrderByType.Desc).ToList();
             return View(viewName, List);

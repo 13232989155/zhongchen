@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +44,7 @@ namespace ZhongChen
                     options.LogoutPath = "/Login/LogOut";
                 });
 
+            services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
             services.AddSession(options =>
             {

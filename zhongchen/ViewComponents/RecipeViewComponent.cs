@@ -36,6 +36,11 @@ namespace zhongchen.ViewComponents
                 viewName = pViewName;
             }
 
+            HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
+            HtmlFontElementEntity htmlFontElement = htmlFontElementBLL.GetByKey("主页食谱标题");
+            HtmlFontElementEntity htmlFontElementEntity = htmlFontElementBLL.GetByKey("主页食谱说明");
+            ViewBag.RecipeExplain = htmlFontElementEntity.value;
+            ViewBag.RecipeTitle = htmlFontElement.value;
             var List = await GetItemsAsync(viewName);
             return View(viewName, List);
         }
@@ -44,7 +49,7 @@ namespace zhongchen.ViewComponents
         {
             if (viewName == "Main")
             {
-                return recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().Take(3).ToListAsync();
+                return recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().Where( it => it.recommend == true).ToListAsync();
             }
             return recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().ToListAsync();
         }

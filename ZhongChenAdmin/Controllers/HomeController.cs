@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ZhongChen.Base;
 using ZhongChen.Models;
 
 namespace ZhongChen.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+
+        public HomeController(IHttpContextAccessor accessor, IHostingEnvironment hostingEnvironment) : base(accessor, hostingEnvironment)
+        {
+            
+        }
+
         public IActionResult Home()
         {
             return View();
@@ -20,29 +30,14 @@ namespace ZhongChen.Controllers
             return View();
         }
 
-        public IActionResult About()
+        /// <summary>
+        /// 生成实体文件
+        /// </summary>
+        public void DbFirst()
         {
-            ViewData["Message"] = "Your application description page.";
+            UserBLL userBLL = new UserBLL();
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            userBLL.ActionDal.ActionDBAccess.DbFirst.Where("t_html_font_element").CreateClassFile("c:\\zhongchen");
         }
     }
 }

@@ -59,7 +59,7 @@ namespace ZhongChen.Controllers
         /// <param name="videoEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([Bind("title, typeName, URL, bill")]VideoEntity videoEntity, IFormFile coverImage)
+        public IActionResult Create([Bind("title, typeName, URL")]VideoEntity videoEntity, IFormFile coverImage)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace ZhongChen.Controllers
                     videoEntity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     videoEntity.createDate = DateTime.Now;
                     videoEntity.modifyDate = DateTime.Now;
-                    videoEntity.bill = videoEntity.bill == null ? "" : videoEntity.bill;
+                    videoEntity.bill = "" ;
 
                     videoBLL.ActionDal.ActionDBAccess.Insertable(videoEntity).ExecuteCommand();
 
@@ -111,7 +111,7 @@ namespace ZhongChen.Controllers
         /// <param name="roleEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("videoId,title, typeName, URL, bill")]VideoEntity videoEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("videoId,title, typeName, URL")]VideoEntity videoEntity, IFormFile coverImage, string isCoverImage)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +119,6 @@ namespace ZhongChen.Controllers
                 {
                     VideoEntity entity = videoBLL.GetById(videoEntity.videoId);
 
-                    entity.bill = videoEntity.bill == null ? "" : videoEntity.bill;
                     if (string.IsNullOrWhiteSpace(isCoverImage))
                     {
                         entity.coverImage = coverImage == null ? "" : UpFile(coverImage);

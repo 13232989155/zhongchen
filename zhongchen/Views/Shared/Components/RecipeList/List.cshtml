@@ -1,67 +1,55 @@
 ﻿
 
 @model IEnumerable<Entity.RecipeEntity>
+@{
+    string recipeTitle = ViewBag.recipeTitle;
+    string videoTitle = ViewBag.videoTitle;
 
-
-<section class="sec sec2" style="background-color:antiquewhite">
+    List<Entity.VideoEntity> videoEntities = ViewBag.videoEntities;
+}
+<link href="~/css/video-js.min.css" rel="stylesheet" />
+<section class="sec sec2">
     <div class="row boxed clearfix productVideo">
 
-        <div class="col-12 productVideo" style="text-align:right;padding-bottom:30px">
-            <form asp-action="List">
-                <input name="searchString" value="@ViewBag.searchString" type="text" style="border: 1px solid #cfcfcf; border-radius: 0; box-shadow: none; height: 33px; width: 300px;" placeholder="请输入关键字..." />
-                <button type="submit" class="btn" style="padding:7px 20px">搜索</button>
-            </form>
-        </div>
-
-        @{
-            var temp1 = Model.Where(it => it.typeName == "视频");
-        }
-
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
-                <h2 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Recipes Video</h2>
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                <div>@Html.Raw(recipeTitle)</div>
                 <div class="col-12" style="padding-bottom:30px">
-                    @foreach (var item in temp1)
+                    @foreach (var item in Model)
                     {
                         <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
                             <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">
                                 <img src="@item.coverImage" style="width:100%" alt="video">
                             </a>
-                            <div style="padding:20px 30px">
-                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@(item.title.Length > 50 ? item.title.Substring(0,50) + "..." : item.title)</a>
-                            </div>
+                            <div>@Html.Raw(item.subheading)</div>
                         </div>
                     }
                 </div>
             </div>
-
         </div>
-
-        @{
-            var temp2 = Model.Where(it => it.typeName == "图文");
-        }
 
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
-                <h2 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Recipes Description</h2>
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                <div>@Html.Raw(videoTitle)</div>
                 <div class="col-12" style="padding-bottom:30px">
-                    @foreach (var item in temp2)
+                    @foreach (var item in videoEntities)
                     {
                         <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
-                            <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">
-                                <img src="@item.coverImage" style="width:100%" alt="video">
-                            </a>
-                            <div style="padding:20px 30px">
-                                <a href="/Recipe/Detail?recipeId=@item.recipeId" target="_blank">@(item.title.Length > 50 ? item.title.Substring(0, 50) + "..." : item.title)</a>
-                            </div>
+                            <video id="my-video" class="video-js vjs-fluid" controls preload="auto"
+                                   poster="@item.coverImage" data-setup="{}">
+                                <source src="@item.URL" type="video/mp4">
+                                <p class="vjs-no-js">
+                                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                </p>
+                            </video>
+                            <div>@Html.Raw(item.title)</div>
                         </div>
                     }
                 </div>
             </div>
-
         </div>
 
     </div>
 </section>
+<script src="~/js/video.min.js"></script>

@@ -1,19 +1,30 @@
-﻿
+﻿@model List<Entity.MilestonesEntity>
+@{
+    List<Entity.HtmlImageTextElementEntity> htmlImageTextElementEntities = ViewBag.htmlImageTextElementEntities;
+
+}
+
+<style type="text/css">
+    .extend:HOVER {
+        cursor: pointer;
+        transition: all 0.6s;
+        transform: scale(1.2);
+    }
+</style>
 
 <div>
-    <img style="width:100%;" src="~/images/about/abo.png" />
+    <img style="width:100%;" src="@htmlImageTextElementEntities.Where( it => it.keys == "关于页图文1" ).First().img" />
 </div>
 
 
-<div class="col-12 productVideo hideme">
-    <p style="color:#999">
-        With 20 years focusing on development and production of kitchen appliances, Loyola has accumulated rich experience in the industry and recognized as a professional manufacturer of baking products. To make products humanize,pratical, excellent quality assurance are our main concerns.  To lead light luxury life is the spirit of our brand "Loyola".
-    </p>
+<div class="col-12">
+    <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "关于页图文1").First().contents)</div>
 </div>
 
 <div>
-    <img style="width:100%;" src="~/images/about/abou.png" />
+    <img style="width:100%;" src="@htmlImageTextElementEntities.Where( it => it.keys == "关于页图文2" ).First().img" />
 </div>
+
 
 <section class="sec sec2" style="padding:30px 0">
     <div class="row boxed clearfix productVideo">
@@ -22,239 +33,83 @@
 
             <div class="col-12 col-12-s productVideo" style="padding-bottom:30px;vertical-align:middle;">
                 <div class="col-6 col-12-s productVideo">
-                    <img src="~/images/about/ab1.png" style="width:100%" />
+                    <img src="@htmlImageTextElementEntities.Where( it => it.keys == "关于页图文3" ).First().img" style="width:100%" />
 
                 </div>
 
-                <div class="col-6 col-12-s productVideo">
-                    <p style="color:#999;padding:10% 5%">
-                        Have our own R&D, laboratory, workshops of tooling, stamping, painting, assembling,heating element production.
-                    </p>
-
+                <div class="col-6 col-12-s ">
+                    <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "关于页图文3").First().contents)</div>
                 </div>
             </div>
 
             <div class="col-12 productVideo" style="padding-bottom:30px">
-                <div class="col-6 col-12-s productVideo">
-                    <p style="color:#999; padding:10% 5%">
-                        Get a number of authoritative certifications, such as BSCI, ETL, 3C, GS, UL, CE, Tmark, KC, SASO, PCT, SAA, BS, CB, CUL, CETL
-                    </p>
+                <div class="col-6 col-12-s ">
+                    <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "关于页图文4").First().contents)</div>
                 </div>
                 <div class="col-6 col-12-s productVideo">
-                    <img src="~/images/about/ab2.jpg" style="width:100%" />
-
+                    <img src="@htmlImageTextElementEntities.Where( it => it.keys == "关于页图文4" ).First().img" style="width:100%" />
                 </div>
             </div>
-
-        </div>
-
-
-    </div>
-
-    <div>
-        <div class="col-12">
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (11).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>1996</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    The company is founderd and the main product is electric oven
-                </p>
-            </div>
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (12).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>1997</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Started to export electic ovens to overseas market, the first customer is in Srilanka
-                </p>
-            </div>
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (1).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>1998</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Passed ISO 9001 ane the products enter Eourpean market.
-                </p>
-            </div>
-        </div>
-
-        <div class="col-12">
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>1999</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    The products got ETL certificates and started to enter American market
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (2).png" style="width:100%" />
-            </div>
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2001</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Hong Kong branch offied is established; the produts started to enter Japanese market.
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (3).png" style="width:100%" />
-            </div>
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2004</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Subsidiary plant (Changhui) is founded
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (4).png" style="width:100%" />
-            </div>
-
-        </div>
-
-        <div class="col-12">
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (5).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2006</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Launched own brand Loyola and enter domestic market
-                </p>
-            </div>
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (6).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2008</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Started to launch steam oven and make ceramic cooker
-                </p>
-            </div>
-
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (7).png" style="width:100%" />
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2010</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Started to make fruit oreserver
-                </p>
-            </div>
-        </div>
-
-
-        <div class="col-12">
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2011</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Started e-commerce market and opened the flagship store in the biggest e-commerce platform in China
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (10).png" style="width:100%" />
-            </div>
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2012</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Australia branch office was established; the company passed BSCI.
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (8).png" style="width:100%" />
-            </div>
-
-
-            <div class="col-2 col-6-s col-12-xs">
-                <br />
-                <br />
-                <h5>2014</h5>
-                <br />
-                <hr style="height:1px;border:none;border-top:1px solid #ff6a00;" />
-                <br />
-                <p style="color:#999; ">
-                    Baking Tribe Company was set up ti educate the public for baking knowledge via mobile inernet. Owning a fans group over 60,000 members and increasing with the rate 2,000 per day, she becomes the biggest baking coummunity in China today.
-                </p>
-            </div>
-            <div class="col-2 col-6-s col-12-xs">
-                <img src="~/images/about/1 (9).png" style="width:100%" />
-            </div>
-
         </div>
     </div>
 
+
+    <div class="row boxed clearfix">
+        <div class="col-12" style="padding:0 15%">
+            <div class="col-12" id="ModelDiv">
+                <div>@Html.Raw(ViewBag.milestonesTitle)</div>
+            </div>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="col-2 col-6-s col-12-xs extend" style="padding:0 0">
+                    <img src="@Model[i].img" style="width:100%;" />
+                </div>
+
+                @*@if ((i / 3) % 2 == 0)
+                {
+                    <div class="col-2 col-6-s col-12-xs extend" style="padding:0 0">
+                        <img id="ModelDiv@(i)" src="@Model[i].img" style="width:100%;" />
+                    </div>
+                    <div class="col-2 col-6-s col-12-xs extend" style="padding:0 0; background-color:#F5F5F5;font-size:0.1vw">
+                        <div style="padding:5% 10%">@Html.Raw(Model[i].contents)</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-2 col-6-s col-12-xs extend" style="padding:0 0; background-color:#F5F5F5;font-size:0.1vw">
+                        <div style="padding:5% 10%">@Html.Raw(Model[i].contents)</div>
+                    </div>
+                    <div class="col-2 col-6-s col-12-xs extend" style="padding:0 0">
+                        <img src="@Model[i].img" style="width:100%;" />
+                    </div>
+                }*@
+            }
+        </div>
+    </div>
 </section>
+<script type="text/javascript">
+
+        window.onresize = function () {
+            SetDivSize()
+        }
+        SetDivSize()
+
+        //设置div的大小
+        function SetDivSize() {
+            var baseDiv = $("#ModelDiv");
+            var baseWidth = baseDiv.width() / 6
+            var baseHeight = baseWidth * 0.75
+            var extendDiv = $(".extend")
+            extendDiv.each(function () {
+                $(this).width(baseWidth)
+                $(this).height(baseHeight)
+                $(this).css('font-size', '0.01vw')
+            });
+        }
+
+
+    </script>
 
 
 

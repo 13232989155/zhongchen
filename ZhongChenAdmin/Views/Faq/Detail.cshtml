@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="title" class="control-label">标题</label>
-                            <textarea disabled asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="title" type="text/plain" name="title" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="title" class="text-danger"></span>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="contents" class="control-label">内容</label>
-                            <textarea  rows="5" disabled asp-for="contents" class="form-control border-input"></textarea>
+                            <scrip id="contents" type="text/plain" name="contents" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="contents" class="text-danger"></span>
                         </div>
                     </div>
@@ -78,11 +78,108 @@
     </div>
 </div>
 
-
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
         $("#liFaq").addClass("active");
 
     });
+
+    var titleUE = UE.getEditor('title', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    titleUE.ready(function () {
+        titleUE.execCommand('inserthtml', '@Html.Raw(Model.title)');
+        titleUE.setDisabled('fullscreen');
+    });
+
+    var contentsUE = UE.getEditor('contents', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    contentsUE.ready(function () {
+        contentsUE.execCommand('inserthtml', '@Html.Raw(Model.contents)');
+        contentsUE.setDisabled('fullscreen');
+    });
+
 </script>

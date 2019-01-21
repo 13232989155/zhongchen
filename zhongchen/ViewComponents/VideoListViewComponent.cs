@@ -24,6 +24,11 @@ namespace zhongchen.ViewComponents
         /// <returns></returns>
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            string videoTitle = string.Empty;
+            HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
+            videoTitle = htmlFontElementBLL.GetByKey("视频页标题").value;
+            ViewBag.videoTitle = videoTitle;
+
             var List = await videoBLL.ActionDal.ActionDBAccess.Queryable<VideoEntity>().OrderBy( it => it.videoId, SqlSugar.OrderByType.Desc).ToListAsync();
             return View("List", List);
         }

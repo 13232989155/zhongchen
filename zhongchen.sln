@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhongChenApi", "ZhongChenAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhongChenAdmin", "ZhongChenAdmin\ZhongChenAdmin.csproj", "{8D7CC161-0C7D-4022-B29A-5D5DBC29D3D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Official", "Official\Official.csproj", "{F34B8FBB-9AA0-4457-A00F-884236120A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Official", "Official\Official.csproj", "{F34B8FBB-9AA0-4457-A00F-884236120A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactOfficial", "ReactOfficial\ReactOfficial.csproj", "{1D21C4F4-DE0D-4DD0-B58A-C48D0E7A7314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactOfficial", "ReactOfficial\ReactOfficial.csproj", "{1D21C4F4-DE0D-4DD0-B58A-C48D0E7A7314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zhongchen", "zhongchen\zhongchen.csproj", "{DE8429C0-5DCA-47C4-89A1-3DF06432056A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhongchen", "zhongchen\zhongchen.csproj", "{DE8429C0-5DCA-47C4-89A1-3DF06432056A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel", "Excel\Excel.csproj", "{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,12 +67,17 @@ Global
 		{DE8429C0-5DCA-47C4-89A1-3DF06432056A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8429C0-5DCA-47C4-89A1-3DF06432056A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8429C0-5DCA-47C4-89A1-3DF06432056A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F1F08B31-51D7-4F0D-8333-FF639B8CC3B9} = {287AD9FC-ECB6-4781-9D4F-B66932C721A0}
+		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183} = {287AD9FC-ECB6-4781-9D4F-B66932C721A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1378397C-5594-40F0-BF48-233B5BF1E6B1}

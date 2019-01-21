@@ -1,0 +1,153 @@
+﻿
+@model int
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">添加步骤</h4>
+        </div>
+        <div class="content">
+            <form asp-action="CreateStep" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">食谱ID</label>
+                            <input name="recipeId" value="@Model" readonly class="form-control border-input" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">说明内容</label>
+                            <scrip id="contents" type="text/plain" name="contents" style="width:100%; height:100%"></scrip>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">图片(500*300)</label>
+                            <img id="imageUrl" src="" width="350" />
+                            <input type="file" name="imageUrl" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
+                    &nbsp;
+                    <a asp-action="StepList" asp-route-recipeId="@Model" class="btn btn-round btn-fill btn-wd">返回列表</a>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#liRecipe").addClass("active");
+        $(":file").change(function (e) {
+            ShowImg(e.target.files[0], e.target.name)
+        })
+
+        //显示图片
+        function ShowImg(file, domId) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                // 创建对象
+                var img = new Image();
+
+                // 改变图片的src
+                img.src = e.target.result;
+
+                // 判断是否有缓存
+                if (img.complete) {
+                    if (img.width == 500 && img.height == 300) {
+                        $("#" + domId).attr("src", e.target.result);
+                    } else {
+                        $(":file").val("");
+                        $("#" + domId).attr("src", "");
+                    }
+                } else {
+                    // 加载完成执行
+                    img.onload = function () {
+                        if (img.width == 500 && img.height == 300) {
+                            $("#" + domId).attr("src", e.target.result);
+                        } else {
+                            $(":file").val("");
+                            $("#" + domId).attr("src", "");
+                        }
+                    };
+                }
+
+            }
+        }
+    });
+
+    var ue = UE.getEditor('contents', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal',
+                'pagebreak', '|',
+                'inserttable',
+                'deletetable',
+                'insertparagraphbeforetable',
+                'insertrow',
+                'deleterow',
+                'insertcol',
+                'deletecol',
+                'mergecells',
+                'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            ]
+        ]
+    });
+
+</script>

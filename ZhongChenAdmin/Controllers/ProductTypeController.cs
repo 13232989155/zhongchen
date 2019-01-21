@@ -26,8 +26,6 @@ namespace ZhongChen.Controllers
             this.productTypeBLL = new ProductTypeBLL();
         }
 
-
-
         /// <summary>
         /// 列表
         /// </summary>
@@ -59,7 +57,7 @@ namespace ZhongChen.Controllers
         /// <param name="adminEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([Bind("superior,name")]ProductTypeEntity productTypeEntity, IFormFile coverImage)
+        public IActionResult Create([Bind("name, title, subheading, recommendTitle")]ProductTypeEntity productTypeEntity, IFormFile coverImage)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +66,11 @@ namespace ZhongChen.Controllers
                     productTypeEntity.adminId = this.MustLogin().adminId;
                     productTypeEntity.createDate = DateTime.Now;
                     productTypeEntity.modifyDate = DateTime.Now;
-                    productTypeEntity.superior = productTypeEntity.superior;
+                    productTypeEntity.recommend = false;
+                    productTypeEntity.name = productTypeEntity.name ?? "";
+                    productTypeEntity.title = productTypeEntity.title ?? "";
+                    productTypeEntity.subheading = productTypeEntity.subheading ?? "";
+                    productTypeEntity.recommendTitle = productTypeEntity.recommendTitle ?? "";
                     productTypeEntity.coverImage = coverImage == null ? "" : UpFile(coverImage);
 
                     productTypeBLL.ActionDal.ActionDBAccess.Insertable(productTypeEntity).ExecuteCommand();
@@ -111,7 +113,7 @@ namespace ZhongChen.Controllers
         /// <param name="roleEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("productTypeId,name,superior")]ProductTypeEntity productTypeEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("productTypeId,name, title, subheading, recommendTitle")]ProductTypeEntity productTypeEntity, IFormFile coverImage, string isCoverImage)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +133,9 @@ namespace ZhongChen.Controllers
                     entity = null;
                     entity = productTypeBLL.GetById(productTypeEntity.productTypeId);
                     entity.name = productTypeEntity.name;
-                    entity.superior = productTypeEntity.superior;
+                    entity.title = productTypeEntity.title ?? "";
+                    entity.subheading = productTypeEntity.subheading ?? "";
+                    entity.recommendTitle = productTypeEntity.recommendTitle ?? "";
                     entity.modifyDate = DateTime.Now;
                     if (string.IsNullOrWhiteSpace(isCoverImage))
                     {
@@ -172,6 +176,31 @@ namespace ZhongChen.Controllers
                 return View("Error");
             }
 
+        }
+
+        /// <summary>
+        /// 推荐
+        /// </summary>
+        /// <param name="productTypeId"></param>
+        /// <param name="isRecommend"></param>
+        /// <returns></returns>
+        public IActionResult Recommend(int productTypeId, bool isRecommend)
+        {
+            try
+            {
+                ProductTypeEntity productTypeEntity = new ProductTypeEntity();
+                productTypeEntity = productTypeBLL.GetById(productTypeId);
+
+                productTypeEntity.recommend = isRecommend;
+                productTypeEntity.modifyDate = DateTime.Now;
+                productTypeBLL.ActionDal.ActionDBAccess.Updateable(productTypeEntity).ExecuteCommand();
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex.Message.ToString();
+                return View("Error");
+            }
         }
 
     }

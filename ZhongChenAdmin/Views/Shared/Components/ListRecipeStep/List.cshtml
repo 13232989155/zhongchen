@@ -1,6 +1,4 @@
 ﻿@model List<Entity.RecipeStepEntity>
-
-
 @foreach (var item in Model)
 {
     <div class="col-md-12">
@@ -15,11 +13,7 @@
 
                     <div class="col-md-9">
                         <div class="text-center">
-                            <p>描述</p>
-
-                            @item.contents
-
-
+                            @Html.Raw(item.contents)
                         </div>
                     </div>
                     <div class="col-md-1" style="text-align:center; vertical-align:middle;">
@@ -27,7 +21,7 @@
                         {
                             <a href="./DelRecipeStep?recipeStepId=@item.recipeStepId" class="close">×</a>
                             <br />
-                            <button data-toggle="modal" data-target="#myModal" type="button" onclick="EditStep(@item.recipeStepId)" class="close">编辑</button>
+                            <a asp-action="EditStep" asp-route-recipeStepId="@item.recipeStepId" onclick="EditStep(@item.recipeStepId)" class="close">编辑</a>
                         }
 
                     </div>
@@ -36,46 +30,6 @@
         </div>
     </div>
 }
-<script type="text/javascript">
-    //编辑步骤
-    function EditStep(recipeStepId) {
-        $.ajax({
-            url: "./GetRecipeStepById",
-            type: "POST",
-            data: { recipeStepId: recipeStepId },
-            success: function (result) {
-                if (result.code == "200") {
-                    var objHtml = " <form  method='post' action='./EditRecipeStep' enctype='multipart/form-data'> <div class='modal-dialog'><div class='modal-content'>" + "<div class='modal-header'>"
-                        + "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>"
-                        + "<h4 class='modal-title' id='myModalLabel'>编辑步骤</h4></div>"
-                        + "<div class='modal-body'>"
-                        + '<div class="row"><div class="col-md-12">'
-                        + ' <div class="form-group">'
-                        + '<img src="' + result.data.imageUrl + '" width="150" />'
-                        + '<label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件"><input name="isImageUrl" type="checkbox" checked value="true">保留</label><br/>'
-                        + '<label>选择图片</label>'
-                        + '<input name="formFile" type="file" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png"/>'
-                        + '</div></div></div>'
-                        + "<input type='hidden' name='recipeStepId' value='" + recipeStepId + "'>"
-                        + '<div class="row"><div class="col-md-12">'
-                        + ' <div class="form-group">'
-                        + '<label>内容</label>'
-                        + " <textarea  rows='5' name='contents' class='form-control border-input'>" + result.data.contents + "</textarea>"
-                        + '</div></div></div>'
-                        + "</div>"
-                        + "<div class='modal-footer'>"
-                        + "<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>"
-                        + "<button type='submit' class='btn btn-primary'>确定</button></div></div></div></fomr>";
 
-                    $("#myModal").html(objHtml);
-                }
-                else {
-                    alert(result.data.error)
-                }
-            }
-
-        });
-    }
-</script>
 
 

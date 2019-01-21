@@ -3,18 +3,17 @@
 <section id="scroll" class="sec sec1">
     <div class="row boxed clearfix">
 
-        <h2 class="hideme">Main products</h2>
+        <div>@Html.Raw(ViewBag.ProductTltie)</div>
 
         <div class="col-md-12">
             @foreach (var item in Model)
             {
                 <a class="col-five col-6-s col-12-xs hideme" href="/Product/List?productTypeId=@item.productTypeId#@item.productTypeId">
                     <img src="@item.coverImage" />
-                    <h4>@item.name</h4>
+                    <div>@Html.Raw(item.recommendTitle)</div>
                 </a>
             }
         </div>
 
     </div>
 </section>
-

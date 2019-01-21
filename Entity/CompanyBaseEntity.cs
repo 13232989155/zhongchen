@@ -88,6 +88,14 @@ namespace Entity
         /// Nullable:True
         /// </summary>           
         public string mail { get; set; }
+
+        public string facebook { get; set; }
+
+        public string instagram { get; set; }
+
+        public string twitter { get; set; }
+
+        public string youtube { get; set; }
     }
 }
 

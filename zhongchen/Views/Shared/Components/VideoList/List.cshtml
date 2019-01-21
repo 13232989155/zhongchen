@@ -1,81 +1,36 @@
 ﻿@model IEnumerable<Entity.VideoEntity>
-
-
-<section class="sec sec2" style="background-color:antiquewhite">
+@{
+    string videoTitle = ViewBag.videoTitle;
+}
+<link href="~/css/video-js.min.css" rel="stylesheet" />
+<section class="sec sec2">
     <div class="row boxed clearfix productVideo">
 
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
-                <h3 class="col-12 hideme" style="opacity: 1; text-align:left; padding:40px 40px; font-size:2rem">Product Videos</h3>
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                <div>@Html.Raw(videoTitle)</div>
                 <div class="col-12" style="padding-bottom:30px">
                     @{
                         var temp1 = Model.Where(it => it.typeName == "产品");
                     }
-                    @foreach ( var item in temp1)
+                    @foreach (var item in temp1)
                     {
                         <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
-                            <a href="@item.URL" target="_blank">
-                                <img src="@item.coverImage" style="width:100%" alt="video">
-                            </a>
-                            <div style="padding:20px 30px">
-                                <a href="@item.bill" target="_blank">a敖德萨所大所大所多撒多所</a>
-                            </div>
+                            <video id="my-video" class="video-js vjs-fluid" controls preload="auto"
+                                   poster="@item.coverImage" data-setup="{}">
+                                <source src="@item.URL" type="video/mp4">
+                                <p class="vjs-no-js">
+                                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                </p>
+                            </video>
+                            <div>@Html.Raw(item.title)</div>
                         </div>
                     }
                 </div>
             </div>
-
         </div>
-
-        <div class="col-12 productVideo" style="padding-bottom:30px">
-            <div class="col-12 productVideo">
-                <h3 class="col-12 hideme" style="opacity: 1; text-align:left; padding:40px 40px; font-size:2rem">Recipes Videos</h3>
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
-                <div class="col-12" style="padding-bottom:30px">
-                    @{
-                        var temp2 = Model.Where(it => it.typeName == "食谱");
-                    }
-                    @foreach (var item in temp2)
-                    {
-                        <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
-                            <a href="@item.URL" target="_blank">
-                                <img src="@item.coverImage" style="width:100%" alt="video">
-                            </a>
-                            <div style="padding:20px 30px">
-                                <a href="@item.bill" target="_blank">a敖德萨所大所大所多撒多所</a>
-                            </div>
-                        </div>
-                    }
-                    </div>
-            </div>
-
-        </div>
-
-        <div class="col-12 productVideo" style="padding-bottom:30px">
-            <div class="col-12 productVideo">
-                <h3 class="col-12 hideme" style="opacity: 1; text-align:left; padding:40px 40px; font-size:2rem">Other Videos</h3>
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
-                <div class="col-12" style="padding-bottom:30px">
-                    @{
-                        var temp3 = Model.Where(it => it.typeName == "-1");
-                    }
-                    @foreach (var item in temp3)
-                    {
-                        <div class="col-3 col-6-s col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
-                            <a href="@item.URL" target="_blank">
-                                <img src="@item.coverImage" style="width:100%" alt="video">
-                            </a>
-                            <div style="padding:20px 30px">
-                                <a href="@item.bill" target="_blank">a敖德萨所大所大所多撒多所</a>
-                            </div>
-                        </div>
-                    }
-                    </div>
-            </div>
-
-        </div>
-
-
     </div>
 </section>
+
+<script src="~/js/video.min.js"></script>

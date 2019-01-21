@@ -21,43 +21,24 @@ namespace zhongchen.ViewComponents
         /// <summary>
         /// 食谱列表
         /// </summary>
-        /// <param name="productId">产品ID</param>
         /// <returns></returns>
-        public IViewComponentResult Invoke( string searchString)
+        public IViewComponentResult Invoke()
         {
+            string recipeTitle = string.Empty;
+            string videoTitle = string.Empty;
+            HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
+            recipeTitle = htmlFontElementBLL.GetByKey("食谱页食谱标题").value;
+            videoTitle = htmlFontElementBLL.GetByKey("食谱页视频标题").value;
+            ViewBag.recipeTitle = recipeTitle;
+            ViewBag.videoTitle = videoTitle;
 
-            ViewBag.searchString = searchString;
+            List<VideoEntity> videoEntities = recipeBLL.ActionDal.ActionDBAccess.Queryable<VideoEntity>()
+                                                .Where( it => it.typeName == "食谱")
+                                                .OrderBy(it => it.videoId, SqlSugar.OrderByType.Desc).ToList();
+            ViewBag.videoEntities = videoEntities;
 
-
-            if ( string.IsNullOrWhiteSpace(searchString))
-            {
-                var list = recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().ToList();
-
-                return View("List", list);
-            }
-            else
-            {
-                var list = recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity, RecipeKeyEntity, KeywordEntity>((re, rk, k) => new object[] { JoinType.Inner, re.recipeId == rk.recipeId, JoinType.Inner, rk.keywordId == k.keywordId })
-                        .WhereIF( !string.IsNullOrWhiteSpace(searchString), (re, rk, k) => k.contents.Contains(searchString))
-                        .Select((re, rk, k) => new RecipeEntity
-                        {
-                            coverImage = re.coverImage,
-                            title = re.title,
-                            recipeId = re.recipeId,
-                            adminId = re.adminId,
-                            createDate = re.createDate,
-                            explicitLink = re.explicitLink,
-                            materials = re.materials,
-                            modifyDate = re.modifyDate,
-                            remark = re.remark,
-                            typeName = re.typeName
-                        })
-                        .OrderBy(re => re.recipeId, OrderByType.Desc)
-                        .ToList();
-
-                return View("List", list);
-            }
-            
+            var list = recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().ToList();
+            return View("List", list);
         }
 
     }

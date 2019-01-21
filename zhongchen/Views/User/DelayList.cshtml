@@ -1,7 +1,27 @@
 ﻿
 @model List<Entity.UserDelayEntity>
 
-<style type="text/css">
+<style>
+
+    .self_li {
+        list-style: none;
+        padding: 2% 5%
+    }
+
+    select {
+        color: #524f4f;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
+
+    option {
+        color: #999;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
+
+    input {
+        color: #999;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
 
     table {
         border-collapse: collapse;
@@ -29,65 +49,103 @@
         }
 </style>
 
-<section class="sec sec2" style="background-color:antiquewhite">
+<section class="sec sec2" style="font-style:normal;color:#999;font-family:'ITC Avant Garde Pro Bk'">
     <div class="row boxed clearfix productVideo">
 
+        <div class="col-12">
 
-        <div class="col-12" style="text-align:left; color:red">
-            <a asp-controller="User" asp-action="CreateDelay" class="btn btn-default" style="margin-top:13px;">Create</a>
-        </div>
+            <div class="col-4 col-12-s">
+
+                <div class="col-12 col-12-s" style="text-align:left;padding-left:20%;">
+                    <ul>
+                        <li class="self_li">
+                            <a asp-action="Self" style="font-size:1.0rem">
+                                <i class="fa fa-user fa-2x"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li class="self_li">
+                            <a asp-action="Message" style="font-size:1.0rem">
+                                <i class="fa fa-envelope fa-2x"></i>
+                                My Message
+                            </a>
+                        </li>
+                        <li class="self_li">
+                            <a asp-action="DelayList" style="color:#9f0002;font-size:1.0rem">
+                                <i class="fa fa-pencil-alt fa-2x"></i>
+                                My Warranty Product
+                            </a>
+                        </li>
+                        <li class="self_li">
+                            <a asp-action="LoginOut" style="font-size:1.0rem">
+                                <i class="fa fa-sign-out-alt fa-2x"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
 
 
-        <div class="col-12 productVideo" style="padding-bottom:30px">
-            <div class="col-12 productVideo">
+            <div class="col-8 col-12-s" style="border-left:1px solid #999;padding-left:5%">
+                <div class="col-12 col-12-s">
 
-                <table style="width:90%" class="table">
-                    <thead>
-                        <tr>
-                            <td>
-                                NO
-                            </td>
 
-                            <td>
-                                bill
-                            </td>
+                    <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                        <form asp-action="CreateDelay" method="post" style="width:100%;height:100%">
+                            <div>
+                                <br />
+                                <label>
+                                    Buy platform
+                                </label>
+                                <br />
+                                <input name="platform" type="text" id="platform" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                <br />
+                                <label>
+                                    Order number
+                                </label>
+                                <br />
+                                <input name="bill" type="text" id="bill" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                            </div>
 
-                            <td>
-                                platform
+                            <div class="col-12 col-12-s" style="text-align:left">
+                                <button type="submit" class="btn btn-default" style="margin-top:13px;">Add</button>
+                            </div>
+                        </form>
+                    </div>
 
-                            </td>
+                    <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                        <div style="padding:2% 2%; background-color:#f5fafa;border-top:1px solid #cad9ea;border-left:1px solid #cad9ea;border-right:1px solid #cad9ea;text-align:center;">
 
-                            <td>
-                                CreateDate
-                            </td>
-                        </tr>
-                    </thead>
+                            <label>
+                                My Warranty Products
+                            </label>
+                            <br />
+                        </div>
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @item.userDelayId
-                                </td>
-                                <td>
-                                    @item.bill
-                                </td>
+                        <table style="width:100%" border="0" cellspacing="0" cellpadding="0" id="warranty_list">
+                            <tbody>
+                                <tr>
+                                    <td>Order No</td>
+                                    <td>Buy platform</td>
+                                    <td>Add Time</td>
+                                </tr>
+                                @foreach ( var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.bill</td>
+                                        <td>@item.platform</td>
+                                        <td>@item.createDate.ToString("yyyy-MM-dd")</td>
+                                    </tr>
 
-                                <td>
-                                    @item.platform
-                                </td>
+                                }
 
-                                <td>
-                                    @item.createDate
-                                </td>
-                            </tr>
-                        }
+                            </tbody>
+                        </table>
+                    </div>
 
-                    </tbody>
-
-                </table>
-
+                </div>
 
             </div>
 
@@ -96,3 +154,4 @@
 
     </div>
 </section>
+

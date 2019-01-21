@@ -1,7 +1,7 @@
 ﻿@model List<Entity.ProductTypeEntity>
 @{
     int productTypeId = ViewBag.productTypeId;
-    bool isZero = ViewBag.isZero;
+
 }
 <select name="@(string.IsNullOrWhiteSpace(ViewBag.docName) ? "productTypeId" : ViewBag.docName)" class="form-control  border-input">
 
@@ -15,10 +15,6 @@
         {
             <option value="@item.productTypeId">@item.name</option>
         }
-    }
-    @if (isZero)
-    {
-        <option value="0">一级分类</option>
     }
 
 </select>

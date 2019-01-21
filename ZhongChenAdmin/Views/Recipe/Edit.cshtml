@@ -24,24 +24,35 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="title" class="control-label">标题</label>
-                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="title" type="text/plain" name="title" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="title" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="remark" class="control-label">简介说明</label>
-                            <textarea asp-for="remark" rows="5" class="form-control border-input"></textarea>
-                            <span asp-validation-for="remark" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-                        <label asp-for="coverImage" class="control-label">封面图片</label>
+                        <div class="form-group">
+                            <label asp-for="subheading" class="control-label">小标题</label>
+                            <scrip id="subheading" type="text/plain" name="subheading" style="width:100%; height:100%"></scrip>
+                            <span asp-validation-for="subheading" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="explain" class="control-label">简介说明</label>
+                            <scrip id="explain" type="text/plain" name="explain" style="width:100%; height:100%"></scrip>
+                            <span asp-validation-for="explain" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="coverImage" class="control-label">封面图片(500*300)</label>
                         <img id="coverImage" src="@( Model.coverImage)" width="350" />
                         <label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
                             <input name="isCoverImage" type="checkbox" checked value="true"> 保留
@@ -51,38 +62,28 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="typeName" class="control-label">分类</label>
-                            <select asp-for="typeName" class="form-control border-input">
-                                <option value="图文">图文</option>
-                                <option value="视频">视频</option>
-                            </select>
-                            <span asp-validation-for="typeName" class="text-danger"></span>
-                        </div>
-                    </div>
+                @*<div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="typeName" class="control-label">分类</label>
+                    <select asp-for="typeName" class="form-control border-input">
+                        <option value="图文">图文</option>
+                        <option value="视频">视频</option>
+                    </select>
+                    <span asp-validation-for="typeName" class="text-danger"></span>
                 </div>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="materials" class="control-label">食材</label>
-                            <textarea asp-for="materials" rows="5" class="form-control border-input"></textarea>
-                            <span asp-validation-for="materials" class="text-danger"></span>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="explicitLink" class="control-label">食谱外链</label>
+                    <input asp-for="explicitLink" class="form-control border-input" />
+                    <span asp-validation-for="explicitLink" class="text-danger"></span>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="explicitLink" class="control-label">食谱外链</label>
-                            <input asp-for="explicitLink" class="form-control border-input" />
-                            <span asp-validation-for="explicitLink" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>*@
 
                 <div class="text-center">
                     <input id="btnSure" type="submit" class="btn btn-info btn-fill btn-wd" value="确 定" />
@@ -95,7 +96,9 @@
     </div>
 </div>
 
-
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -111,8 +114,200 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
-            $("#" + domId).attr("src", e.target.result);
+            // 创建对象
+            var img = new Image();
+
+            // 改变图片的src
+            img.src = e.target.result;
+
+            // 判断是否有缓存
+            if (img.complete) {
+                if (img.width == 500 && img.height == 300) {
+                    $("#" + domId).attr("src", e.target.result);
+                } else {
+                    $(":file").val("");
+                    $("#" + domId).attr("src", "");
+                }
+            } else {
+                // 加载完成执行
+                img.onload = function () {
+                    if (img.width == 500 && img.height == 300) {
+                        $("#" + domId).attr("src", e.target.result);
+                    } else {
+                        $(":file").val("");
+                        $("#" + domId).attr("src", "");
+                    }
+                };
+            }
         }
     }
+
+    var titleUE = UE.getEditor('title', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|', 'horizontal',
+                'pagebreak', '|',
+                'inserttable',
+                'deletetable',
+                'insertparagraphbeforetable',
+                'insertrow',
+                'deleterow',
+                'insertcol',
+                'deletecol',
+                'mergecells',
+                'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            ]
+        ]
+    });
+
+    titleUE.ready(function () {
+        titleUE.execCommand('inserthtml', '@Html.Raw(Model.title)');
+    });
+
+    var subheadingUE = UE.getEditor('subheading', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal',
+                'pagebreak', '|',
+                'inserttable',
+                'deletetable',
+                'insertparagraphbeforetable',
+                'insertrow',
+                'deleterow',
+                'insertcol',
+                'deletecol',
+                'mergecells',
+                'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            ]
+        ]
+    });
+
+    subheadingUE.ready(function () {
+        subheadingUE.execCommand('inserthtml', '@Html.Raw(Model.subheading)');
+    });
+
+
+    var remarkUE = UE.getEditor('explain', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal',
+                'pagebreak', '|',
+                'inserttable',
+                'deletetable',
+                'insertparagraphbeforetable',
+                'insertrow',
+                'deleterow',
+                'insertcol',
+                'deletecol',
+                'mergecells',
+                'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            ]
+        ]
+    });
+
+    remarkUE.ready(function () {
+        remarkUE.execCommand('inserthtml', '@Html.Raw(Model.explain)');
+    });
 
 </script>

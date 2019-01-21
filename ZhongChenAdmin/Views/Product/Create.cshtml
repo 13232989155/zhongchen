@@ -14,7 +14,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="title" class="control-label">标题</label>
-                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="title" type="text/plain" name="title" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="title" class="text-danger"></span>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="explain" class="control-label">功能介绍</label>
-                            <textarea asp-for="explain" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="explain" type="text/plain" name="explain" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="explain" class="text-danger"></span>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="prop" class="control-label">属性</label>
-                            <textarea asp-for="prop" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="prop" type="text/plain" name="prop" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="prop" class="text-danger"></span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="coverImage" class="control-label">封面图片</label>
+                            <label asp-for="coverImage" class="control-label">封面图片(500*500)</label>
                             <img id="coverImage" src="" width="350" />
                             <input type="file" name="coverImage" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
                             <span asp-validation-for="coverImage" class="text-danger"></span>
@@ -84,6 +84,9 @@
 </div>
 
 
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -99,8 +102,159 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
-            $("#" + domId).attr("src", e.target.result);
-        }
+            // 创建对象
+            var img = new Image();
 
+            // 改变图片的src
+            img.src = e.target.result;
+
+            // 判断是否有缓存
+            if (img.complete) {
+                if (img.width == 500 && img.height == 500) {
+                    $("#" + domId).attr("src", e.target.result);
+                } else {
+                    $(":file").val("");
+                    $("#" + domId).attr("src", "");
+                }
+            } else {
+                // 加载完成执行
+                img.onload = function () {
+                    if (img.width == 500 && img.height == 500) {
+                        $("#" + domId).attr("src", e.target.result);
+                    } else {
+                        $(":file").val("");
+                        $("#" + domId).attr("src", "");
+                    }
+                };
+            }
+
+        }
     }
+
+    var ue = UE.getEditor('title', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    var ue = UE.getEditor('explain', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    var ue = UE.getEditor('prop', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
 </script>

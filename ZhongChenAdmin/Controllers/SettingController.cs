@@ -62,6 +62,10 @@ namespace ZhongChen.Controllers
                     entity.phone = collection["phone"];
                     entity.post = collection["post"];
                     entity.tel = collection["tel"];
+                    entity.facebook = collection["facebook"];
+                    entity.twitter = collection["twitter"];
+                    entity.instagram = collection["instagram"];
+                    entity.youtube = collection["youtube"];
                     entity.logo = logo == null ? "" : this.UpFile(logo);
 
                     bl.ActionDal.ActionDBAccess.Insertable(entity).ExecuteCommand();
@@ -80,6 +84,10 @@ namespace ZhongChen.Controllers
                     entity.phone = collection["phone"];
                     entity.post = collection["post"];
                     entity.tel = collection["tel"];
+                    entity.facebook = collection["facebook"];
+                    entity.twitter = collection["twitter"];
+                    entity.instagram = collection["instagram"];
+                    entity.youtube = collection["youtube"];
                     if (string.IsNullOrWhiteSpace( collection["isLogo"]) )
                     {
                         entity.logo = logo == null ? "" : this.UpFile(logo);
@@ -108,6 +116,8 @@ namespace ZhongChen.Controllers
 
             return View(list);
         }
+
+
 
         /// <summary>
         /// 新增banner图片
@@ -138,6 +148,43 @@ namespace ZhongChen.Controllers
             }
         }
 
+        /// <summary>
+        /// 创建banner
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CreateBanner()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 创建banner
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CreateBanner(IFormFile keyValue)
+        {
+            try
+            {
+                CompanySetBLL companySetBLL = new CompanySetBLL();
+                CompanySetEntity entity = new CompanySetEntity();
+
+                entity.keyName = "";
+                entity.keyValue = keyValue == null ? "" : this.UpFile(keyValue);
+                entity.keyword = "banner";
+                entity.setType = -1;
+
+                companySetBLL.ActionDal.ActionDBAccess.Insertable(entity).ExecuteCommand();
+
+
+                return RedirectToAction("CompanyBanner");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex.Message.ToString();
+                return View("Error");
+            }
+        }
         /// <summary>
         /// 删除banner图片
         /// </summary>
@@ -189,6 +236,20 @@ namespace ZhongChen.Controllers
         }
 
         /// <summary>
+        /// 标记处理
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <returns></returns>
+        public IActionResult Delete(int contactId)
+        {
+            ContactBLL contactBLL = new ContactBLL();
+            ContactEntity contactEntity = contactBLL.ActionDal.ActionDBAccess.Queryable<ContactEntity>().Where(it => it.contactId == contactId).First();
+
+             contactBLL.ActionDal.ActionDBAccess.Deleteable(contactEntity).ExecuteCommand();
+            return RedirectToAction("ContactList");
+        }
+
+        /// <summary>
         /// 详细页面
         /// </summary>
         /// <param name="contactId"></param>
@@ -199,5 +260,39 @@ namespace ZhongChen.Controllers
             ContactEntity contactEntity = contactBLL.ActionDal.ActionDBAccess.Queryable<ContactEntity>().Where(it => it.contactId == contactId).First();
             return View(contactEntity);
         }
+
+        /// <summary>
+        /// 回复
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <returns></returns>
+        public IActionResult ReplyContact(int contactId)
+        {
+            ContactBLL contactBLL = new ContactBLL();
+            ContactEntity contactEntity = contactBLL.ActionDal.ActionDBAccess.Queryable<ContactEntity>().Where(it => it.contactId == contactId).First();
+            return View(contactEntity);
+        }
+
+        /// <summary>
+        /// 保存回复
+        /// </summary>
+        /// <param name="contactEntity"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult ReplyContact(ContactEntity contactEntity)
+        {
+            ContactBLL contactBLL = new ContactBLL();
+            ContactEntity contact = contactBLL.ActionDal.ActionDBAccess.Queryable<ContactEntity>().Where(it => it.contactId == contactEntity.contactId).First();
+
+            contact.reply = contactEntity.reply;
+            contact.isDeal = true;
+            contact.adminId = this.MustLogin().adminId;
+            contact.modifyDate = DateTime.Now;
+
+            contactBLL.ActionDal.ActionDBAccess.Updateable(contact).ExecuteCommand();
+
+            return RedirectToAction("ContactList");
+        }
+
     }
 }

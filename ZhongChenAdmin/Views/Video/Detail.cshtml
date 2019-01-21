@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="videoId" class="control-label">ID</label>
-                              <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <input disabled asp-for="videoId" class="form-control border-input" />
                             <span asp-validation-for="videoId" class="text-danger"></span>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="title" class="control-label">标题</label>
-                            <textarea disabled asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="title" type="text/plain" name="title" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="title" class="text-danger"></span>
                         </div>
                     </div>
@@ -34,7 +34,6 @@
                         <div class="form-group">
                             <label asp-for="typeName" class="control-label">分类</label>
                             <select disabled asp-for="typeName" class="form-control border-input">
-                                <option value="-1">    </option>
                                 <option value="食谱">食谱</option>
                                 <option value="产品">产品</option>
                             </select>
@@ -43,16 +42,15 @@
                     </div>
                 </div>
 
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="bill" class="control-label">关联产品或食谱</label>
-                            <input disabled asp-for="bill" class="form-control border-input" />
-                            <span asp-validation-for="bill" class="text-danger"></span>
+                @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="bill" class="control-label">关联产品或食谱</label>
+                                <input disabled asp-for="bill" class="form-control border-input" />
+                                <span asp-validation-for="bill" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>*@
 
                 <div class="row">
                     <div class="col-md-12">
@@ -114,11 +112,69 @@
     </div>
 </div>
 
-
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
         $("#liVideo").addClass("active");
+        
+    var titleUE = UE.getEditor('title', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal',
+                'pagebreak', '|',
+                'inserttable',
+                'deletetable',
+                'insertparagraphbeforetable',
+                'insertrow',
+                'deleterow',
+                'insertcol',
+                'deletecol',
+                'mergecells',
+                'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            ]
+        ]
+    });
 
+    titleUE.ready(function () {
+        titleUE.execCommand('inserthtml', '@Html.Raw(Model.title)');
+        titleUE.setDisabled('fullscreen');
+    });
     });
 </script>

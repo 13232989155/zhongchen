@@ -1,0 +1,109 @@
+﻿
+
+<section class="sec sec2" style="font-style:normal;color:#999;font-family:'ITC Avant Garde Pro Bk'">
+    <div class="row boxed clearfix productVideo">
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 col-12-s" style="padding-left:15%; padding-right:20%">
+                <form method="post">
+
+                    <div class="col-12 col-12-s" style="text-align:left">
+                        <h1 style="display:inline">
+                            LOG IN TO MY ACCOUNT
+                        </h1>
+                        <label>
+                            Don't have a account yet?
+                        </label>
+                        <a asp-action="Register" style="text-decoration:none;color:#4293FF">Create one here</a>
+                    </div>
+
+                    <div class="col-12 col-12-s" style="text-align:left;padding:3% 25%">
+                        <h3>
+                            Or use your account
+                        </h3>
+                        <br />
+                        <label style="padding:1% 1%">
+                            values and respects your privacy.
+                        </label>
+                        <br />
+                        <label style="padding:1% 1%">
+                            Please read the privacy notice for more information.
+                        </label>
+
+                        <br />
+                        <br />
+
+                        <div class="col-12 col-12-s" style="text-align:left;padding:3% 0;padding-right:10%">
+                            <input name="email" id="email" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:100%; height:30px;font-family:'ITC Avant Garde Pro Bk'" placeholder="Email address" />
+                            <p id="tipEmail" style="color:red; text-align:left;" hidden>Incorrect email format or registered</p>
+                        </div>
+                        <div class="col-12 col-12-s" style="padding:3% 0;padding-right:10%">
+                            <input type="password" name="password" id="password" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:100%; height:30px;font-family:'ITC Avant Garde Pro Bk'" placeholder="Password" />
+                            <p id="tipPassword" style="color:red; text-align:left;" hidden>Password must contain 6 - 15 characters</p>
+                            <p id="tipFull" style="color:red; text-align:left;" hidden>Wrong email or password</p>
+                        </div>
+
+                        <label>
+                            <input type="checkbox" class="check_input" name="rmbUser" id="rmbUser" value="yes">Remember me
+                        </label>
+                        <br />
+                        <button type="button" class="btn btn-default" style="margin-top:13px;" onclick="Send()">Login</button>
+                        @*<br />
+                        <br />
+                        <a href="#" style="text-decoration:none;color:#4293FF">I have forgotten my password ></a>*@
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    function Send() {
+
+        $("#tipEmail").hide();
+        $("#tipPassword").hide();
+        $("#tipFull").hide();
+        var email = $("#email").val()
+        var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+        if (email == "" || !reg.test(email)) {
+            $("#tipEmail").show();
+            return false;
+        }
+
+        var password = $("#password").val()
+        if (password == "" || password.length < 6 || password.length > 15) {
+            $("#tipPassword").show();
+            return false;
+        }
+
+        $.ajax({
+            url: "/User/Login",
+            type: "POST",
+            async: false,
+            data: {
+                email: email,
+                password: password
+            },
+            success: function (result) {
+                if (result.code == "200") {
+                    if (result.data) {
+                        window.location.href = "/User/Self";
+                    } else {
+                        $("#tipFull").show();
+                    }
+                }
+                else {
+                    alert(result.error)
+                }
+            }
+
+        });
+
+
+    }
+
+
+</script>

@@ -25,7 +25,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="title" class="control-label">标题</label>
-                            <textarea asp-for="title" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="title" type="text/plain" name="title" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="title" class="text-danger"></span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="productTypeId" class="control-label">产品分类</label>
-                            @await Component.InvokeAsync("ProductTypeSelect", new { productTypeId  = Model.productTypeId})
+                            @await Component.InvokeAsync("ProductTypeSelect", new { productTypeId = Model.productTypeId })
                             <span asp-validation-for="productTypeId" class="text-danger"></span>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="explain" class="control-label">功能介绍</label>
-                            <textarea asp-for="explain" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="explain" type="text/plain" name="explain" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="explain" class="text-danger"></span>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="prop" class="control-label">属性</label>
-                            <textarea asp-for="prop" rows="5" class="form-control border-input"></textarea>
+                            <scrip id="prop" type="text/plain" name="prop" style="width:100%; height:100%"></scrip>
                             <span asp-validation-for="prop" class="text-danger"></span>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <form method="post" enctype="multipart/form-data">
-                            <label>轮播图图片</label>
+                            <label>轮播图图片(500*500)</label>
                             <img id="imagePath" width="350" />
                             <input type="file" id="upImagePath" name="imagePath" class="form-control border-input" value="请选择......" accept="image/gif,image/jpeg,image/jpg,image/png">
                             <br />
@@ -135,6 +135,9 @@
     </div>
 </div>
 
+<script src="~/js/Common/ueditor.config.js"></script>
+<script src="~/js/Common/ueditor.all.min.js"></script>
+<script src="~/js/Common/zh-cn.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -147,8 +150,33 @@
 
         $("#btnUpImage").click(function () {
             var file = document.getElementById("upImagePath").files[0];
+
             if (file != null) {
-                Upload(file)
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    // 创建对象
+                    var img = new Image();
+
+                    // 改变图片的src
+                    img.src = e.target.result;
+
+                    // 判断是否有缓存
+                    if (img.complete) {
+                        if (img.width == 500 && img.height == 500) {
+                            Upload(file)
+                        }
+                    } else {
+                        // 加载完成执行
+                        img.onload = function () {
+                            if (img.width == 500 && img.height == 500) {
+                                Upload(file)
+                            }
+                        };
+                    }
+
+                }
             }
 
         })
@@ -161,7 +189,32 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
-            $("#" + domId).attr("src", e.target.result);
+            // 创建对象
+            var img = new Image();
+
+            // 改变图片的src
+            img.src = e.target.result;
+
+            // 判断是否有缓存
+            if (img.complete) {
+                if (img.width == 500 && img.height == 500) {
+                    $("#" + domId).attr("src", e.target.result);
+                } else {
+                    $(":file").val("");
+                    $("#" + domId).attr("src", "");
+                }
+            } else {
+                // 加载完成执行
+                img.onload = function () {
+                    if (img.width == 500 && img.height == 500) {
+                        $("#" + domId).attr("src", e.target.result);
+                    } else {
+                        $(":file").val("");
+                        $("#" + domId).attr("src", "");
+                    }
+                };
+            }
+
         }
     }
 
@@ -274,5 +327,143 @@
 
         $("#myModal").html(objHtml);
     }
+
+    var titleUE = UE.getEditor('title', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+     titleUE.ready(function () {
+        titleUE.execCommand('inserthtml', '@Html.Raw(Model.title)');
+    });
+
+    var explainUE = UE.getEditor('explain', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    explainUE.ready(function () {
+        explainUE.execCommand('inserthtml', '@Html.Raw(Model.explain)');
+    });
+
+    var propUE = UE.getEditor('prop', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    propUE.ready(function () {
+        propUE.execCommand('inserthtml', '@Html.Raw(Model.prop)');
+    });
 
 </script>

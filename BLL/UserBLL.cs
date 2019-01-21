@@ -30,5 +30,20 @@ namespace BLL
         {
             return ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.userId == userId).First();
         }
+
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <returns></returns>
+        public List<UserEntity> ExportList()
+        {
+            List<UserEntity> userEntities = new List<UserEntity>();
+
+            userEntities = ActionDal.ActionDBAccess.Queryable<UserEntity>()
+                            .OrderBy(it => it.createDate)
+                            .ToList();
+
+            return userEntities;
+        }
     }
 }

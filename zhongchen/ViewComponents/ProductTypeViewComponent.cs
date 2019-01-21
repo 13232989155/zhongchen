@@ -36,6 +36,9 @@ namespace zhongchen.ViewComponents
             {
                 viewName = pViewName;
             }
+            HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
+            HtmlFontElementEntity htmlFontElement = htmlFontElementBLL.GetByKey("主页产品分类标题");
+            ViewBag.ProductTltie = htmlFontElement.value;
 
             var List = await GetItemsAsync(viewName);
             return View(viewName, List);
@@ -47,9 +50,9 @@ namespace zhongchen.ViewComponents
             switch (viewName)
             {
                 case "Main":
-                    return productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().Where(it => it.superior == 0).Take(10).ToListAsync();
+                    return productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().Where(it => it.recommend == true).ToListAsync();
                 case "Menu":
-                    return productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().Where( it => it.superior == 0).ToListAsync();
+                    return productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().ToListAsync();
                 default:
                     return productTypeBLL.ActionDal.ActionDBAccess.Queryable<ProductTypeEntity>().ToListAsync();
             }

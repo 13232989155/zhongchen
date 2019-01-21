@@ -9,7 +9,7 @@ namespace Entity
     /// <summary>
     /// 产品分类
     /// </summary>
-    [SugarTable("T_product_type")]
+    [SugarTable("t_product_type")]
     public partial class ProductTypeEntity
     {
         public ProductTypeEntity()
@@ -34,6 +34,27 @@ namespace Entity
         public string name { get; set; }
 
         /// <summary>
+        /// Desc:主标题
+        /// Default:
+        /// Nullable:False
+        /// </summary>           
+        public string title { get; set; }
+
+        /// <summary>
+        /// Desc:副标题
+        /// Default:
+        /// Nullable:False
+        /// </summary>           
+        public string subheading { get; set; }
+
+        /// <summary>
+        /// Desc:推荐标题
+        /// Default:
+        /// Nullable:False
+        /// </summary>           
+        public string recommendTitle { get; set; }
+
+        /// <summary>
         /// Desc:图标
         /// Default:
         /// Nullable:False
@@ -45,7 +66,7 @@ namespace Entity
         /// Default:-1
         /// Nullable:False
         /// </summary>           
-        public int superior { get; set; }
+        public bool recommend { get; set; }
 
         /// <summary>
         /// Desc:创建者ID

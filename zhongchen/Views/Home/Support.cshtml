@@ -1,97 +1,57 @@
 ﻿
 @model Entity.CompanyBaseEntity
-@{ 
+@{
     List<Entity.FaqEntity> faqList = ViewBag.faqList;
+
+    List<Entity.HtmlImageTextElementEntity> htmlImageTextElementEntities = ViewBag.htmlImageTextElementEntities;
+
 }
 <div>
-    <img style="width:100%;" src="~/images/support.png" />
+    <img style="width:100%;" src="@htmlImageTextElementEntities.Where( it => it.keys == "帮助页图片" ).First().img" />
 </div>
 
 <section class="sec sec2">
-    <div class="row boxed clearfix productVideo">
+    <div class="row boxed clearfix ">
 
-        <div class="col-12 productVideo" style="padding-bottom:30px">
+        <div class="col-12 " style="padding-bottom:30px">
             <div class="col-12 productVideo">
 
+                <div>@Html.Raw(ViewBag.FaqTitle)</div>
+                <div class="col-12 ">
+                    @foreach (var item in faqList)
+                    {
+                        <div class="col-12" style="padding:5% 10%; text-align:left">
 
-                <h3 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Top FAQ</h3>
+                            <div>@Html.Raw(item.title)</div>
 
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
+                            <div>@Html.Raw(item.contents)</div>
 
-                @foreach ( var item in faqList)
-                {
-                    <div class="col-12" style="padding:5% 10%; text-align:left">
-                        <i class="fa fa-book"></i>
-                        <strong>@item.title</strong>
-
-                        <P style="text-indent:2em;">
-                            @item.contents
-                        </P>
-
-                    </div>
-                }
-
-
+                        </div>
+                    }
+                </div>
+                
             </div>
 
         </div>
 
-
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
-
-
-                <h3 class="col-12 hideme" style="opacity: 1; text-align:center; padding:40px 40px; font-size:2rem">Customer Service</h3>
-
-                <hr class="col-12" style="height:3px;border:none;border-top:1px solid #808080;" />
-
+                <div>@Html.Raw(ViewBag.ServiceTitle)</div>
                 <div class="col-12">
 
-
-
                     <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
-                        <i class="fa fa-envelope-open fa-5x"></i>
-                        <br />
-                        <strong style="text-align:center; font-size:1.3rem">
-                            Email Us
-                        </strong>
-                        <p>
-                            Email: @Model.mail
-                            <br />
-                            FAX: @Model.fax
-                        </p>
-
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务左").First().img" />
+                        <div>@Html.Raw( htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务左").First().contents)</div>
                     </div>
 
                     <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
-                        <i class="fa fa-phone-square fa-5x"></i>
-                        <br />
-                        <strong style="text-align:center; font-size:1.3rem">
-                            Contact Us
-                        </strong>
-                        <p>
-                            TEL: @Model.tel
-
-                            <br />
-
-                            TEL: @Model.bakTel
-                        </p>
-
-
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务中").First().img" />
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务中").First().contents)</div>
                     </div>
 
                     <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
-                        <i class="fa fa-address-book fa-5x"></i>
-                        <br />
-                        <strong style="text-align:center; font-size:1.3rem">
-                            Contact Person
-                        </strong>
-
-                        <p>
-                            name: @Model.contactUser
-                       <br />
-                            phone: @Model.phone
-                        </p>
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务右").First().img" />
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务右").First().contents)</div>
                     </div>
 
                 </div>

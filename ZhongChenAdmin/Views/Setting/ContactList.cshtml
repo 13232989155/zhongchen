@@ -5,14 +5,15 @@
         <div class="card card-plain">
             <div class="header">
                 <h4 class="title">用户反馈</h4>
-                
+
             </div>
             <div class="content table-responsive table-full-width">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>名称</th>
+                            <th>用户ID</th>
+                            <th>邮箱</th>
                             <th>主题</th>
                             <th>消息</th>
                             <th>是否处理</th>
@@ -25,14 +26,20 @@
                         {
                             <tr>
                                 <td>@item.contactId</td>
-                                <td>@item.name</td>
-                                <td>@( item.subject.Length > 20 ? item.subject.Substring(0,20) + "..." : item.subject)</td>
-                                <td>@( item.message.Length > 20 ? item.message.Substring(0,20) + "..." : item.message)</td>
+                                <td>@item.userId</td>
+                                <td>@item.email</td>
+                                <td>@( item.subject.Length > 20 ? item.subject.Substring(0, 20) + "..." : item.subject)</td>
+                                <td>@( item.message.Length > 20 ? item.message.Substring(0, 20) + "..." : item.message)</td>
                                 <td>@( item.isDeal ? "是" : "否")</td>
                                 <td>@item.createDate</td>
                                 <td>
                                     <a name="del" href="./ContactDetail?contactId=@item.contactId">点击查看</a>
-                                    <a name="del" href="./DealContact?contactId=@item.contactId">标记为已处理</a>
+                                    <a name="del" href="./ReplyContact?contactId=@item.contactId">回复</a>
+                                    @if (!item.isDeal)
+                                    {
+                                        <a name="del" href="./DealContact?contactId=@item.contactId">标记为已处理</a>
+                                    }
+                                    <a name="del" href="./Delete?contactId=@item.contactId">删除</a>
                                 </td>
                             </tr>
                         }

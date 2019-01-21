@@ -1,0 +1,191 @@
+﻿@model List<Entity.ContactEntity>
+<style>
+
+    .self_li {
+        list-style: none;
+        padding: 2% 5%
+    }
+
+    select {
+        color: #524f4f;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
+
+    option {
+        color: #999;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
+
+    input {
+        color: #999;
+        font-family: 'ITC Avant Garde Pro Bk';
+    }
+</style>
+
+<section class="sec sec2" style="font-style:normal;color:#999;font-family:'ITC Avant Garde Pro Bk'">
+    <div class="row boxed clearfix productVideo">
+
+        <div class="col-12">
+
+            <div class="col-4 col-12-s">
+
+                <div class="col-12 col-12-s" style="text-align:left;padding-left:20%;">
+                    <ul>
+                        <li class="self_li">
+                            <a asp-action="Self" style="font-size:1.0rem">
+                                <i class="fa fa-user fa-2x"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li class="self_li">
+                            <a asp-action="Message" style="color:#9f0002;font-size:1.0rem">
+                                <i class="fa fa-envelope fa-2x"></i>
+                                My Message
+                            </a>
+                        </li>
+
+                        <li class="self_li">
+                            <a asp-action="DelayList" style="font-size:1.0rem">
+                                <i class="fa fa-pencil-alt fa-2x"></i>
+                                My Warranty Product
+                            </a>
+                        </li>
+                        <li class="self_li">
+                            <a asp-action="LoginOut" style="font-size:1.0rem">
+                                <i class="fa fa-sign-out-alt fa-2x"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-8 col-12-s" style="border-left:1px solid #999;padding-left:5%">
+
+                <div class="col-12" style="height:350px">
+
+                    <div class="col-4 col-12-s" style="border:1px solid #e5e5e5; height:100%;overflow-y:auto">
+                        <ul>
+                            @for (var i = 0; i < Model.Count; i++)
+                            {
+                                <li class="self_li" style="border-bottom:1px solid #e5e5e5">
+                                    <a href="#" onclick="GetDetail(@Model[i].contactId)">
+                                        <div class="liDiv" id="@("liDiv" + Model[i].contactId)" style="text-align:left;">
+                                            @(Model[i].subject.Length > 20 ? Model[i].subject.Substring(0, 20) + "..." : Model[i].subject)
+                                        </div>
+                                        <div style="text-align:right">
+                                            @Model[i].createDate.ToString("yyyy-MM-dd")
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+
+                    <div class="col-8 col-12-s" style="border:1px solid #e5e5e5;height:100%;overflow-y:auto">
+
+                        <div class="col-12" style="text-align:left; padding-top:3%">
+                            <label>
+                                Subject:
+                            </label>
+                            <br />
+                            <br />
+                            <div style="text-indent:2em;" id="divSubject">
+
+                            </div>
+                        </div>
+             
+                        <div class="col-12" style="text-align:left;padding-top:3%">
+                            <label>
+                                Message:
+                            </label>
+                            <br />
+                            <br />
+                            <div style="text-indent:2em;" id="divMessage">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-12" style="text-align:left;padding-top:3%">
+                            <label>
+                                Reply:
+                            </label>
+                            <br />
+                            <br />
+                            <div style="text-indent:2em;" id="divReply">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<script type="text/javascript">
+
+    @{ 
+        int id = 0;
+        if ( Model.Count > 0)
+        {
+            id = Model[0].contactId;
+        }
+    }
+
+    var id = 0
+    id = @id;
+
+    if ( id > 0) {
+        GetDetail(id);
+    }
+
+    function GetDetail(id) {
+        SetCss(id)
+
+        $.ajax({
+            url: "/Home/GetContactById",
+            type: "POST",
+            async: false,
+            data: {
+                contactId: id
+            },
+            success: function (result) {
+                if (result.code == "200") {
+                    SetDetail(result.data)
+                }else {
+                    alert(result.error)
+                }
+            }
+
+        });
+
+
+    }
+
+    function SetDetail(data) {
+        $("#divSubject").html(data.subject)
+        $("#divMessage").html(data.message)
+        $("#divReply").html(data.reply)
+    }
+
+    function SetCss( id ) {
+        var objId = "liDiv" + id
+        var obj = $("#" + objId)
+
+        $(".liDiv").each(function () {
+            $(this).css("color", "");
+        })
+        obj.css("color", "#9f0002");
+    }
+
+
+</script>

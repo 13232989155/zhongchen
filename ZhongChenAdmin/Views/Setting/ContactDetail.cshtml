@@ -73,6 +73,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label asp-for="reply" class="control-label">回复内容</label>
+                            <textarea disabled asp-for="reply" rows="5" class="form-control border-input"></textarea>
+                            <span asp-validation-for="reply" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label asp-for="isDeal" class="control-label">是否处理</label>
                             <input disabled class="form-control border-input" value="@(Model.isDeal ? "是" : "否")" />
                             <span asp-validation-for="isDeal" class="text-danger"></span>

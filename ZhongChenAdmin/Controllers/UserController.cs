@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BLL;
 using Common;
@@ -8,6 +11,7 @@ using Entity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using ZhongChen.Base;
 
 namespace ZhongChen.Controllers
@@ -171,5 +175,50 @@ namespace ZhongChen.Controllers
             }
 
         }
+
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Export()
+        {
+            List<UserEntity> userEntities = userBLL.ExportList();
+            string[] tableTitle = new string[] 
+            {
+                "ID",
+                "国家",
+                "名称",
+                "性别",
+                "生日",
+                "手机号码",
+                "邮箱",
+                "FaceBook",
+                "Instagram",
+                "Twitter",
+                "创建时间"
+            };
+
+            userEntities = userEntities.Select(it => new UserEntity
+                            {
+                                userId = it.userId,
+                                country = it.country,
+                                name = it.name,
+                                gender = it.gender,
+                                birthday = it.birthday,
+                                phone = it.phone,
+                                email = it.email,
+                                FaceBook = it.FaceBook,
+                                Instagram = it.Instagram,
+                                Twitter = it.Twitter,
+                                createDate = it.createDate
+                            }).ToList();
+
+            var file = Excel.NpoiHelper.UserOutput(ConvertHelper.ListToDataTable(userEntities), tableTitle);
+
+            return File(file, "application/octet-stream", fileDownloadName:"用户数据.xlsx");
+        }
+
+        
+
     }
 }
