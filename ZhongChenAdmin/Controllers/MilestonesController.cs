@@ -60,7 +60,7 @@ namespace ZhongChenAdmin.Controllers
             {
                 try
                 {
-                    milestonesEntity.adminId = this.MustLogin().adminId;
+                    milestonesEntity.adminId =-1;
                     milestonesEntity.createDate = DateTime.Now;
                     milestonesEntity.modifyDate = DateTime.Now;
                     milestonesEntity.img = img == null ? "" : UpFile(img);

@@ -73,7 +73,7 @@ namespace ZhongChen.Controllers
                     recipeEntity.typeName = "";
                     recipeEntity.explicitLink = string.IsNullOrWhiteSpace(recipeEntity.explicitLink) ? "" : recipeEntity.explicitLink;
                     recipeEntity.explain = string.IsNullOrWhiteSpace(recipeEntity.explain) ? "" : recipeEntity.explain;
-                    recipeEntity.adminId = this.MustLogin().adminId;
+                    recipeEntity.adminId =-1;
                     recipeEntity.createDate = DateTime.Now;
                     recipeEntity.modifyDate = DateTime.Now;
 
@@ -120,7 +120,7 @@ namespace ZhongChen.Controllers
         /// <param name="recipeEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("recipeId, title, coverImage, typeName, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("recipeId, title, coverImage, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
         {
             if (ModelState.IsValid)
             {
@@ -135,9 +135,9 @@ namespace ZhongChen.Controllers
                     entity.explicitLink = string.IsNullOrWhiteSpace(recipeEntity.explicitLink) ? "" : recipeEntity.explicitLink;
                     entity.explain = string.IsNullOrWhiteSpace(recipeEntity.explain) ? "" : recipeEntity.explain;
                     entity.modifyDate = DateTime.Now;
-                    entity.typeName = recipeEntity.typeName;
+                    entity.typeName = "";
                     entity.title = recipeEntity.title;
-                    entity.adminId = this.MustLogin().adminId;
+                    entity.adminId = -1;
                     recipeBLL.ActionDal.ActionDBAccess.Updateable(entity).ExecuteCommand();
 
                     return RedirectToAction("List");

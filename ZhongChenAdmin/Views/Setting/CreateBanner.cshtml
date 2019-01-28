@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="keyValue" class="control-label">图片(2300*900)</label>
+                            <label asp-for="keyValue" class="control-label">图片(2000*900)</label>
                             <img id="keyValue" src="" width="350" />
                             <input type="file" name="keyValue" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
                             <span asp-validation-for="keyValue" class="text-danger"></span>
@@ -54,7 +54,7 @@
 
             // 判断是否有缓存
             if (img.complete) {
-                if (img.width == 2300 && img.height == 900) {
+                if (img.width == 2000 && img.height == 900) {
                     $("#" + domId).attr("src", e.target.result);
                 } else {
                     $(":file").val("");
@@ -63,7 +63,7 @@
             } else {
                 // 加载完成执行
                 img.onload = function () {
-                    if (img.width == 2300 && img.height == 900) {
+                    if (img.width == 2000 && img.height == 900) {
                         $("#" + domId).attr("src", e.target.result);
                     } else {
                         $(":file").val("");

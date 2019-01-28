@@ -60,7 +60,7 @@ namespace ZhongChenAdmin.Controllers
                     HtmlFontElementEntity htmlFontElement = htmlFontElementBLL.GetById(htmlFontElementEntity.id);
                     htmlFontElement.value = htmlFontElementEntity.value;
                     htmlFontElement.modifyDate = DateTime.Now;
-                    htmlFontElement.adminId = this.MustLogin().adminId;
+                    htmlFontElement.adminId = -1;
                     int rows = htmlFontElementBLL.ActionDal.ActionDBAccess.Updateable(htmlFontElement).ExecuteCommand();
 
                     return RedirectToAction("List");

@@ -47,7 +47,7 @@ namespace ZhongChen.Controllers
             try
             {
                 CompanyBaseBLL bl = new CompanyBaseBLL();
-                AdminEntity admin = this.MustLogin();
+                //AdminEntity admin = this.MustLogin();
                 CompanyBaseEntity entity = new CompanyBaseEntity();
                 string companyBaseId = Convert.ToString(collection["companyBaseId"]);
 
@@ -225,7 +225,7 @@ namespace ZhongChen.Controllers
             if ( !contactEntity.isDeal)
             {
                 contactEntity.isDeal = true;
-                contactEntity.adminId = this.MustLogin().adminId;
+                contactEntity.adminId = -1;
                 contactEntity.modifyDate = DateTime.Now;
 
                 contactBLL.ActionDal.ActionDBAccess.Updateable(contactEntity).ExecuteCommand();
@@ -286,7 +286,7 @@ namespace ZhongChen.Controllers
 
             contact.reply = contactEntity.reply;
             contact.isDeal = true;
-            contact.adminId = this.MustLogin().adminId;
+            contact.adminId = -1;
             contact.modifyDate = DateTime.Now;
 
             contactBLL.ActionDal.ActionDBAccess.Updateable(contact).ExecuteCommand();

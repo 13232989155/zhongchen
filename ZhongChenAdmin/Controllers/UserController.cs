@@ -71,7 +71,7 @@ namespace ZhongChen.Controllers
                 {
                     userEntity.createDate = DateTime.Now;
                     userEntity.modifyDate = DateTime.Now;
-                    userEntity.adminId = this.MustLogin().adminId;
+                    userEntity.adminId = -1;
                     userEntity.password = DataEncrypt.DataMd5("000000");
                     userEntity.openId = "";
                     userEntity.unionId = "";

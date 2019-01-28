@@ -63,7 +63,7 @@ namespace ZhongChen.Controllers
             {
                 try
                 {
-                    productTypeEntity.adminId = this.MustLogin().adminId;
+                    productTypeEntity.adminId = -1;
                     productTypeEntity.createDate = DateTime.Now;
                     productTypeEntity.modifyDate = DateTime.Now;
                     productTypeEntity.recommend = false;

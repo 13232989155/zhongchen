@@ -65,7 +65,7 @@ namespace ZhongChen.Controllers
             {
                 try
                 {
-                    faqEntity.adminId = this.MustLogin().adminId;
+                    faqEntity.adminId = -1;
                     faqEntity.createDate = DateTime.Now;
                     faqEntity.modifyDate = DateTime.Now;
 

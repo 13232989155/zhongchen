@@ -70,7 +70,7 @@ namespace ZhongChen.Controllers
             {
                 try
                 {
-                    productEntity.adminId = this.MustLogin().adminId;
+                    productEntity.adminId = -1;
                     productEntity.createDate = DateTime.Now;
                     productEntity.modifyDate = DateTime.Now;
                     productEntity.buyLink = string.IsNullOrWhiteSpace(productEntity.buyLink) ? "" : productEntity.buyLink;

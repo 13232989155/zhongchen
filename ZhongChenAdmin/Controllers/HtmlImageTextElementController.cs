@@ -61,7 +61,7 @@ namespace ZhongChenAdmin.Controllers
                     HtmlImageTextElementEntity htmlImageTextElement = htmlImageTextElementBLL.GetById(htmlImageTextElementEntity.id);
                     htmlImageTextElement.contents = htmlImageTextElementEntity.contents ?? "";
                     htmlImageTextElement.modifyDate = DateTime.Now;
-                    htmlImageTextElement.adminId = this.MustLogin().adminId;
+                    htmlImageTextElement.adminId = -1;
                     if (string.IsNullOrWhiteSpace(isImg))
                     {
                         htmlImageTextElement.img = img == null ? "" : UpFile(img);

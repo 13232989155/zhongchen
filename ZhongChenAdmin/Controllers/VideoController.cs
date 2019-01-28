@@ -65,7 +65,7 @@ namespace ZhongChen.Controllers
             {
                 try
                 {
-                    videoEntity.adminId = this.MustLogin().adminId;
+                    videoEntity.adminId = -1;
                     videoEntity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     videoEntity.createDate = DateTime.Now;
                     videoEntity.modifyDate = DateTime.Now;
