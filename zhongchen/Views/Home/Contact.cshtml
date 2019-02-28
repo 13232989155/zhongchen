@@ -9,15 +9,13 @@
                 <form method="post">
 
                     <div class="col-12 col-12-s">
-                        <label>
-                            Get in touch
-                        </label>
+                        @Html.Raw(Model.Where(it => it.keys == "联系页标题左").First().value)
                     </div>
 
                     <div class="col-6 col-12-s" style="padding-bottom:1%;">
                         <div class="col-12 col-12-s" style="text-align:left;padding:1% 0">
                             <label>
-                                Your Name(required)
+                                Your Name*
                             </label>
                         </div>
                         <div class="col-12 col-12-s" style="text-align:left;padding:1% 0">
@@ -29,7 +27,7 @@
                     <div class="col-6 col-12-s" style="padding-bottom:1%;">
                         <div class="col-12 col-12-s" style="text-align:left;padding:1% 0">
                             <label>
-                                Your Email(required)
+                                Your Email*
                             </label>
                         </div>
                         <div class="col-12 col-12-s" style="text-align:left;padding:1% 0">
@@ -40,7 +38,7 @@
 
                     <div class="col-12 col-12-s" style="text-align:left;padding:0 0">
                         <label>
-                            Subject
+                            Subject*
                         </label>
                     </div>
 
@@ -52,7 +50,7 @@
 
                     <div class="col-12 col-12-s" style="text-align:left;padding:0 0">
                         <label>
-                            Your Message
+                            Your Message*
                         </label>
                     </div>
 
@@ -70,7 +68,7 @@
             <div class="col-6 col-12-s">
                 <div class="col-12 col-12-s">
                     <label>
-                        Contact us
+                        @Html.Raw(Model.Where(it => it.keys == "联系页标题右").First().value)
                     </label>
                 </div>
 

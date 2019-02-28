@@ -120,7 +120,7 @@ namespace ZhongChen.Controllers
         /// <param name="recipeEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("recipeId, title, coverImage, explicitLink, remark")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("recipeId, title, subheading, explain")]RecipeEntity recipeEntity, IFormFile coverImage, string isCoverImage)
         {
             if (ModelState.IsValid)
             {
@@ -132,12 +132,10 @@ namespace ZhongChen.Controllers
                     {
                         entity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     }
-                    entity.explicitLink = string.IsNullOrWhiteSpace(recipeEntity.explicitLink) ? "" : recipeEntity.explicitLink;
                     entity.explain = string.IsNullOrWhiteSpace(recipeEntity.explain) ? "" : recipeEntity.explain;
                     entity.modifyDate = DateTime.Now;
-                    entity.typeName = "";
                     entity.title = recipeEntity.title;
-                    entity.adminId = -1;
+                    entity.subheading = recipeEntity.subheading;
                     recipeBLL.ActionDal.ActionDBAccess.Updateable(entity).ExecuteCommand();
 
                     return RedirectToAction("List");
@@ -398,6 +396,94 @@ namespace ZhongChen.Controllers
                 recipeEntity.modifyDate = DateTime.Now;
                 recipeBLL.ActionDal.ActionDBAccess.Updateable(recipeEntity).ExecuteCommand();
                 return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex.Message.ToString();
+                return View("Error");
+            }
+        }
+
+
+        /// <summary>
+        /// 获取食谱图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ListRecipeImage(int recipeId)
+        {
+            DataResult dr = new DataResult();
+            try
+            {
+                List<RecipeImageEntity> recipeImageEntities = new List<RecipeImageEntity>();
+                RecipeImageBLL recipeImageBLL = new RecipeImageBLL();
+
+                recipeImageEntities = recipeImageBLL.ListByRecipeId(recipeId);
+
+                dr.code = "200";
+                dr.data = recipeImageEntities;
+                return Json(dr);
+            }
+            catch (Exception ex)
+            {
+                dr.code = "9999";
+                dr.error = ex.Message.ToString();
+                return Json(dr);
+            }
+        }
+
+
+        /// <summary>
+        /// 上传食谱图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CreateRecipeImage(int recipeId, IFormFile imagePath)
+        {
+            DataResult dr = new DataResult();
+            try
+            {
+                RecipeImageEntity recipeImageEntity = new RecipeImageEntity()
+                {
+                    recipeId = recipeId,
+                    url = UpFile(imagePath)
+                };
+                RecipeImageBLL recipeImageBLL = new RecipeImageBLL();
+                recipeImageBLL.ActionDal.ActionDBAccess.Insertable(recipeImageEntity).ExecuteCommand();
+
+                List<RecipeImageEntity> recipeImageEntities = new List<RecipeImageEntity>();
+
+                recipeImageEntities = recipeImageBLL.ListByRecipeId(recipeId);
+
+                dr.code = "200";
+                dr.data = recipeImageEntities;
+                return Json(dr);
+            }
+            catch (Exception ex)
+            {
+                dr.code = "9999";
+                dr.error = ex.Message.ToString();
+                return Json(dr);
+            }
+        }
+
+        /// <summary>
+        /// 删除商品图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult DeleteProductImage(int recipeImageId)
+        {
+
+            try
+            {
+                RecipeImageBLL recipeImageBLL = new RecipeImageBLL();
+                RecipeImageEntity recipeImageEntity = new RecipeImageEntity();
+                recipeImageEntity = recipeImageBLL.GrtById(recipeImageId);
+                int recipeId = recipeImageEntity.recipeId;
+                recipeImageBLL.ActionDal.ActionDBAccess.Deleteable(recipeImageEntity).ExecuteCommand();
+
+                return View("Edit", recipeBLL.GetById(recipeId));
             }
             catch (Exception ex)
             {

@@ -45,7 +45,7 @@ namespace zhongchen.Controllers
 
             HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
 
-            string[] vs = new string[] { "联系页邮箱1", "联系页邮箱2", "联系页电话1", "联系页电话2", "联系页电话3" };
+            string[] vs = new string[] { "联系页邮箱1", "联系页邮箱2", "联系页电话1", "联系页电话2", "联系页电话3", "联系页标题左", "联系页标题右" };
             List<HtmlFontElementEntity> htmlFontElementEntities = htmlFontElementBLL.ListByKeyInts(vs);
 
             return View(htmlFontElementEntities);
@@ -151,24 +151,20 @@ namespace zhongchen.Controllers
         public IActionResult Support()
         {
             CompanyBaseBLL companyBaseBLL = new CompanyBaseBLL();
-            var entity = companyBaseBLL.Get();
 
             List<FaqEntity> faqList = companyBaseBLL.ActionDal.ActionDBAccess.Queryable<FaqEntity>().ToList();
-            ViewBag.faqList = faqList;
 
             HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
-            HtmlFontElementEntity htmlFontElement = htmlFontElementBLL.GetByKey("帮助页问答标题");
-            HtmlFontElementEntity htmlFontElementEntity = htmlFontElementBLL.GetByKey("帮助页服务标题");
-            ViewBag.FaqTitle = htmlFontElement.value;
-            ViewBag.ServiceTitle = htmlFontElementEntity.value;
-
+            string[] fontVs = new string[] { "帮助页问答标题", "帮助页服务标题", "帮助页保修标题" };
+            List<HtmlFontElementEntity> htmlFontElementEntities = htmlFontElementBLL.ListByKeyInts(fontVs);
+            ViewBag.htmlFontElementEntities = htmlFontElementEntities;
 
             HtmlImageTextElementBLL htmlImageTextElementBLL = new HtmlImageTextElementBLL();
-            string[] vs = new string[]{ "帮助页图片", "帮组页服务左", "帮组页服务中", "帮组页服务右" };
+            string[] vs = new string[]{ "帮助页图片", "帮组页服务左", "帮组页服务中", "帮组页服务右", "帮助页保修左", "帮助页保修中", "帮助页保修右" };
             List<HtmlImageTextElementEntity> htmlImageTextElementEntities = htmlImageTextElementBLL.ListByKeyInts(vs);
             ViewBag.htmlImageTextElementEntities = htmlImageTextElementEntities;
 
-            return View( entity);
+            return View(faqList);
         }
 
         /// <summary>
@@ -243,7 +239,7 @@ namespace zhongchen.Controllers
             {
                 ProductBLL productBLL = new ProductBLL();
                 productEntities = productBLL.ActionDal.ActionDBAccess.Queryable<ProductEntity>()
-                                .Where(it => it.explain.Contains(searchString) || it.prop.Contains(searchString) || it.title.Contains(searchString))
+                                .Where(it => it.explain.Contains(searchString) || it.description.Contains(searchString) || it.title.Contains(searchString))
                                 .ToList();
             }
             return productEntities;

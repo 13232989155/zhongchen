@@ -45,5 +45,15 @@ namespace BLL
 
             return userEntities;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public UserEntity GetByEmail(string email)
+        {
+            return ActionDal.ActionDBAccess.Queryable<UserEntity>().Where(it => it.email == email).First();
+        }
     }
 }

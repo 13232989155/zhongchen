@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="img" class="control-label">图片(200*150)</label>
+                            <label asp-for="img" class="control-label">图片(400*300)</label>
                             <img id="img" src="" width="350" />
                             <input type="file" name="img" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
                             <span asp-validation-for="img" class="text-danger"></span>
@@ -68,7 +68,7 @@
 
             // 判断是否有缓存
             if (img.complete) {
-                if (img.width == 200 && img.height == 150) {
+                if (img.width == 400 && img.height == 300) {
                     $("#" + domId).attr("src", e.target.result);
                 } else {
                     $(":file").val("");
@@ -77,7 +77,7 @@
             } else {
                 // 加载完成执行
                 img.onload = function () {
-                    if (img.width == 200 && img.height == 150) {
+                    if (img.width == 400 && img.height == 300) {
                         $("#" + domId).attr("src", e.target.result);
                     } else {
                         $(":file").val("");

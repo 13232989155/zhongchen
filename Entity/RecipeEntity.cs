@@ -95,5 +95,6 @@ namespace Entity
         /// Nullable:False
         /// </summary>           
         public DateTime modifyDate { get; set; }
+
     }
 }

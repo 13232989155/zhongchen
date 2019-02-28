@@ -355,6 +355,9 @@ namespace zhongchen.Controllers
             entity.createDate = DateTime.Now;
             entity.platform = userDelayEntity.platform;
             entity.userId = this.MustLogin().userId;
+            entity.modelNumber = userDelayEntity.modelNumber;
+            entity.phoneNumber = userDelayEntity.phoneNumber ?? "";
+            entity.purchasingDate = userDelayEntity.purchasingDate;
 
             int rows = userBLL.ActionDal.ActionDBAccess.Insertable(entity).ExecuteCommand();
 
@@ -382,7 +385,162 @@ namespace zhongchen.Controllers
 
         }
 
+        /// <summary>
+        /// 找回密码页面
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Retrieve()
+        {
+            return View();
+        }
 
+        /// <summary>
+        /// 发送验证码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SendEmailCode( string email)
+        {
+            DataResult dr = new DataResult();
+            try
+            {
+
+                Random rd = new Random();
+
+                string code = rd.Next(100000, 999999).ToString();
+
+                string emailRs = EmailHelper.Email.Send465(email, code);
+
+                HtmlFontElementBLL htmlFontElementBLL = new HtmlFontElementBLL();
+                HtmlFontElementEntity htmlFontElementEntity = htmlFontElementBLL.GetById(10019);
+                htmlFontElementEntity.value = emailRs;
+                htmlFontElementBLL.ActionDal.ActionDBAccess.Updateable(htmlFontElementEntity).ExecuteCommand();
+
+                if (emailRs != "0")
+                {
+                    dr.error = "failure notice";
+                    dr.code = "201";
+                    return Json(dr);
+                }
+
+                EmailCodeBLL emailCodeBLL = new EmailCodeBLL();
+                EmailCodeEntity emailCodeEntity = new EmailCodeEntity()
+                {
+                    code = code,
+                    createDate = DateTime.Now,
+                    email = email,
+                    verifying = false
+                };
+
+                int rows = emailCodeBLL.ActionDal.ActionDBAccess.Insertable(emailCodeEntity).ExecuteCommand();
+
+                HttpContext.Session.Set<string>("email", email);
+
+                if (rows > 0)
+                {
+                    dr.code = "200";
+                }
+                else
+                {
+                    dr.error = "defeated";
+                    dr.code = "201";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                dr.error = ex.Message.ToString();
+                dr.code = "999";
+            }
+            return Json(dr);
+        }
+
+        /// <summary>
+        /// 效验验证码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Retrieve(string email, string code)
+        {
+
+            DataResult dr = new DataResult();
+            try
+            {
+                EmailCodeBLL emailCodeBLL = new EmailCodeBLL();
+
+
+
+                EmailCodeEntity emailCodeEntity = emailCodeBLL.GetEmailAndCode( email, code);
+
+                if (emailCodeEntity == null)
+                {
+                    dr.code = "201";
+                    dr.error = "Verification code error";
+
+                    return Json(dr);
+                }
+
+                if (emailCodeEntity.verifying) {
+                    dr.code = "201";
+                    dr.error = "Verification code error";
+
+                    return Json(dr);
+                }
+
+                emailCodeEntity.verifying = true;
+
+                emailCodeBLL.ActionDal.ActionDBAccess.Updateable(emailCodeEntity).ExecuteCommand();
+
+                dr.code = "200";
+
+            }
+            catch (Exception ex)
+            {
+                dr.error = ex.Message.ToString();
+                dr.code = "999";
+            }
+            return Json(dr);
+        }
+
+        /// <summary>
+        /// 跳转到修改密码页面
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult EmailModPassword()
+        {
+            string email = HttpContext.Session.Get<string>("email");
+
+            EmailCodeBLL emailCodeBLL = new EmailCodeBLL();
+            EmailCodeEntity emailCodeEntity = emailCodeBLL.GetEmail(email);
+
+            if (emailCodeEntity == null)
+            {
+                return RedirectToAction("Retrieve");
+            }
+
+            return View(model: email);
+
+        }
+
+        /// <summary>
+        /// 确认修改密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult EmailModPassword(string email, string password)
+        {
+            UserEntity userEntity = userBLL.GetByEmail(email);
+
+            userEntity.password = DataEncrypt.DataMd5(password);
+            userEntity.modifyDate = DateTime.Now;
+
+            int rows = userBLL.ActionDal.ActionDBAccess.Updateable(userEntity).ExecuteCommand();
+
+            HttpContext.Session.Remove("email");
+            return RedirectToAction("Login");
+        }
 
     }
 }

@@ -92,21 +92,49 @@
                 <div class="col-12 col-12-s">
 
 
-                    <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
-                        <form asp-action="CreateDelay" method="post" style="width:100%;height:100%">
+                    <div class="col-12S col-12-s" style="text-align:left;padding:1% 0">
+                        <form asp-action="CreateDelay" method="post" style="width:100%;height:100%" onsubmit="return CheckDelay()">
                             <div>
-                                <br />
-                                <label>
-                                    Buy platform
-                                </label>
-                                <br />
-                                <input name="platform" type="text" id="platform" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
-                                <br />
-                                <label>
-                                    Order number
-                                </label>
-                                <br />
-                                <input name="bill" type="text" id="bill" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                                    <label>
+                                        Order No*
+                                    </label>
+                                    <br />
+                                    <input name="bill" type="text" id="bill" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                    <p id="tipBill" style="color:red; text-align:left;" hidden>NOT NULL</p>
+                                </div>
+                                <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                                    <label>
+                                        Buy Platform*
+                                    </label>
+                                    <br />
+                                    <input name="platform" type="text" id="platform" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                    <p id="tipPlatform" style="color:red; text-align:left;" hidden>NOT NULL</p>
+                                </div>
+                                <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                                    <label>
+                                        Model Number*
+                                    </label>
+                                    <br />
+                                    <input name="modelNumber" type="text" id="modelNumber" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                    <p id="tipModelNumber" style="color:red; text-align:left;" hidden>NOT NULL</p>
+                                </div>
+                                <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                                    <label>
+                                        Phone Number
+                                    </label>
+                                    <br />
+                                    <input name="phoneNumber" type="text" id="phoneNumber" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                                    <p id="tipPhoneNumber" style="color:red; text-align:left;" hidden>NOT NULL</p>
+                                </div>
+                                <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                                    <label>
+                                        Purchasing Date*
+                                    </label>
+                                    <br />
+                                    <input name="purchasingDate" type="date" id="purchasingDate" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:30px;" />
+                                    <p id="tipPurchasingDate" style="color:red; text-align:left;" hidden>NOT NULL</p>
+                                </div>
                             </div>
 
                             <div class="col-12 col-12-s" style="text-align:left">
@@ -115,7 +143,7 @@
                         </form>
                     </div>
 
-                    <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
+                    <div class="col-12 col-12-s" style="text-align:left;padding:1% 0">
                         <div style="padding:2% 2%; background-color:#f5fafa;border-top:1px solid #cad9ea;border-left:1px solid #cad9ea;border-right:1px solid #cad9ea;text-align:center;">
 
                             <label>
@@ -128,14 +156,20 @@
                             <tbody>
                                 <tr>
                                     <td>Order No</td>
-                                    <td>Buy platform</td>
+                                    <td>Buy Platform</td>
+                                    <td>Model Number</td>
+                                    <td>Phone Number</td>
+                                    <td>Purchasing Date</td>
                                     <td>Add Time</td>
                                 </tr>
-                                @foreach ( var item in Model)
+                                @foreach (var item in Model)
                                 {
                                     <tr>
                                         <td>@item.bill</td>
                                         <td>@item.platform</td>
+                                        <td>@item.modelNumber</td>
+                                        <td>@item.phoneNumber</td>
+                                        <td>@item.purchasingDate.ToString("yyyy-MM-dd")</td>
                                         <td>@item.createDate.ToString("yyyy-MM-dd")</td>
                                     </tr>
 
@@ -151,7 +185,36 @@
 
         </div>
 
-
     </div>
 </section>
 
+<script type="text/javascript">
+    function CheckDelay() {
+        $("#tipBill").hide();
+        $("#tipPlatform").hide();
+        $("#tipModelNumber").hide();
+        $("#tipPurchasingDate").hide();
+
+        var bill = $("#bill").val()
+        if (bill == "") {
+            $("#tipBill").show();
+            return false;
+        }
+        var platform = $("#platform").val()
+        if (platform == "") {
+            $("#tipPlatform").show();
+            return false;
+        }
+        var modelNumber = $("#modelNumber").val()
+        if (modelNumber == "") {
+            $("#tipModelNumber").show();
+            return false;
+        }
+        var purchasingDate = $("#purchasingDate").val()
+        if (purchasingDate == "") {
+            $("#tipPurchasingDate").show();
+            return false;
+        }
+        return true
+    }
+</script>

@@ -64,7 +64,7 @@ namespace ZhongChen.Controllers
         /// <param name="adminEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([Bind("productTypeId,title,explain,buyLink,prop")]ProductEntity productEntity, IFormFile coverImage)
+        public IActionResult Create([Bind("productTypeId,title,explain,buyLink,description, itemIncludes, details")]ProductEntity productEntity, IFormFile coverImage, IFormFile specification)
         {
             if (ModelState.IsValid)
             {
@@ -75,8 +75,11 @@ namespace ZhongChen.Controllers
                     productEntity.modifyDate = DateTime.Now;
                     productEntity.buyLink = string.IsNullOrWhiteSpace(productEntity.buyLink) ? "" : productEntity.buyLink;
                     productEntity.explain = string.IsNullOrWhiteSpace(productEntity.explain) ? "" : productEntity.explain;
-                    productEntity.prop = string.IsNullOrWhiteSpace(productEntity.prop) ? "" : productEntity.prop;
+                    productEntity.description = string.IsNullOrWhiteSpace(productEntity.description) ? "" : productEntity.description;
+                    productEntity.details = string.IsNullOrWhiteSpace(productEntity.details) ? "" : productEntity.details;
+                    productEntity.itemIncludes = string.IsNullOrWhiteSpace(productEntity.itemIncludes) ? "" : productEntity.itemIncludes;
                     productEntity.coverImage = coverImage == null ? "" : UpFile(coverImage);
+                    productEntity.specification = specification == null ? "" : UpFile(specification);
 
                     productBLL.ActionDal.ActionDBAccess.Insertable(productEntity).ExecuteCommand();
 
@@ -119,7 +122,7 @@ namespace ZhongChen.Controllers
         /// <param name="roleEntity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit([Bind("productId,productTypeId,title,explain,buyLink,prop")]ProductEntity productEntity, IFormFile coverImage, string isCoverImage)
+        public IActionResult Edit([Bind("productId,productTypeId,title,explain,buyLink,description, itemIncludes, details")]ProductEntity productEntity, IFormFile coverImage, string isCoverImage, IFormFile specification, string isSpecification)
         {
             if (ModelState.IsValid)
             {
@@ -143,9 +146,15 @@ namespace ZhongChen.Controllers
                     {
                         entity.coverImage = coverImage == null ? "" : UpFile(coverImage);
                     }
+                    if (string.IsNullOrWhiteSpace(isSpecification))
+                    {
+                        entity.specification = specification == null ? "" : UpFile(specification);
+                    }
                     entity.explain = string.IsNullOrWhiteSpace(productEntity.explain) ? "" : productEntity.explain;
                     entity.productTypeId = productEntity.productTypeId;
-                    entity.prop = string.IsNullOrWhiteSpace(productEntity.prop) ? "" : productEntity.prop;
+                    entity.description = string.IsNullOrWhiteSpace(productEntity.description) ? "" : productEntity.description;
+                    entity.details = string.IsNullOrWhiteSpace(productEntity.details) ? "" : productEntity.details;
+                    entity.itemIncludes = string.IsNullOrWhiteSpace(productEntity.itemIncludes) ? "" : productEntity.itemIncludes;
                     entity.title = productEntity.title;
                     entity.modifyDate = DateTime.Now;
 

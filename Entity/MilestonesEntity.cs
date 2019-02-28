@@ -34,7 +34,6 @@ namespace Entity
         /// Default:-1
         /// Nullable:False
         /// </summary>     
-        [Required(ErrorMessage = "不能为空")]
         public string contents { get; set; }
 
         /// <summary>

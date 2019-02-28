@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactOfficial", "ReactOffic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhongchen", "zhongchen\zhongchen.csproj", "{DE8429C0-5DCA-47C4-89A1-3DF06432056A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel", "Excel\Excel.csproj", "{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel", "Excel\Excel.csproj", "{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailHelper", "EmailHelper\EmailHelper.csproj", "{2C550E4B-7E6A-4139-B105-9257A2584422}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C550E4B-7E6A-4139-B105-9257A2584422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C550E4B-7E6A-4139-B105-9257A2584422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C550E4B-7E6A-4139-B105-9257A2584422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C550E4B-7E6A-4139-B105-9257A2584422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F1F08B31-51D7-4F0D-8333-FF639B8CC3B9} = {287AD9FC-ECB6-4781-9D4F-B66932C721A0}
 		{B3FA2AC5-BF53-4FE8-9E49-7E77F2AC7183} = {287AD9FC-ECB6-4781-9D4F-B66932C721A0}
+		{2C550E4B-7E6A-4139-B105-9257A2584422} = {287AD9FC-ECB6-4781-9D4F-B66932C721A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1378397C-5594-40F0-BF48-233B5BF1E6B1}

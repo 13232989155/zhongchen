@@ -1,0 +1,166 @@
+﻿
+
+<section class="sec sec2" style="font-style:normal;color:#999;font-family:'ITC Avant Garde Pro Bk'">
+    <div class="row boxed clearfix productVideo">
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 col-12-s" style="padding-left:15%; padding-right:20%">
+                <form method="post">
+
+                    <div class="col-12 col-12-s" style="text-align:center">
+                        <h1>
+                            Verified email
+                        </h1>
+                    </div>
+
+                    <div class="col-12 col-12-s" style="text-align:left;padding:3% 25%">
+
+                        <br />
+                        <br />
+
+                        <div class="col-12 col-12-s" style="text-align:left;padding:3% 0;padding-right:10%">
+                            <input name="email" id="email" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:100%; height:30px;font-family:'ITC Avant Garde Pro Bk'" placeholder="Email address" />
+
+                            <p id="tipEmail" style="color:red; text-align:left;" hidden></p>
+                        </div>
+                        <br />
+
+                        <div class="col-12 col-12-s" style="text-align:left;padding:3% 0;padding-right:10%">
+                            <input name="code" id="code" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:100%; height:30px;font-family:'ITC Avant Garde Pro Bk'" placeholder="Code" />
+                            <p id="tipCode" style="color:red; text-align:left;" hidden></p>
+                        </div>
+                        <br />
+                        <button type="button" id="btnSend" class="btn btn-default" style="margin-top:13px;" onclick="Send()">Send verification code</button>
+                        <button type="button" id="btnCheckCode" class="btn btn-default" style="margin-top:13px;" onclick="CheckCode()">submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $("#btnCheckCode").attr("disabled", "true");  
+    var myVar
+    var sendTime = 10
+    var endTime = 1
+    function Send() {
+
+        //myVar = setInterval(BtnClearInterval(), 1000);
+
+        //setTimeout(function () {
+        //    $("#btnSend").removeAttr("disabled");  
+        //}, 10000);
+
+        $("#tipEmail").hide();
+        $("#tipCode").hide();
+        var email = $("#email").val()
+        var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+        if (email == "" || !reg.test(email)) {
+            $("#tipEmail").text("Incorrect email format");
+            $("#tipEmail").show();
+            return false;
+        }
+
+        var isEmail = IsEmail(email)
+        if ( !isEmail) {
+            return 
+        }
+
+        $.ajax({
+            url: "/User/SendEmailCode",
+            type: "POST",
+            async: false,
+            data: {
+                email: email
+            },
+            success: function (result) {
+                if (result.code == "200") {
+                    $("#btnCheckCode").removeAttr("disabled");  
+                    $("#tipEmail").text("Sent successfully");
+                    $("#tipEmail").show();
+                }
+                else {
+                    alert(result.error)
+                }
+            }
+
+        });
+    }
+
+    function IsEmail(email) {
+        var rs = false;
+
+        $.ajax({
+            url: "/User/IsEmail",
+            type: "POST",
+            async: false,
+            data: {
+                email: email
+            },
+            success: function (result) {
+                if (result.code == "200") {
+                    if (!result.data) {
+                        $("#tipEmail").text("The mailbox does not exist");
+                        $("#tipEmail").show();
+                    }
+                    else {
+                        rs = true;
+                    }
+                }
+                else {
+                    alert(result.error)
+                }
+            }
+        });
+
+        return rs
+    }
+
+    function BtnClearInterval() {
+
+        var str = sendTime - endTime
+        endTime = endTime + 1 
+
+        if (str == 0) {
+            clearInterval(myVar);
+        }
+
+        $("#btnSend").html(str);
+    }
+
+    function CheckCode() {
+
+        $("#tipEmail").hide();
+        $("#tipCode").hide();
+
+        var email = $("#email").val()
+        var code = $("#code").val();
+
+        $.ajax({
+            url: "/User/Retrieve",
+            type: "POST",
+            async: false,
+            data: {
+                email: email,
+                code: code
+            },
+            success: function (result) {
+                if (result.code == "200") {
+                    window.location.href = "/User/EmailModPassword";
+                }
+                else if (result.code == "201") {
+                    $("#tipCode").text("Verification code error or expiration");
+                    $("#tipCode").show();
+                }else {
+                    alert(result.error)
+                }
+            }
+
+        });
+
+    }
+
+</script>

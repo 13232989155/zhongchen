@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="img" class="control-label">图片(200*150)</label>
+                            <label asp-for="img" class="control-label">图片(400*300)</label>
                             <img id="img" src="@( Model.img)" width="350" />
                             <label title="勾选保留原来的图片， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
                                 <input name="isImg" type="checkbox" checked value="true"> 保留
@@ -60,7 +60,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $("#liProductType").addClass("active");
+        $("#liHome").addClass("active");
         $(":file").change(function (e) {
             ShowImg(e.target.files[0], e.target.name)
         })
@@ -79,7 +79,7 @@
 
             // 判断是否有缓存
             if (img.complete) {
-                if (img.width == 200 && img.height == 150) {
+                if (img.width == 400 && img.height == 300) {
                     $("#" + domId).attr("src", e.target.result);
                 } else {
                     $(":file").val("");
@@ -88,7 +88,7 @@
             } else {
                 // 加载完成执行
                 img.onload = function () {
-                    if (img.width == 200 && img.height == 150) {
+                    if (img.width == 400 && img.height == 300) {
                         $("#" + domId).attr("src", e.target.result);
                     } else {
                         $(":file").val("");

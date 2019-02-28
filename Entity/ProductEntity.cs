@@ -39,7 +39,7 @@ namespace Entity
         public string title { get; set; }
 
         /// <summary>
-        /// Desc:产品描述
+        /// Desc:标题描述
         /// Default:
         /// Nullable:False
         /// </summary>           
@@ -60,11 +60,33 @@ namespace Entity
         public string buyLink { get; set; }
 
         /// <summary>
-        /// Desc:产品属性
+        /// Desc:产品描述
         /// Default:
         /// Nullable:False
         /// </summary>           
-        public string prop { get; set; }
+        public string description { get; set; }
+
+
+        /// <summary>
+        /// Desc:详细
+        /// Default:
+        /// Nullable:False
+        /// </summary>
+        public string details { set; get; }
+
+        /// <summary>
+        /// Desc:项目包括
+        /// Default:
+        /// Nullable:False
+        /// </summary>
+        public string itemIncludes { set; get; }
+
+        /// <summary>
+        /// Desc:产品说明书
+        /// Default:
+        /// Nullable:False
+        /// </summary>
+        public string specification{ set; get; }
 
         /// <summary>
         /// Desc:创建者ID

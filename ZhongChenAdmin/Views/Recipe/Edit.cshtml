@@ -96,6 +96,44 @@
     </div>
 </div>
 
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">食谱图片设置</h4>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <form method="post" enctype="multipart/form-data">
+                            <label>轮播图图片(500*300)</label>
+                            <img id="imagePath" width="350" />
+                            <input type="file" id="upImagePath" name="imagePath" class="form-control border-input" value="请选择......" accept="image/gif,image/jpeg,image/jpg,image/png">
+                            <br />
+                            <div class="text-center">
+                                <input id="btnUpImage" type="button" class="btn btn-info btn-fill btn-wd" value="上传" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                        &nbsp;
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>图片ID</th>
+                                    <th>路径</th>
+                                    <th>食谱编号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabImage"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/js/Common/ueditor.config.js"></script>
 <script src="~/js/Common/ueditor.all.min.js"></script>
 <script src="~/js/Common/zh-cn.js"></script>
@@ -106,8 +144,153 @@
         $(":file").change(function (e) {
             ShowImg(e.target.files[0], e.target.name)
         })
+        $("#btnUpImage").click(function () {
+            var file = document.getElementById("upImagePath").files[0];
 
+            if (file != null) {
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    // 创建对象
+                    var img = new Image();
+
+                    // 改变图片的src
+                    img.src = e.target.result;
+
+                    // 判断是否有缓存
+                    if (img.complete) {
+                        if (img.width == 500 && img.height == 300) {
+                            Upload(file)
+                        }
+                    } else {
+                        // 加载完成执行
+                        img.onload = function () {
+                            if (img.width == 500 && img.height == 300) {
+                                Upload(file)
+                            }
+                        };
+                    }
+
+                }
+            }
+
+        })
+
+        ListRecipeImage();
     });
+
+        //获取产品图片
+    function ListRecipeImage() {
+        var recipeId = @( Model.recipeId);
+
+        if (recipeId != "0"){
+
+            $.ajax({
+                url: "/Recipe/ListRecipeImage",
+                type: "POST",
+                data: { recipeId: recipeId },
+                success: function (result) {
+
+                    if (result.code != "200") {
+
+                        $.notify({
+                            icon: 'ti-bell',
+                            message: result.error
+
+                        }, {
+                            type: 'Danger',
+                            timer: 2000
+                        });
+                    }
+
+                    if (result.data.length > 0) {
+                        ShowTable( result.data)
+                    }
+                }
+            });
+
+        }
+    }
+
+    //上传图片
+    function Upload(file) {
+
+        var recipeId = @( Model.recipeId);
+
+        if (file == null || file == "") {
+            return;
+        }
+        if (recipeId != ""){
+
+            var formData = new FormData();
+            formData.append("imagePath", file);
+            formData.append("recipeId", recipeId)
+            $.ajax({
+                type: "post",
+                url: "/Recipe/CreateRecipeImage",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                async: false,
+                processData: false,
+                success: function (result) {
+
+                    if (result.code != "200") {
+
+                        $.notify({
+                            icon: 'ti-bell',
+                            message: result.error
+
+                        }, {
+                            type: 'Danger',
+                            timer: 2000
+                        });
+                    }
+
+                    if (result.data.length > 0) {
+                        ShowTable( result.data)
+                    }
+                }
+            });
+        }
+    }
+
+    //填充表格
+    function ShowTable(data) {
+        ClearTab();
+        var strTab = ""
+
+        for (let item of data) {
+            strTab = "<tr>"
+            strTab += "<td>" + item.recipeImageId + "</td>"
+            strTab += "<td>" + item.url + "</td>"
+            strTab += "<td>" + item.recipeId + "</td>"
+            strTab += "<td><a data-toggle='modal' data-target='#myModal' onclick='DeleteRecipeImage(" + item.recipeImageId + ")'>删除</a></td>"
+            strTab += "</tr>"
+            $("#tabImage").append(strTab)
+        }
+    }
+
+    //清除表格已有内容
+    function ClearTab() {
+        var _this = $("#tabImage").children()
+        _this.slice(0, _this.length).empty()
+    }
+
+    //删除产品图片
+    function DeleteRecipeImage(id) {
+        var objHtml = "<form  method='post' action='./DeleteProductImage' ><div class='modal-dialog'><div class='modal-content'>" + "<div class='modal-header'>"
+            + "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>"
+            + "<h4 class='modal-title' id='myModalLabel'>确认删除ID：" + id + "</h4></div>"
+            + "<div class='modal-footer'>"
+            + "<input type='hidden' name='recipeImageId' value='" + id + "'>"
+            + "<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>"
+            + "<button type='submit' class='btn btn-primary'>确定</button></div></div></div></fomr>";
+
+        $("#myModal").html(objHtml);
+    }
+
 
     //显示图片
     function ShowImg(file, domId) {

@@ -46,6 +46,26 @@ namespace Entity
         /// </summary>     
         public string platform { get; set; }
 
+        /// <summary>
+        /// Desc:型号
+        /// Default:
+        /// Nullable:False
+        /// </summary>     
+        public string modelNumber { get; set; }
+
+        /// <summary>
+        /// Desc:购买日期
+        /// Default:
+        /// Nullable:False
+        /// </summary>     
+        public DateTime purchasingDate { get; set; }
+
+        // <summary>
+        /// Desc:购买电话
+        /// Default:
+        /// Nullable:False
+        /// </summary>     
+        public string phoneNumber { set; get; }
 
         /// <summary>
         /// Desc:创建日期

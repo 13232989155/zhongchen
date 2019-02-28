@@ -1,8 +1,7 @@
 ﻿
-@model Entity.CompanyBaseEntity
+@model List<Entity.FaqEntity>
 @{
-    List<Entity.FaqEntity> faqList = ViewBag.faqList;
-
+    List<Entity.HtmlFontElementEntity> htmlFontElementEntities = ViewBag.htmlFontElementEntities;
     List<Entity.HtmlImageTextElementEntity> htmlImageTextElementEntities = ViewBag.htmlImageTextElementEntities;
 
 }
@@ -16,40 +15,37 @@
         <div class="col-12 " style="padding-bottom:30px">
             <div class="col-12 productVideo">
 
-                <div>@Html.Raw(ViewBag.FaqTitle)</div>
+                <div>@Html.Raw(htmlFontElementEntities.Where(it => it.keys == "帮助页问答标题").First().value)</div>
                 <div class="col-12 ">
-                    @foreach (var item in faqList)
+                    @foreach (var item in Model)
                     {
-                        <div class="col-12" style="padding:5% 10%; text-align:left">
-
+                        <div class="col-6 col-12-s" style="padding:1% 5%; text-align:left">
                             <div>@Html.Raw(item.title)</div>
-
                             <div>@Html.Raw(item.contents)</div>
-
                         </div>
                     }
                 </div>
-                
+
             </div>
 
         </div>
 
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
-                <div>@Html.Raw(ViewBag.ServiceTitle)</div>
+                <div>@Html.Raw(htmlFontElementEntities.Where(it => it.keys == "帮助页服务标题").First().value)</div>
                 <div class="col-12">
 
-                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
                         <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务左").First().img" />
-                        <div>@Html.Raw( htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务左").First().contents)</div>
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务左").First().contents)</div>
                     </div>
 
-                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
                         <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务中").First().img" />
                         <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务中").First().contents)</div>
                     </div>
 
-                    <div class="col-4 col-12-s" style="padding:5% 10%; text-align:center">
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
                         <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务右").First().img" />
                         <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮组页服务右").First().contents)</div>
                     </div>
@@ -59,6 +55,33 @@
             </div>
 
         </div>
+
+        <div class="col-12 productVideo" style="padding-bottom:30px">
+            <div class="col-12 productVideo">
+                <div>@Html.Raw(htmlFontElementEntities.Where(it => it.keys == "帮助页保修标题").First().value)</div>
+                <div class="col-12">
+
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修左").First().img" />
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修左").First().contents)</div>
+                    </div>
+
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修中").First().img" />
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修中").First().contents)</div>
+                    </div>
+
+                    <div class="col-4 col-12-s" style="padding:5% 8%; text-align:center">
+                        <img style="width:100%;" src="@htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修右").First().img" />
+                        <div>@Html.Raw(htmlImageTextElementEntities.Where(it => it.keys == "帮助页保修右").First().contents)</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 </section>

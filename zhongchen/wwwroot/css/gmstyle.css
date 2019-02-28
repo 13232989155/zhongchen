@@ -123,7 +123,6 @@ html, body {
 
         .menu ul li {
             display: inline-block;
-            ;
             padding: 10px 15px;
             padding: 40px 0px;
             position: relative;
@@ -490,22 +489,22 @@ html, body {
 
 .btn {
     display: inline-block;
-    background: #bf1919;
+    background: #fff;
     padding: 15px 40px;
     font-family: 'ITC Avant Garde Pro Bk';
     font-weight: 300;
     font-style: normal;
-    color: #fff;
+    color: #000;
     font-size: 13px;
     text-decoration: none;
-    border: 2px solid #bf1919;
+    border: 2px solid #000;
     transition: all 0.3s ease;
     letter-spacing: 1.5px;
 }
 
     .btn:hover {
-        background: transparent;
-        color: #bf1919;
+        background: #000;
+        color: #fff;
     }
 
 .slider nav {

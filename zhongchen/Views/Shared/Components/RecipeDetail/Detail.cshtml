@@ -2,23 +2,94 @@
 
 @{ 
     IEnumerable<Entity.RecipeStepEntity> recipeStepList = ViewBag.recipeStepList;
+    List<Entity.RecipeImageEntity> recipeImageEntities = ViewBag.recipeImageEntities;
 }
 
+<section id="scroll" class="sec sec1 container " style="background-color:#fff">
 
+    <div class="row boxed clearfix productSet">
 
-<section class="sec sec2">
+        <div class="col-12" style="padding: 0 15%">
+
+            <div class="col-6 col-12-s ">
+
+                <div class="col-12">
+                    <div style="text-align:center">
+                        <img id="ProductImg" class="productImg" src="@Model.coverImage" alt="">
+
+                    </div>
+                </div>
+
+                <div class="col-12" style="padding:50px 20px">
+
+                    @foreach (var item in recipeImageEntities)
+                    {
+                        <div class="col-3">
+                            <img name="dre" style="width:100%;height:100%; display:inline;border:1px solid #ccc; cursor:pointer " src="@item.url" alt="">
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-6 col-12-s ">
+
+                <div>@Html.Raw(Model.explain)</div>
+            </div>
+        </div>
+
+        <div class="col-12" style="padding: 0 15%">
+            <div id="divContent">
+                @foreach (var item in recipeStepList)
+                {
+                    <div class="col-12" style="background-color:#ffffff;padding-bottom:5%">
+                        <div class="col-4 col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px; border-right:1px solid #0094ff">
+
+                            <img src="@item.imageUrl" style="width:100%" alt="video">
+
+                        </div>
+
+                        <div class="col-8 col-12-xs hideme" style="opacity: 1;padding:5% 5%; text-align:left;">
+                            <div>@Html.Raw(item.contents)</div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@*<section class="sec sec2">
     <div class="row boxed clearfix productVideo">
 
 
         <div class="col-12 productVideo" style="padding-bottom:30px">
             <div class="col-12 productVideo">
 
-                <div class="col-12" style="padding:5% 5%">
+                <div class="col-12" style="padding:0 5%">
 
                     <div class="col-6 col-12-xs hideme" style="opacity: 1;padding-bottom:20px; padding-top:20px">
 
-                        <img src="@Model.coverImage" style="width:100%">
+                        <div class="col-12">
+                            <div style="text-align:center">
+                                <img id="ProductImg" class="productImg" src="@Model.coverImage" alt="" style="width:100%">
+                            </div>
+                        </div>
 
+                        <div class="col-12" style="padding:50px 20px">
+
+                            @foreach (var item in recipeImageEntities)
+                            {
+                                <div class="col-3">
+                                    <img name="dre" style="width:100%;height:100%; display:inline;border:1px solid #ccc; cursor:pointer " src="@item.url" alt="">
+                                </div>
+                            }
+
+                        </div>
                     </div>
 
                     <div class="col-6 col-12-xs hideme" style="opacity: 1;padding:0 5%">
@@ -29,9 +100,6 @@
 
                 <div class="col-12" style="padding:5% 5%">
                     <div class="col-12">
-                        <h3 style="padding:5% 5%;font-size:1.8rem; text-align:left">
-                            Step：
-                        </h3>
                     </div>
                     @foreach (var item in recipeStepList)
                     {
@@ -56,4 +124,13 @@
 
 
     </div>
-</section>
+</section>*@
+
+<script type="text/javascript">
+     $(function () {
+        $("img[name=dre]").click(function (e) {
+            $("#ProductImg").attr("src",e.target.src);
+        })
+    })
+
+</script>

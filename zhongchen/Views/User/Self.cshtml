@@ -64,7 +64,7 @@
 
 
             <div class="col-8 col-12-s" style="border-left:1px solid #999;padding-left:5%">
-                <form asp-action="Edit" method="post">
+                <form asp-action="Edit" method="post" onsubmit="return CheckSelf()">
                     <input type="hidden" asp-for="userId" />
                     <div class="col-12 col-12-s" style="text-align:left;padding-bottom:3%">
                         <label>
@@ -77,7 +77,7 @@
 
                     <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
                         <label>
-                            Country
+                            Country*
                         </label>
                         <br />
                         <select name="country" asp-for="country" id="country" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;">
@@ -326,27 +326,30 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
+                        <p id="tipCountry" style="color:red; text-align:left;" hidden>NOT NULL</p>
                     </div>
 
                     <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
                         <label>
-                            Name
+                            Name*
                         </label>
                         <br />
                         <input name="name" type="text" asp-for="name" id="name" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;" />
+                        <p id="tipName" style="color:red; text-align:left;" hidden>NOT NULL</p>
                     </div>
 
                     <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
                         <label>
-                            Brithday
+                            Brithday*
                         </label>
                         <br />
                         <input name="birthday" type="date" asp-for="birthday" id="birthday" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:30px;" />
+                        <p id="tipBirthday" style="color:red; text-align:left;" hidden>NOT NULL</p>
                     </div>
 
                     <div class="col-6 col-12-s" style="text-align:left;padding:1.5% 0">
                         <label>
-                            Gender
+                            Gender*
                         </label>
                         <br />
                         <select name="gender" asp-for="gender" id="gender" style="border: 1px solid #cfcfcf; border-radius: 3px; box-shadow: none; width:80%; height:32px;">
@@ -354,6 +357,7 @@
                             <option value="0">Female</option>
                             <option value="1">Male</option>
                         </select>
+                        <p id="tipGender" style="color:red; text-align:left;" hidden>NOT NULL</p>
                     </div>
 
                     <div class="col-6 col-12-s" style="text-align:left;padding:1% 0">
@@ -399,4 +403,36 @@
 
     </div>
 </section>
+
+<script type="text/javascript">
+    function CheckSelf() {
+
+        $("#tipCountry").hide();
+        $("#tipName").hide();
+        $("#tipBirthday").hide();
+        $("#tipGender").hide();
+
+        var country = $("#country").val()
+        if (country == "") {
+            $("#tipCountry").show();
+            return false;
+        }
+        var name = $("#name").val()
+        if (name == "") {
+            $("#tipName").show();
+            return false;
+        }
+        var birthday = $("#birthday").val()
+        if (birthday == "") {
+            $("#tipBirthday").show();
+            return false;
+        }
+        var gender = $("#gender").val()
+        if (gender == "") {
+            $("#tipGender").show();
+            return false;
+        }
+        return true
+    }
+</script>
 

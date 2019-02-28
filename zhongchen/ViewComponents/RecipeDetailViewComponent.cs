@@ -40,6 +40,11 @@ namespace zhongchen.ViewComponents
 
             var entity = recipeBLL.ActionDal.ActionDBAccess.Queryable<RecipeEntity>().Where(it => it.recipeId == recipeId).First();
 
+            List<RecipeImageEntity> recipeImageEntities = new List<RecipeImageEntity>();
+            RecipeImageBLL recipeImageBLL = new RecipeImageBLL();
+            recipeImageEntities = recipeImageBLL.ListByRecipeId(entity.recipeId);
+            ViewBag.recipeImageEntities = recipeImageEntities;
+
             return View("Detail", entity);
            
 

@@ -64,13 +64,32 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="prop" class="control-label">属性</label>
-                            <scrip id="prop" type="text/plain" name="prop" style="width:100%; height:100%"></scrip>
-                            <span asp-validation-for="prop" class="text-danger"></span>
+                            <label asp-for="description" class="control-label">描述</label>
+                            <scrip id="description" type="text/plain" name="description" style="width:100%; height:100%"></scrip>
+                            <span asp-validation-for="description" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="details" class="control-label">详细</label>
+                            <scrip id="details" type="text/plain" name="details" style="width:100%; height:100%"></scrip>
+                            <span asp-validation-for="details" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="itemIncludes" class="control-label">包括</label>
+                            <scrip id="itemIncludes" type="text/plain" name="itemIncludes" style="width:100%; height:100%"></scrip>
+                            <span asp-validation-for="itemIncludes" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -82,6 +101,20 @@
                             </label>
                             <input type="file" name="coverImage" class="form-control border-input" placeholder="选择图片..." accept="image/gif,image/jpeg,image/jpg,image/png" />
                             <span asp-validation-for="coverImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="specification" class="control-label">说明书</label>
+                            <input disabled asp-for="specification" class="form-control border-input" />
+                            <label title="勾选保留原来的说明书， 不勾选则删除。更改则先取消勾子，再选择要替换的文件">
+                                <input name="isSpecification" type="checkbox" checked value="true"> 保留
+                            </label>
+                            <input type="file" name="specification" class="form-control border-input" placeholder="选择说明书..." accept="application/pdf" />
+                            <span asp-validation-for="specification" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -250,6 +283,7 @@
 
         }
     }
+
      //上传图片
     function Upload(file) {
 
@@ -420,7 +454,7 @@
         explainUE.execCommand('inserthtml', '@Html.Raw(Model.explain)');
     });
 
-    var propUE = UE.getEditor('prop', {
+    var descriptionUE = UE.getEditor('description', {
         toolbars: [
             [
                 'undo', //撤销
@@ -462,8 +496,102 @@
         ]
     });
 
-    propUE.ready(function () {
-        propUE.execCommand('inserthtml', '@Html.Raw(Model.prop)');
+    descriptionUE.ready(function () {
+        descriptionUE.execCommand('inserthtml', '@Html.Raw(Model.description)');
     });
+
+    var detailsUE = UE.getEditor('details', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    detailsUE.ready(function () {
+        detailsUE.execCommand('inserthtml', '@Html.Raw(Model.details)');
+    });
+
+
+    var itemIncludesUE = UE.getEditor('itemIncludes', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'italic', //斜体
+                'bold', //加粗
+                'underline', //下划线
+                'fontborder',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'removeformat',
+                'formatmatch',
+                'autotypeset',
+                'pasteplain', '|',
+                'forecolor',
+                'backcolor',
+                'insertorderedlist',
+                'insertunorderedlist',
+                'selectall',
+                'cleardoc', '|',
+                'rowspacingtop',
+                'rowspacingbottom',
+                'lineheight', '|',
+                'customstyle',
+                'paragraph',
+                'fontfamily',
+                'fontsize', '|',
+                'directionalityltr',
+                'directionalityrtl',
+                'indent', '|',
+                'justifyleft',
+                'justifycenter',
+                'justifyright',
+                'justifyjustify', '|',
+                'touppercase',
+                'tolowercase', '|',
+                'horizontal'
+            ]
+        ]
+    });
+
+    itemIncludesUE.ready(function () {
+        itemIncludesUE.execCommand('inserthtml', '@Html.Raw(Model.itemIncludes)');
+    });
+
 
 </script>
